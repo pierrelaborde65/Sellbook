@@ -1,0 +1,23 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(message: String)
+
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main("Add Product") {
+
+
+    <form action="@routes.ProductController.addProduct()" method="post">
+        <input type="text" name="nameProduct" placeholder="name of product"  />
+        <input type="text" name="descriptionProduct" placeholder="description" />
+        <input type="number" name="priceSeller" placeholder="price" />
+        <input type="number" name="quantityStock" placeholder="Quantity" />
+        <button>Add Product</button>
+    </form>
+
+}

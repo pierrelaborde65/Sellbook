@@ -1,0 +1,55 @@
+package models;
+import com.avaje.ebean.Model;
+import javax.persistence.*;
+
+/**
+ * Created by Johannes on 07/11/2016.
+ */
+@Entity
+public class Product extends com.avaje.ebean.Model {
+
+    public static Model.Finder<Long, Product> find = new Model.Finder<Long, Product>(Product.class);
+
+    @Id @GeneratedValue
+    public int idProduct;
+
+    //Product's Seller
+    public int idSeller;
+
+    //name of Product
+    public String nameProduct;
+
+    /* Description of Product */
+    public String descriptionProduct;
+
+    //price of Product
+    public float priceSeller;
+
+    //Quantity in stock
+    public int quantityStock;
+
+    //image
+    public String imageProduct;
+
+
+    /*
+    public Product(int idProduct, int idSeller, String name, String descProd, float price, int qtyStock, String image){
+        this.idProduct = idProduct;
+        this.idSeller = idSeller;
+        this.nameProduct = name;
+        this.descriptionProduct = descProd;
+        this.priceSeller = price;
+        this.quantityStock = qtyStock;
+        this.imageProduct = image;
+    }
+    */
+
+
+
+    /*
+    public save(){
+
+    }
+    */
+
+}

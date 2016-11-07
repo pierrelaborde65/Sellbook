@@ -3,7 +3,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.UserController.index
+GET     /                         controllers.UserController.index
 
 # Create a user
 POST    /user                     controllers.UserController.addUser()
@@ -16,6 +16,22 @@ GET     /users                    controllers.UserController.getUsers()
 
 # Delete a user by his id
 DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long)
+
+
+
+
+#Routes Products -----------------------------------------------------------------------------------------
+GET    /product                      controllers.ProductController.product()
+
+POST   /addProduct                   controllers.ProductController.addProduct()
+
+# Get all Product
+GET     /products                    controllers.ProductController.getProducts()
+
+# Get a user by his id
+GET     /products/:id                controllers.ProductController.getProduct(id : Long)
+
+# ----------------------------------------------------------------------------------------------------------
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
