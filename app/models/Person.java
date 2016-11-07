@@ -1,4 +1,5 @@
 package models;
+import javax.persistence.*;
 
 /**
  * Created by Pierre on 07/11/2016.
