@@ -6,9 +6,8 @@ import javax.persistence.*;
  */
 @Entity
 public class Person extends com.avaje.ebean.Model {
-
-    @Id
-    public String id;
+    @Id @GeneratedValue
+    public Long id;
 
     public String name;
 }

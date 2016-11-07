@@ -5,7 +5,9 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
-POST    /                           controllers.HomeController.addPerson()
+POST    /person                     controllers.HomeController.addPerson()
+
+GET     /persons                    controllers.HomeController.persons()
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
