@@ -41,4 +41,22 @@ public class ProductController extends Controller {
         }
     }
 
+    /**
+     * DELETE a Product in the database with his ID
+     * @param id The id of a Product
+     * @return If Product doesn't exist in the dababase, return "Product Not Found"
+     * Else return <b>200 Ok</b>
+     */
+
+    /*
+    public Result deleteProduct(Long id) {
+        if(Product.find.byId(id) == null) {
+            return notFound("Product not found.");
+        }
+        else {
+            Product.find.deleteById(id);
+            return ok("The person has been deleted");
+        }
+    }*/
+
 }
