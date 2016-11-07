@@ -15,87 +15,13 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
-   <style type="text/css">
-
-			body {
-				margin:0;
-				padding:0;
-				font-family: Sans-Serif;
-				line-height: 1.5em;
-			}
-
-			#header {
-				background: #ccc;
-				height: 100px;
-			}
-
-			#header h1 {
-				margin: 0;
-				padding-top: 15px;
-			}
-
-			main {
-				padding-bottom: 10010px;
-				margin-bottom: -10000px;
-				float: left;
-				width: 100%;
-			}
-
-			#nav {
-				padding-bottom: 10010px;
-				margin-bottom: -10000px;
-				float: left;
-				width: 230px;
-				margin-left: -100%;
-				background: #eee;
-			}
-
-			#footer {
-				clear: left;
-				width: 100%;
-				background: #ccc;
-				text-align: center;
-				padding: 4px 0;
-			}
-
-			#wrapper {
-				overflow: hidden;
-			}
-
-			#content {
-				margin-left: 230px; /* Same as 'nav' width */
-			}
-
-			.innertube {
-				margin: 15px; /* Padding for content */
-				margin-top: 0;
-			}
-
-			p {
-				color: #555;
-			}
-
-			nav ul {
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-
-			nav ul a {
-				color: darkgreen;
-				text-decoration: none;
-			}
-
-		</style>
-
-
     </head>
 
     <body>
 
     <header id="header">
         <div class="innertube">
-            <h1>Sellbook</h1>
+            <h1><center>Sellbook</center></h1>
         </div>
     </header>
 
@@ -104,21 +30,26 @@
         <main>
             <div id="content">
                 <div class="innertube">
-                    <h1></h1>
+                    <h1>@title</h1>
+
                      @* And here's where we render the `Html` object containing
                      * the page content. *@
                      @content
+
                 </div>
             </div>
         </main>
+
+
+
 
         <nav id="nav">
             <div class="innertube">
                 <h3>Left heading</h3>
                 <ul>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
+                    <li><a href="./">Home</a></li>
+                    <li><a href="./product">Add Product</a></li>
+                    <li><a href="./products">All Produit</a></li>
                     <li><a href="#">Link 4</a></li>
                     <li><a href="#">Link 5</a></li>
                 </ul>
