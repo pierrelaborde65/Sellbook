@@ -1,23 +1,16 @@
 package controllers;
 
-import com.avaje.ebean.Model;
 import com.google.inject.Inject;
-import models.Person;
+import models.User;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
-
-import views.html.*;
-
-import java.util.List;
-
-import static play.libs.Json.toJson;
 
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
-public class PersonController extends Controller {
+public class UserController extends Controller {
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -32,32 +25,32 @@ public class PersonController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    public Result addPerson() {
-        Person person = formFactory.form(Person.class).bindFromRequest().get();
-        System.out.println(person);
-        person.save();
+    public Result addUser() {
+        User user = formFactory.form(User.class).bindFromRequest().get();
+        System.out.println(user);
+        user.save();
         return redirect(routes.PersonController.index());
     }
 
-    public Result getPersons() {
-        return ok(Json.toJson(Person.find.all()));
+    public Result getUsers() {
+        return ok(Json.toJson(User.find.all()));
     }
 
-    public Result getPerson(Long id) {
-        if(Person.find.byId(id) == null) {
-            return notFound("Person does not exist.");
+    public Result getUser(Long id) {
+        if(User.find.byId(id) == null) {
+            return notFound("User does not exist.");
         }
         else {
-            return ok(Json.toJson(Person.find.byId(id)));
+            return ok(Json.toJson(User.find.byId(id)));
         }
     }
 
-    public Result deletePerson(Long id) {
-        if(Person.find.byId(id) == null) {
-            return notFound("Person does not exist.");
+    public Result deleteUser(Long id) {
+        if(User.find.byId(id) == null) {
+            return notFound("User does not exist.");
         }
         else {
-            Person.find.deleteById(id);
+            User.find.deleteById(id);
             return ok("The person has been succesfully deleted");
         }
     }

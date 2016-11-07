@@ -3,19 +3,19 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.PersonController.index
+GET     /                           controllers.UserController.index
 
-# Create a person
-POST    /person                     controllers.PersonController.addPerson()
+# Create a user
+POST    /user                     controllers.UserController.addUser()
 
-# Get a person by his id
-GET     /person/:id                 controllers.PersonController.getPerson(id : Long)
+# Get a user by his id
+GET     /user/:id                 controllers.UserController.getUser(id : Long)
 
 # Get all persons
-GET     /persons                    controllers.PersonController.getPersons()
+GET     /users                    controllers.UserController.getUsers()
 
-# Delete a person by his id
-DELETE  /person/:id                 controllers.PersonController.deletePerson(id: Long)
+# Delete a user by his id
+DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long)
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count

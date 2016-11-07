@@ -7,14 +7,12 @@ import javax.persistence.*;
  * Created by Pierre on 07/11/2016.
  */
 @Entity
-public class Person extends com.avaje.ebean.Model {
+public class User extends com.avaje.ebean.Model {
 
-    public static Model.Finder<Long, Person> find = new Model.Finder<Long,Person>(Person.class);
+    public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(User.class);
 
     @Id @GeneratedValue
     public Long id;
-
-    public String ok;
 
     public String name;
 }
