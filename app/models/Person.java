@@ -14,5 +14,7 @@ public class Person extends com.avaje.ebean.Model {
     @Id @GeneratedValue
     public Long id;
 
+    public String ok;
+
     public String name;
 }
