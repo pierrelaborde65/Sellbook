@@ -5,6 +5,7 @@ import models.User;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
+import views.html.index;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -29,7 +30,7 @@ public class UserController extends Controller {
         User user = formFactory.form(User.class).bindFromRequest().get();
         System.out.println(user);
         user.save();
-        return redirect(routes.PersonController.index());
+        return redirect(routes.UserController.index());
     }
 
     public Result getUsers() {
