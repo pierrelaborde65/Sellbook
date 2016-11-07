@@ -45,7 +45,12 @@ GET     /login                      controllers.UserController.login
 
 POST    /login                      controllers.UserController.login
 
-POST    /register                   controllers.UserController.register
+POST    /registerSU                 controllers.UserController.registerSU
 
-POST    /register/addUser           controllers.UserController.addUser
+POST    /registerSC                 controllers.UserController.registerSC
+
+POST    /registerSU/addUser         controllers.UserController.addUser
+
+POST    /registerSC/addUser         controllers.UserController.addUser
+
 

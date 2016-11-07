@@ -25,9 +25,15 @@
 
    </form>
 
-   <form action="@routes.UserController.register()" method="post">
+   <form action="@routes.UserController.registerSU()" method="post">
     <div class="container">
-     <button type="submit">Register</button>
+     <button type="submit">Register user</button>
+    </div>
+   </form>
+
+   <form action="@routes.UserController.registerSC()" method="post">
+    <div class="container">
+     <button type="submit">Register seller</button>
     </div>
    </form>
 

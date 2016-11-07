@@ -6,7 +6,8 @@ import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.index;
-import views.html.register;
+import views.html.registerSU;
+import views.html.registerSC;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class UserController extends Controller {
     public Result addUser() {
         User user = formFactory.form(User.class).bindFromRequest().get();
         System.out.println(user);
+        if (user.getSiret()== null)
+            user.setStatusUser(1);
+        else
+            user.setStatusUser(2);
         user.save();
         return redirect(routes.UserController.index());
     }
@@ -85,39 +90,14 @@ public class UserController extends Controller {
 
     }
 
-    public Result register() {
-        return ok(register.render());
+    public Result registerSU() {
+        return ok(registerSU.render());
     }
 
-    /*
-    public Result createUser() {
-        // Get the value of the POST and stock in variable the values
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String name = values.get("name")[0];
-        String email = values.get("email")[0];
-        int numberAddress = Integer.parseInt(values.get("numberAddress")[0]);
-        String streetAddress = values.get("streetAddress")[0];
-        String cityAddress = values.get("cityAddress")[0];
-        int postCodeAddress = Integer.parseInt(values.get("postCodeAddress")[0]);
-        String phoneNumber = values.get("phoneNumber")[0];
-        String password = values.get("password")[0];
-        String siret = null;
-        String descriptionSeller = null;
-        int statusUser = 1;
-        String token = null;
-
-        // Test if the user is already in the database before the save, if no return 201 created, else return 409 conflict
-        User userAlreadyExist = User.find.where().like("email", "%"+email+"%").findUnique();
-        if(userAlreadyExist == null) {
-            // Create the person in the database with the informations
-            User user = new User(null, name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password, siret, descriptionSeller, statusUser, token);
-            return ok(index.render());
-        }
-        else {
-            return status(409, "This email is already used !");
-        }
+    public Result registerSC() {
+        return ok(registerSC.render());
     }
-    */
+
 
 
     public void initializeBD() {
