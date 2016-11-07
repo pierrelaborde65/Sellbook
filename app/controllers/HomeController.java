@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.inject.Inject;
+import play.data.FormFactory;
 import play.mvc.*;
 
 import views.html.*;
@@ -17,7 +19,16 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(index.render("Your new application is ready."));
+        return ok(index.render("Hello world !"));
+    }
+
+    @Inject
+    FormFactory formFactory;
+
+    public Result addPerson() {
+        Person person = formFactory.form(Person.class).bindFromRequest().get();
+        person.save();
+        return redirect(routes.HomeController.index());
     }
 
 }
