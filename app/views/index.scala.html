@@ -2,18 +2,33 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@()
 
 @*
  * Call the `main` template with two arguments. The first
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
+@main("Login") {
 
-   <form action="@routes.UserController.addUser()" method="post">
-    <input type="text" name="name" />
-    <button>Add Person</button>
+
+   <form action="@routes.UserController.login()" method="post">
+    <div class="container">
+     <label><b>Email</b></label>
+     <input type="text" placeholder="Enter email" name="email" required>
+
+     <label><b>Password</b></label>
+     <input type="password" placeholder="Enter password" name="password" required>
+
+     <button type="submit">Login</button>
+    </div>
+
+   </form>
+
+   <form action="@routes.UserController.register()" method="post">
+    <div class="container">
+     <button type="submit">Register</button>
+    </div>
    </form>
 
 }

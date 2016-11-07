@@ -16,12 +16,11 @@ public class User extends com.avaje.ebean.Model {
     String name;
     @Column(unique=true)
     String email;
-    String pseudo;
     int numberAddress;
     String streetAddress;
     String cityAddress;
     int postCodeAddress;
-    int phoneNumber;
+    String phoneNumber;
     String password;
     String siret;
     String descriptionSeller;
@@ -31,11 +30,10 @@ public class User extends com.avaje.ebean.Model {
     public User() {
     }
 
-    public User(Long id, String name, String email, String pseudo, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, int phoneNumber, String password, String siret, String descriptionSeller, int statusUser, String token) {
+    public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, int statusUser, String token) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.pseudo = pseudo;
         this.numberAddress = numberAddress;
         this.streetAddress = streetAddress;
         this.cityAddress = cityAddress;
@@ -80,14 +78,6 @@ public class User extends com.avaje.ebean.Model {
         this.email = email;
     }
 
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
     public int getNumberAddress() {
         return numberAddress;
     }
@@ -120,11 +110,11 @@ public class User extends com.avaje.ebean.Model {
         this.postCodeAddress = postCodeAddress;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
