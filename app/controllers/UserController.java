@@ -8,7 +8,7 @@ import play.mvc.*;
 import views.html.index;
 import views.html.registerSU;
 import views.html.registerSC;
-
+import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,6 +35,7 @@ public class UserController extends Controller {
     public Result addUser() {
         User user = formFactory.form(User.class).bindFromRequest().get();
         System.out.println(user);
+        /*-------------VERIF SIRET*/
         if (user.getSiret()== null)
             user.setStatusUser(1);
         else
@@ -71,21 +72,26 @@ public class UserController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String email = values.get("email")[0];
         String password = values.get("password")[0];
-
+        System.out.println(password);
         // Check if the user exists in the database
-        List<User> userExist = User.find.where().like("email", "%"+email+"%").like("password", "%"+password+"%").findList();
+        List<User> userExist = User.find.where().like("email", "%"+email+"%").findList();
         if(userExist.size() == 0) {
-            return notFound("email or password incorrect");
+            return notFound("email incorrect");
         }
         else {
-            // Generate random token
-            String token = UUID.randomUUID().toString();
-            // Set his token in the database
-            userExist.get(0).setToken(token);
-            userExist.get(0).save();
-            return ok(Json.toJson(userExist.get(0)))
-                    .withCookies(new Http.Cookie("token", token, null, "/", "localhost", false, false))
-                    .withCookies(new Http.Cookie("id", userExist.get(0).getId().toString(), null, "/", "localhost", false, false));
+            String passwordHashed = userExist.get(0).getPassword();
+            if (!BCrypt.checkpw(password, passwordHashed)) {
+                return notFound("password incorrect");
+            } else {
+                // Generate random token
+                String token = UUID.randomUUID().toString();
+                // Set his token in the database
+                userExist.get(0).setToken(token);
+                userExist.get(0).save();
+                return ok(Json.toJson(userExist.get(0)))
+                        .withCookies(new Http.Cookie("token", token, null, "/", "localhost", false, false))
+                        .withCookies(new Http.Cookie("id", userExist.get(0).getId().toString(), null, "/", "localhost", false, false));
+            }
         }
 
     }

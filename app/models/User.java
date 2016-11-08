@@ -1,8 +1,7 @@
 package models;
 import com.avaje.ebean.Model;
-
+import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.*;
-
 /**
  * Created by Pierre on 07/11/2016.
  */
@@ -78,6 +77,7 @@ public class User extends com.avaje.ebean.Model {
         this.email = email;
     }
 
+
     public int getNumberAddress() {
         return numberAddress;
     }
@@ -122,8 +122,13 @@ public class User extends com.avaje.ebean.Model {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password)/* throws AppException */{
+       /*
+        if (password == null) {
+            throw new AppException("empty.password");
+        }*/
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        //this.password = password;
     }
 
     public String getSiret() {

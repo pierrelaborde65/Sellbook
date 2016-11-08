@@ -14,3 +14,6 @@ libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "2.3.1",
   "org.hibernate" % "hibernate-entitymanager" % "5.2.3.Final"
 )
+
+// https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+libraryDependencies += "org.mindrot" % "jbcrypt" % "0.3m"
