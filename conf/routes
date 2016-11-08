@@ -21,9 +21,9 @@ DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long
 
 
 #Routes Products -----------------------------------------------------------------------------------------
-GET    /product                      controllers.ProductController.product()
+GET    /newProduct                   controllers.ProductController.newProduct()
 
-POST   /addProduct                   controllers.ProductController.addProduct()
+POST   /newProduct                   controllers.ProductController.addProduct()
 
 # Get all Product
 GET     /products                    controllers.ProductController.getProducts()
