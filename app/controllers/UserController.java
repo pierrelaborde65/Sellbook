@@ -72,20 +72,20 @@ public class UserController extends Controller {
         String email = values.get("email")[0];
         String password = values.get("password")[0];
 
-        // Check if exist in the database
-        List<User> isExist = User.find.where().like("email", "%"+email+"%").like("password", "%"+password+"%").findList();
-        if(isExist.size() == 0) {
+        // Check if the user exists in the database
+        List<User> userExist = User.find.where().like("email", "%"+email+"%").like("password", "%"+password+"%").findList();
+        if(userExist.size() == 0) {
             return notFound("email or password incorrect");
         }
         else {
             // Generate random token
             String token = UUID.randomUUID().toString();
             // Set his token in the database
-            isExist.get(0).setToken(token);
-            isExist.get(0).save();
-            return ok(Json.toJson(isExist.get(0)))
+            userExist.get(0).setToken(token);
+            userExist.get(0).save();
+            return ok(Json.toJson(userExist.get(0)))
                     .withCookies(new Http.Cookie("token", token, null, "/", "localhost", false, false))
-                    .withCookies(new Http.Cookie("id", isExist.get(0).getId().toString(), null, "/", "localhost", false, false));
+                    .withCookies(new Http.Cookie("id", userExist.get(0).getId().toString(), null, "/", "localhost", false, false));
         }
 
     }
