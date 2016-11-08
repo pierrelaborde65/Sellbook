@@ -12,27 +12,47 @@ import views.html.product;
  */
 public class ProductController extends Controller {
 
-
-    public Result product() {
+    /**
+     *
+     * @return
+     */
+    public Result newProduct() {
         return ok(product.render("LES PRODUITS"));
     }
 
     @Inject
     FormFactory formFactory;
 
-
+    /** add a Product
+     *
+     * @return add a Product in JSon file and redirect on the page "newProduct"
+     */
     public Result addProduct() {
         Product product = formFactory.form(Product.class).bindFromRequest().get();
         System.out.println(product);
         product.save();
-        return redirect(routes.ProductController.product());
+        return redirect(routes.ProductController.newProduct());
     }
 
-
+    /** Get All Products
+     *
+     * @return IF there isn't any Product, return "Product Not Found"
+     * else return the list of Products
+     */
     public Result getProducts() {
-        return ok(Json.toJson(Product.find.all()));
+        if (Product.find.all().isEmpty()) {
+            return notFound("No Product Found");
+        }else {
+            return ok(Json.toJson(Product.find.all()));
+        }
     }
 
+    /**
+     * Get a Product with his ID
+     * @param id the id of a Product
+     * @return IF Product doesn't exist, return "Product Not Found"
+     * Else return 200 OK
+     */
     public Result getProduct(Long id) {
         if (Product.find.byId(id) == null) {
             return notFound("This Product does not exist.");
