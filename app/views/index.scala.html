@@ -1,34 +1,16 @@
-<!doctype html>
-<html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="indexJS"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(message: String)
 
-</head>
-<body ng-app="Sellbook" ng-controller="index" class="index">
-<div class="loginForm">
-    <h1>Welcome on Sellbook !</h1>
-    <form name="loginForm" ng-submit="login(email, password)">
-        <div class="form-group">
-            <label class="control-label">Email</label>
-            <div>
-                <input type="email" class="form-control" ng-model="email" required>
-            </div>
-        </div>
-        <div class="form-group"> <label class="control-label">Password</label>
-            <div>
-                <input ng-minlength="6" type="password" class="form-control" ng-model="password" required>
-            </div>
-        </div>
-        <button ng-disabled="loginForm.$invalid" class="btn btn-ok">Log In</button>
-    </form>
-    <div ng-hide="hideError" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main("Home") {
 
-</div>
+    <p>Test</p>
 
-</body>
-</html>
+}
