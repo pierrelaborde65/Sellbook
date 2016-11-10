@@ -66,3 +66,8 @@
 				color: darkgreen;
 				text-decoration: none;
 			}
+
+			.btn-ok {
+			    color: white;
+			    background: blue;
+			}

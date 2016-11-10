@@ -5,7 +5,8 @@ import models.Product;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
-import views.html.product;
+import views.html.newProduct;
+
 
 /**
  * Created by meier on 07/11/2016.
@@ -17,7 +18,7 @@ public class ProductController extends Controller {
      * @return
      */
     public Result newProduct() {
-        return ok(product.render("LES PRODUITS"));
+        return ok(newProduct.render("LES PRODUITS"));
     }
 
     @Inject
