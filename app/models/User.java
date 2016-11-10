@@ -26,6 +26,7 @@ public class User extends com.avaje.ebean.Model {
     int statusUser;
     String token;
 
+    // Constructors
     public User() {
     }
 
@@ -44,6 +45,8 @@ public class User extends com.avaje.ebean.Model {
         this.statusUser = statusUser;
         this.token = token;
     }
+
+    // getters and setters
 
     public static Finder<Long, User> getFind() {
         return find;
@@ -76,7 +79,6 @@ public class User extends com.avaje.ebean.Model {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public int getNumberAddress() {
         return numberAddress;

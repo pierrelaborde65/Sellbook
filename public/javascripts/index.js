@@ -1,14 +1,14 @@
-angular.module('AWIAPP', ['ngCookies'])
+angular.module('Sellbook', ['ngCookies'])
 .controller('login', function($scope, $http, $window, $cookies, $cookieStore) {
 
-    // Check if the person is already connected or not and redirect or not
-    var id_person = $cookies.get('id');
-    var token_person = $cookies.get('token');
-    if(!angular.isUndefined(id_person) && !angular.isUndefined(token_person)){
+    // Check if there are cookies or not
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
+    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
         var rqt = {
             method : 'GET',
-            url : '/isConnected/' + id_person + '/' + token_person,
-            data : $.param({id: id_person, token: token_person}),
+            url : '/isConnected/' + idUser + '/' + tokenUser,
+            data : $.param({id: idUser, token: tokenUser}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){

@@ -5,9 +5,7 @@ import models.User;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
-import views.html.index;
-import views.html.registerSU;
-import views.html.registerSC;
+import views.html.*;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Map;
@@ -68,31 +66,49 @@ public class UserController extends Controller {
     }
 
     public Result login() {
-        // Get attribute from the form
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String email = values.get("email")[0];
-        String password = values.get("password")[0];
-        // Check if the user exists in the database
-        List<User> userExist = User.find.where().like("email", "%"+email+"%").findList();
-        if(userExist.size() == 0) {
-            return notFound("email incorrect");
+        // Get information from the login form
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String email = form.get("email")[0];
+        String password = form.get("password")[0];
+
+        // Search and take users in the database with this email ( maximum 1 because email is unique in the DB)
+        List<User> users = User.find.where().like("email", "%"+email+"%").findList();
+        if(users.size() == 0) {
+            return notFound("email or password incorrect");
         }
         else {
-            String passwordHashed = userExist.get(0).getPassword();
+            String passwordHashed = users.get(0).getPassword();
+            // check if it is the good password
             if (!BCrypt.checkpw(password, passwordHashed)) {
-                return notFound("password incorrect");
+                return notFound("email or password incorrect");
             } else {
-                // Generate random token
+                // Generate a random token and give it to the user to identify him
                 String token = UUID.randomUUID().toString();
-                // Set his token in the database
-                userExist.get(0).setToken(token);
-                userExist.get(0).save();
-                return ok(Json.toJson(userExist.get(0)))
-                        .withCookies(new Http.Cookie("token", token, null, "/", "localhost", false, false))
-                        .withCookies(new Http.Cookie("id", userExist.get(0).getId().toString(), null, "/", "localhost", false, false));
+                users.get(0).setToken(token);
+                // save the user with the new token in the database
+                users.get(0).save();
+                // get the status of the user to redirect him to the good homepage
+                int statusUser = users.get(0).getStatusUser();
+                if (statusUser == 1){
+                    // we redirect him to the Homepage of SU and we set 2 cookies to identify the user when he navigates on the app
+                    return ok(homepageSU.render())
+                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
+                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
+                }
+                else if (statusUser == 2){
+                    // we redirect him to the Homepage of SC
+                    return ok(homepageSC.render())
+                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
+                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
+                }
+                else {
+                    // we redirect him to the Homepage of admin
+                    return ok(homepageAdmin.render())
+                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
+                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
+                }
             }
         }
-
     }
 
     public Result registerSU() {
@@ -101,14 +117,6 @@ public class UserController extends Controller {
 
     public Result registerSC() {
         return ok(registerSC.render());
-    }
-
-
-
-    public void initializeBD() {
-        User SU = new User(null, "NameSU", "su@gmail.com", 13, "rue du Pic", "Barry", 65380, "0606060606", "passwordSU", null, null, 1, null);
-        User SC = new User(null, "NameSC", "sc@gmail.com", 27, "rue de la rue", "Mtp", 34090, "0628801747", "passwordSC", null, null, 2, null);
-        User ADMIN = new User(null, "NameAdmin", "admin@gmail.com", 8, "rue du boulevard", "ASA", 40800, "0607080910", "passwordADMIN", null, null, 3, null);
     }
 
 }
