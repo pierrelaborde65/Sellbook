@@ -9,7 +9,11 @@
 * argument is a `String` with the title of the page, the second
 * argument is an `Html` object containing the body of the page.
 *@
-@main("Add Product") {
+@scripts = {
+<script src="@routes.Assets.versioned("javascripts/newProduct.js")" type="text/javascript"></script>
+}
+
+@main("Add Product",scripts) {
 
 
     <form action="@routes.ProductController.addProduct()" method="post">

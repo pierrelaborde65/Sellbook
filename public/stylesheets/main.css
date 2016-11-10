@@ -47,10 +47,21 @@
 				margin-left: 230px; /* Same as 'nav' width */
 			}
 
+            .headerLeft{
+                width: 70%;
+                display: inline-block;
+            }
+
 			.innertube {
 				margin: 15px; /* Padding for content */
 				margin-top: 0;
 			}
+
+			.index{
+                float: right;
+                width: 25%;
+                display: inline-block;
+           	}
 
 			p {
 				color: #555;
