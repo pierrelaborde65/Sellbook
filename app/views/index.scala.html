@@ -1,40 +1,34 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@()
+<!doctype html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="indexJS"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Login") {
+</head>
+<body ng-app="Sellbook" ng-controller="index" class="index">
+<div class="loginForm">
+    <h1>Welcome on Sellbook !</h1>
+    <form name="loginForm" ng-submit="login(email, password)">
+        <div class="form-group">
+            <label class="control-label">Email</label>
+            <div>
+                <input type="email" class="form-control" ng-model="email" required>
+            </div>
+        </div>
+        <div class="form-group"> <label class="control-label">Password</label>
+            <div>
+                <input ng-minlength="6" type="password" class="form-control" ng-model="password" required>
+            </div>
+        </div>
+        <button ng-disabled="loginForm.$invalid" class="btn btn-ok">Log In</button>
+    </form>
+    <div ng-hide="hideError" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
 
+</div>
 
-   <form action="@routes.UserController.login()" method="post">
-    <div class="container">
-     <label><b>Email</b></label>
-     <input type="text" placeholder="Enter email" name="email" required>
-
-     <label><b>Password</b></label>
-     <input type="password" placeholder="Enter password" name="password" required>
-
-     <button type="submit">Login</button>
-    </div>
-
-   </form>
-
-   <form action="@routes.UserController.registerSU()" method="post">
-    <div class="container">
-     <button type="submit">Register user</button>
-    </div>
-   </form>
-
-   <form action="@routes.UserController.registerSC()" method="post">
-    <div class="container">
-     <button type="submit">Register seller</button>
-    </div>
-   </form>
-
-}
+</body>
+</html>

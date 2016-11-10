@@ -72,7 +72,6 @@ public class UserController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String email = values.get("email")[0];
         String password = values.get("password")[0];
-        System.out.println(password);
         // Check if the user exists in the database
         List<User> userExist = User.find.where().like("email", "%"+email+"%").findList();
         if(userExist.size() == 0) {
