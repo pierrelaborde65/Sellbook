@@ -1,5 +1,5 @@
-angular.module('SellbookRegister', ['ngCookies'])
-.controller('register', function($scope, $http, $window, $cookies, $cookieStore) {
+
+moduleSellbook.controller('register', function($scope, $http, $window, $cookies, $cookieStore) {
 
     // CREATE (POST) a person in the database with the information enter in the form
     $scope.registerSU = function(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password) {

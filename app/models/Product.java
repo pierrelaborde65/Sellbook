@@ -11,7 +11,7 @@ public class Product extends com.avaje.ebean.Model {
     public static Model.Finder<Long, Product> find = new Model.Finder<Long, Product>(Product.class);
 
     @Id @GeneratedValue
-    public int idProduct;
+    public Long idProduct;
 
     //Product's Seller
     public int idSeller;
@@ -32,17 +32,23 @@ public class Product extends com.avaje.ebean.Model {
     public String imageProduct;
 
 
-    /*
-    public Product(int idProduct, int idSeller, String name, String descProd, float price, int qtyStock, String image){
+
+    public Product(){
+
+
+    }
+
+    public Product(Long idProduct, int idSeller, String name, String descProd, float price, int qtyStock/*, String image*/){
         this.idProduct = idProduct;
         this.idSeller = idSeller;
         this.nameProduct = name;
         this.descriptionProduct = descProd;
         this.priceSeller = price;
         this.quantityStock = qtyStock;
-        this.imageProduct = image;
+        //this.imageProduct = image;
+        this.save();
     }
-    */
+
 
 
 

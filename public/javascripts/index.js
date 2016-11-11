@@ -1,5 +1,7 @@
-angular.module('SellbookLogin', ['ngCookies'])
-.controller('login', function($scope, $http, $window, $cookies, $cookieStore) {
+var moduleSellbook = angular.module('Sellbook', ['ngCookies'])
+moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $cookieStore) {
+
+
 /*
     // Check if there are cookies or not
     var idUser = $cookies.get('id');
@@ -44,10 +46,10 @@ angular.module('SellbookLogin', ['ngCookies'])
 
 */
 
-
+    console.log("indexJS");
 
     // Show or not the error message depending on the return from the application
-   // $scope.hideError = true;
+    $scope.hideError = true;
 
     // When the user want to connect, if it success redirect to the right home, else display error message
     $scope.login = function(email, password) {

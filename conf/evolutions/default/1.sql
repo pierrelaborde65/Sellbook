@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table product (
-  id_product                    integer not null,
+  id_product                    bigint not null,
   id_seller                     integer,
   name_product                  varchar(255),
   description_product           varchar(255),
