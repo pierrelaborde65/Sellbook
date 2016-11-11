@@ -60,4 +60,6 @@ angular.module('Sellbook', ['ngCookies'])
     // If the user doesn't want create an account and back, it redirects to the "/"
     $scope.back = function() { $window.location.href = '/'; };
 
+    
+
 });
