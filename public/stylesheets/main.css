@@ -48,7 +48,7 @@
 			}
 
             .headerLeft{
-                width: 70%;
+                width: 65%;
                 display: inline-block;
             }
 
@@ -57,11 +57,26 @@
 				margin-top: 0;
 			}
 
-			.index{
+
+/*login*/
+			.login{
+			    margin-top: 15px;
                 float: right;
-                width: 25%;
+                width: 35%;
                 display: inline-block;
            	}
+
+           	.form-group{
+                margin-bottom: 0px;
+                width: 30%;
+                display: inline-block;
+           	}
+
+           	.control-label{
+            	display: inline-block;
+           	}
+
+/**/
 
 			p {
 				color: #555;
