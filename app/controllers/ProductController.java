@@ -6,7 +6,7 @@ import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.newProduct;
-
+import java.util.Map;
 
 /**
  * Created by meier on 07/11/2016.
@@ -29,9 +29,26 @@ public class ProductController extends Controller {
      * @return add a Product in JSon file and redirect on the page "newProduct"
      */
     public Result addProduct() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String name = values.get("nameProduct")[0];
+        String description = values.get("descriptionProduct")[0];
+        String price = values.get("priceSeller")[0];
+        String quantity = values.get("quantityStock")[0];
+        String id = values.get("id")[0];
+
+        System.out.println(name);
+        System.out.println(description);
+        System.out.println(price);
+        System.out.println(quantity);
+        System.out.println(id);
+
+        /*
         Product product = formFactory.form(Product.class).bindFromRequest().get();
         System.out.println(product);
         product.save();
+        */
+
+
         return redirect(routes.ProductController.newProduct());
     }
 

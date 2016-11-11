@@ -24,4 +24,38 @@
         <button>Add Product</button>
     </form>
 
+
+    <div ng-app="Sellbook" ng-controller="newProduct" class="newProduct">
+        <div class="newProduct">
+            <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+            <h1>Create product</h1>
+            <form name="newProductForm" ng-submit="newProduct(nameProduct, descriptionProduct, priceSeller, quantityStock)">
+                <div class="form-group">
+                    <label class="control-label">Name *</label>
+                    <div>
+                        <input type="text" class="form-control" ng-model="nameProduct" placeholder="Enter your name here" required>
+                    </div>
+                </div>
+                <div class="form-group"> <label class="control-label">Description *</label>
+                    <div>
+                        <input type="text" class="form-control" ng-model="descriptionProduct" placeholder="Enter your description here" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Price *</label>
+                    <div>
+                        <input type="number" step="0.001" class="form-control" ng-model="priceSeller" placeholder="Enter your price here" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Quantity *</label>
+                    <div>
+                        <input type="number" step="0.001" class="form-control" ng-model="quantityStock" placeholder="Enter your quantity here" required>
+                    </div>
+                </div>
+                <button ng-disabled="newProductForm.$invalid" class="btn btn-success">Create product</button>
+            </form>
+        </div>
+
+
 }
