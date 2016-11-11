@@ -6,8 +6,7 @@ moduleSellbook.controller('newProduct',
 
         //NEED TO BE A SELLER ------------------------------------------------------------------------------
         // Check if there are cookies or not
-        var idUser = 1;
-        /*var idUser = $cookies.get('id');
+        var idUser = $cookies.get('id');
         var tokenUser = $cookies.get('token');
         if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
@@ -17,16 +16,13 @@ moduleSellbook.controller('newProduct',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).success(function(data){
-                alert(data);
                 // If the person is a SC ok else redirect /
-                if(data["statusUser"] != 2) {
+                if(data["statusUser"] != 2 || data["statusUser"] != 1) {
                     $window.location.href = '/';
                 }
             });
-        }*/
+        }
     //----------------------------------------------------------------------------------------------------------
-
-        console.log("NewProdJS");
         // Show or not the error message depending on the return from the application
         $scope.hideSuccess = true;
 
