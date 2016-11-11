@@ -150,20 +150,31 @@ public class UserController extends Controller {
     }
 
     public Result registerSC() {
-        User user = formFactory.form(User.class).bindFromRequest().get();
-        System.out.println(user);
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+        String siret = form.get("siret")[0];
+        String descriptionSeller = form.get("descriptionSeller")[0];
+        String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
+        int status;
         // check if email not already used
-        User user2 = User.find.where().like("email", "%"+user.getEmail()+"%").findUnique();
-        if (user2.getEmail() != null)
+        User userTest = User.find.where().like("email", "%"+email+"%").findUnique();
+        if (userTest != null)
             return notFound("Email already used");
         else {
-           /*-------------VERIF SIRET*/
-            if (user.getSiret()== null)
-                user.setStatusUser(1);
+           /*-------------Check SIRET*/
+            if (siret == null)
+                status = 1;
             else
-                user.setStatusUser(2);
+                status = 2;
+            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null);
             user.save();
-            return ok(index.render("Welcome"));
+            return created();
         }
     }
 

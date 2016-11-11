@@ -1,8 +1,16 @@
-
 moduleSellbook.controller('register', function($scope, $http, $window, $cookies, $cookieStore) {
-
+    console.log("register");
     // CREATE (POST) a person in the database with the information enter in the form
+
+    $scope.hideErrorSU = true;
+    $scope.hideSuccessSU = true;
+    $scope.hideErrorSC = true;
+    $scope.hideSuccessSC = true;
+
+
+
     $scope.registerSU = function(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password) {
+            console.log("registerSU");
             var request = {
                     method : 'POST',
                     url : '/registerSU',
@@ -10,19 +18,17 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
                     headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(request).success(function(data){
-                var request = {
-                        method: 'GET',
-                        url : '/',
-                        headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-                };
+                $scope.hideSuccessSU = false;
+                $scope.titleSuccess = data;
             }).error(function(data) {
-                $scope.hideError = false;
+                $scope.hideErrorSU = false;
                 $scope.titleError = data;
             });
      };
 
      // CREATE (POST) a person in the database with the information enter in the form
      $scope.registerSC = function(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, password) {
+             console.log("registerSC");
              var request = {
                      method : 'POST',
                      url : '/registerSC',
@@ -30,9 +36,10 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
                      headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
              };
              $http(request).success(function(data){
-                 $scope.hideError = true;
+                 $scope.hideSuccessSC = false;
+                 $scope.titleSuccess = data;
              }).error(function(data) {
-                 $scope.hideError = false;
+                 $scope.hideErrorSC = false;
                  $scope.titleError = data;
              });
       };

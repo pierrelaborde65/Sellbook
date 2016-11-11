@@ -130,7 +130,8 @@ public class User extends com.avaje.ebean.Model {
         if (password == null) {
             throw new AppException("empty.password");
         }*/
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
+                //BCrypt.hashpw(password, BCrypt.gensalt());
         //this.password = password;
     }
 
