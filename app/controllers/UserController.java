@@ -30,18 +30,6 @@ public class UserController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    public Result addUser() {
-        User user = formFactory.form(User.class).bindFromRequest().get();
-        System.out.println(user);
-        /*-------------VERIF SIRET*/
-        if (user.getSiret()== null)
-            user.setStatusUser(1);
-        else
-            user.setStatusUser(2);
-        user.save();
-        return redirect(routes.UserController.index());
-    }
-
     public Result getUsers() {
         return ok(Json.toJson(User.find.all()));
     }
@@ -139,17 +127,40 @@ public class UserController extends Controller {
         }
     }
 
-
-
-
-
-
     public Result registerSU() {
-        return ok(registerSU.render());
+        User user = formFactory.form(User.class).bindFromRequest().get();
+        System.out.println(user);
+        // check if email not already used
+        User user2 = User.find.where().like("email", "%"+user.getEmail()+"%").findUnique();
+        if (user2.getEmail() != null)
+            return notFound("Email already used");
+        else {
+           /*-------------VERIF SIRET*/
+            if (user.getSiret()== null)
+                user.setStatusUser(1);
+            else
+                user.setStatusUser(2);
+            user.save();
+            return ok(index.render("Welcome"));
+        }
     }
 
     public Result registerSC() {
-        return ok(registerSC.render());
+        User user = formFactory.form(User.class).bindFromRequest().get();
+        System.out.println(user);
+        // check if email not already used
+        User user2 = User.find.where().like("email", "%"+user.getEmail()+"%").findUnique();
+        if (user2.getEmail() != null)
+            return notFound("Email already used");
+        else {
+           /*-------------VERIF SIRET*/
+            if (user.getSiret()== null)
+                user.setStatusUser(1);
+            else
+                user.setStatusUser(2);
+            user.save();
+            return ok(index.render("Welcome"));
+        }
     }
 
 }
