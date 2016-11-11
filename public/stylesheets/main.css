@@ -24,8 +24,8 @@
 			}
 
 			#nav {
-				/*padding-bottom: 10010px;
-				margin-bottom: -10000px;*/
+				padding-bottom: 400px;
+				/*margin-bottom: -10000px;*/
 				float: left;
 				width: 230px;
 				/*margin-left: -100%;*/
@@ -42,7 +42,7 @@
 			}
 
 			#wrapper {
-				overflow: hidden;
+				/*overflow: hidden;*/
 			}
 
 			#content {

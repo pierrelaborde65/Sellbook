@@ -44,6 +44,7 @@ public class User extends com.avaje.ebean.Model {
         this.descriptionSeller = descriptionSeller;
         this.statusUser = statusUser;
         this.token = token;
+        this.save();
     }
 
     // getters and setters

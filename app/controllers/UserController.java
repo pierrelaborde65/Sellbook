@@ -24,7 +24,7 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(index.render(" "));
+        return ok(index.render(" ??????? "));
     }
 
     @Inject
@@ -70,7 +70,8 @@ public class UserController extends Controller {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String email = form.get("email")[0];
         String password = form.get("password")[0];
-
+        System.out.println(email);
+        System.out.println(password);
         // Search and take users in the database with this email ( maximum 1 because email is unique in the DB)
         List<User> users = User.find.where().like("email", "%"+email+"%").findList();
         if(users.size() == 0) {
@@ -82,34 +83,68 @@ public class UserController extends Controller {
             if (!BCrypt.checkpw(password, passwordHashed)) {
                 return notFound("email or password incorrect");
             } else {
+                System.out.println("OKKK");
+
                 // Generate a random token and give it to the user to identify him
                 String token = UUID.randomUUID().toString();
+
+                System.out.println(token);
+
                 users.get(0).setToken(token);
                 // save the user with the new token in the database
                 users.get(0).save();
                 // get the status of the user to redirect him to the good homepage
-                int statusUser = users.get(0).getStatusUser();
-                if (statusUser == 1){
-                    // we redirect him to the Homepage of SU and we set 2 cookies to identify the user when he navigates on the app
-                    return ok(homepageSU.render())
-                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
-                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
-                }
-                else if (statusUser == 2){
-                    // we redirect him to the Homepage of SC
-                    return ok(homepageSC.render())
-                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
-                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
-                }
-                else {
-                    // we redirect him to the Homepage of admin
-                    return ok(homepageAdmin.render())
-                            .withCookies(new Http.Cookie("token", token, 604800, "/", "localhost", false, false))
-                            .withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 604800, "/", "localhost", false, false));
-                }
+                return ok(index.render("Welcome")).withCookies(new Http.Cookie("token", token, 86400 , null, null, false, false)).withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 86400 , null, null, false, false));
             }
         }
     }
+
+
+    /**
+     * Check if the user session is valid or not
+     * @param id The ID of the person
+     * @param token The token of the person
+     * @return If the user has a valid session, return <b>200 Ok</b> <br/>
+     * Else return <b>404 Not Found</b>
+     */
+    public Result isConnected(int id, String token) {
+        User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
+//        System.out.println("isConnected(id, token) FROM PersonController.java -- isExist="+isExist);
+        if(user != null) {
+            return ok(Json.toJson(user));
+        }
+        else {
+            return notFound("Your connection is expired or invalid. Please log in again");
+        }
+    }
+
+    /**
+     * Log out. Delete cookies and set the value of token in the database to null
+     * @return If the person doesn't exist, return 404 Not Found
+     * Else return ok
+     */
+    public Result logout() {
+        // Get attribute from the form
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String id = values.get("id")[0];
+        String token = values.get("token")[0];
+
+        //LIKE -----------------------------------------------------------------------------------
+        User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
+        if(user != null) {
+            response().discardCookie("token");
+            response().discardCookie("id");
+            return ok();
+        }
+        else {
+            return notFound("Log out error");
+        }
+    }
+
+
+
+
+
 
     public Result registerSU() {
         return ok(registerSU.render());

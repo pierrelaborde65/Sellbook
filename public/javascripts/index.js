@@ -40,19 +40,6 @@ angular.module('Sellbook', ['ngCookies'])
         };
         $http(rqt).success(function(data){
             $scope.hideError = true;
-            if(data["role"] == 0) {
-                $window.location.href = '/SU/home';
-            }
-            // If the person is a SC, redirect to /homeSC
-            else if(data["role"] == 1) {
-                $window.location.href = '/SC/home';
-            }
-            // If the person is an Admin, redirect to /homeAdmin
-            else if(data["role"] == 2){
-                $window.location.href = '/Admin/home';
-            }else{
-                $window.location.href = '/';
-            }
         }).error(function(data) {
             $scope.hideError = false;
             $scope.titleError = data;

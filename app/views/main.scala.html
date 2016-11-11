@@ -31,7 +31,12 @@
             <div class= "headerLeft" >
                 <h1><center>Sellbook</center></h1>
             </div>
-            @login()
+
+            @if(items.isEmpty) {
+            <h1>Nothing to display</h1>
+            } else {
+                @login()
+            }
         </div>
     </header>
 
