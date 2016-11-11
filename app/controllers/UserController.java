@@ -24,7 +24,7 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(index.render(" ??????? "));
+        return ok(index.render("  "));
     }
 
     @Inject
@@ -83,13 +83,8 @@ public class UserController extends Controller {
             if (!BCrypt.checkpw(password, passwordHashed)) {
                 return notFound("email or password incorrect");
             } else {
-                System.out.println("OKKK");
-
                 // Generate a random token and give it to the user to identify him
                 String token = UUID.randomUUID().toString();
-
-                System.out.println(token);
-
                 users.get(0).setToken(token);
                 // save the user with the new token in the database
                 users.get(0).save();
@@ -105,15 +100,18 @@ public class UserController extends Controller {
      * @param id The ID of the person
      * @param token The token of the person
      * @return If the user has a valid session, return <b>200 Ok</b> <br/>
-     * Else return <b>404 Not Found</b>
+     * Else return 404 Not Found<
      */
     public Result isConnected(int id, String token) {
+        System.out.println("ENTER");
         User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
+
 //        System.out.println("isConnected(id, token) FROM PersonController.java -- isExist="+isExist);
         if(user != null) {
+            System.out.println("conected");
             return ok(Json.toJson(user));
-        }
-        else {
+        }else {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return notFound("Your connection is expired or invalid. Please log in again");
         }
     }
@@ -128,7 +126,7 @@ public class UserController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String id = values.get("id")[0];
         String token = values.get("token")[0];
-
+        System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
         User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
         if(user != null) {

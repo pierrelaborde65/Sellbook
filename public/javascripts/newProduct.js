@@ -1,9 +1,26 @@
-angular.module('Sellbook', [])
+angular.module('SellbookNewProduct', ['ngCookies'])
 .controller('newProduct', function($scope, $http, $window, $cookies, $cookieStore) {
 var app = angular.module('newProduct', ['ngRoute']);
     // Check if the person is already connected or not and redirect or not
 
     //NEED TO BE A SELLER ------------------------------------------------------------------------------
+    // Check if there are cookies or not
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
+    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+        var rqt = {
+            method : 'GET',
+            url : '/isConnected/' + idUser + '/' + tokenUser,
+            data : $.param({id: idUser, token: tokenUser}),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            // If the person is a SC ok else redirect /
+            if(data["statut"] != 2) {
+                $window.location.href = '/';
+            }
+        });
+    }
 
     alert("JSENTER");
     // Show or not the error message depending on the return from the application
