@@ -19,16 +19,18 @@
 				padding-bottom: 10010px;
 				margin-bottom: -10000px;
 				float: left;
-				width: 100%;
+				/*width: 100%;*/
+				display: inline-block;
 			}
 
 			#nav {
-				padding-bottom: 10010px;
-				margin-bottom: -10000px;
+				/*padding-bottom: 10010px;
+				margin-bottom: -10000px;*/
 				float: left;
 				width: 230px;
-				margin-left: -100%;
+				/*margin-left: -100%;*/
 				background: #eee;
+				display: inline-block;
 			}
 
 			#footer {
@@ -66,13 +68,13 @@
                 display: inline-block;
            	}
 
-           	.form-group{
+           	.form-group-login{
                 margin-bottom: 0px;
                 width: 30%;
                 display: inline-block;
            	}
 
-           	.control-label{
+           	.control-label-login{
             	display: inline-block;
            	}
 
