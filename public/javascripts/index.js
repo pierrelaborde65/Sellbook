@@ -2,7 +2,7 @@ angular.module('Sellbook', ['ngCookies'])
 .controller('login', function($scope, $http, $window, $cookies, $cookieStore) {
 
     // Check if there are cookies or not
-    var idUser = $cookies.get('id');
+   /* var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
         var rqt = {
@@ -29,7 +29,7 @@ angular.module('Sellbook', ['ngCookies'])
 
     // Show or not the error message depending on the return from the application
     $scope.hideError = true;
-
+*/
     // When the user want to connect, if it success redirect to the right home, else display error message
     $scope.login = function(email, password) {
         var rqt = {
@@ -48,8 +48,10 @@ angular.module('Sellbook', ['ngCookies'])
                 $window.location.href = '/SC/home';
             }
             // If the person is an Admin, redirect to /homeAdmin
-            else {
+            else if(data["role"] == 2){
                 $window.location.href = '/Admin/home';
+            }else{
+                $window.location.href = '/';
             }
         }).error(function(data) {
             $scope.hideError = false;
