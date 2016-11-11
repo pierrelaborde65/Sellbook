@@ -128,20 +128,24 @@ public class UserController extends Controller {
     }
 
     public Result registerSU() {
-        User user = formFactory.form(User.class).bindFromRequest().get();
-        System.out.println(user);
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+        int status = 0;
+        String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         // check if email not already used
-        User user2 = User.find.where().like("email", "%"+user.getEmail()+"%").findUnique();
-        if (user2.getEmail() != null)
+        User user2 = User.find.where().like("email", "%"+email+"%").findUnique();
+        if (user2 != null)
             return notFound("Email already used");
         else {
-           /*-------------VERIF SIRET*/
-            if (user.getSiret()== null)
-                user.setStatusUser(1);
-            else
-                user.setStatusUser(2);
+            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, null, null, status, null);
             user.save();
-            return ok(index.render("Welcome"));
+            return created();
         }
     }
 

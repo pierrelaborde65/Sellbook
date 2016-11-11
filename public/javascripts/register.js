@@ -10,7 +10,11 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
                     headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(request).success(function(data){
-                $scope.hideError = true;
+                var request = {
+                        method: 'GET',
+                        url : '/',
+                        headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                };
             }).error(function(data) {
                 $scope.hideError = false;
                 $scope.titleError = data;
