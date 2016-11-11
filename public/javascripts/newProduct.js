@@ -15,14 +15,16 @@ var app = angular.module('newProduct', ['ngRoute']);
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
+            alert(data);
             // If the person is a SC ok else redirect /
-            if(data["statut"] != 2) {
+            if(data["statusUser"] != 2) {
                 $window.location.href = '/';
             }
         });
     }
+//----------------------------------------------------------------------------------------------------------
 
-    alert("JSENTER");
+
     // Show or not the error message depending on the return from the application
     //$scope.hideError = true;
 
