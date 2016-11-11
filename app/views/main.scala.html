@@ -4,6 +4,8 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
+
+
 @(title: String, scripts: Html = Html(""))(content: Html)
 
 <!DOCTYPE html>
@@ -23,6 +25,7 @@
         <script src="@routes.Assets.versioned("javascripts/register.js")" type="text/javascript"></script>
 
         @scripts
+
     </head>
 
     <body>
@@ -32,7 +35,13 @@
             <div class= "headerLeft" >
                 <h1><center>Sellbook</center></h1>
             </div>
-            @login()
+
+            @if(request.cookies.get("id") == null){
+                @login()
+            }else{
+                @logout()
+            }
+
         </div>
     </header>
 
