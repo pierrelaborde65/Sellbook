@@ -7,7 +7,7 @@ import models.User;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
-import views.html.newProduct;
+import views.html.*;
 import java.util.Map;
 
 /**
@@ -20,7 +20,17 @@ public class ProductController extends Controller {
      * @return
      */
     public Result newProduct() {
+
         return ok(newProduct.render("LES PRODUITS"));
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Result userAllProducts() {
+        System.out.println("TESTTT");
+        return ok(allProducts.render("LES PRODUITS"));
     }
 
     @Inject
@@ -54,9 +64,6 @@ public class ProductController extends Controller {
         Product product = new Product(null, Integer.parseInt(id),name, description, Float.parseFloat(price), Integer.parseInt(quantity));
         return created("The product has been created");
 
-
-        //return redirect(routes.ProductController.newProduct());
-     /*   }*/
     }
 
     /** Get All Products

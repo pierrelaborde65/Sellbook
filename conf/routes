@@ -6,6 +6,22 @@
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
+
+#Routes --------------------------------Products -----------------------------------------------------------------------------------------
+
+GET    /newProduct                   controllers.ProductController.newProduct()
+
+POST   /newProduct                   controllers.ProductController.addProduct()
+
+# Get all Product
+GET    /user/allProducts             controllers.ProductController.userAllProducts()
+
+GET     /products                    controllers.ProductController.getProducts()
+
+# Get a user by his id
+GET     /products/:id                controllers.ProductController.getProduct(id : Long)
+
+
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
 GET     /                         controllers.UserController.index
 
@@ -28,18 +44,6 @@ POST    /registerSU                 controllers.UserController.registerSU
 
 POST    /registerSC                 controllers.UserController.registerSC
 
-
-#Routes --------------------------------Products -----------------------------------------------------------------------------------------
-
-GET    /newProduct                   controllers.ProductController.newProduct()
-
-POST   /newProduct                   controllers.ProductController.addProduct()
-
-# Get all Product
-GET     /products                    controllers.ProductController.getProducts()
-
-# Get a user by his id
-GET     /products/:id                controllers.ProductController.getProduct(id : Long)
 
 # ----------------------------------------------------------------------------------------------------------
 
