@@ -85,11 +85,4 @@ moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $c
         });
     };
 
-
-
-    // If the user doesn't want create an account and back, it redirects to the "/"
-    $scope.back = function() { $window.location.href = '/'; };
-
-    
-
 });

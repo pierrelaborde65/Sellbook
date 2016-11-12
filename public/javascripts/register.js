@@ -20,6 +20,20 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
             $http(request).success(function(data){
                 $scope.hideSuccessSU = false;
                 $scope.titleSuccess = data;
+                //login
+                        var rqt = {
+                                method : 'POST',
+                                url : '/login',
+                                data : $.param({email: email, password: password}),
+                                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                        };
+                        $http(rqt).success(function(data){
+                            $scope.hideError = true;
+                            window.location.reload();
+                        }).error(function(data) {
+                            $scope.hideError = false;
+                            $scope.titleError = data;
+                        });
             }).error(function(data) {
                 $scope.hideErrorSU = false;
                 $scope.titleError = data;

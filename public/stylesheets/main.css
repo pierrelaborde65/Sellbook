@@ -8,6 +8,7 @@
 			#header {
 				background: #ccc;
 				height: 100px;
+				padding-top:10px;
 			}
 
 			#header h1 {
@@ -48,6 +49,11 @@
 			#content {
 				margin-left: 50px; /* Same as 'nav' width */
 			}
+
+            #btn-logout{
+                float:right;
+                margin-right:10%;
+            }
 
             .headerLeft{
                 width: 65%;
