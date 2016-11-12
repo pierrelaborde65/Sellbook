@@ -3,7 +3,7 @@ package controllers;
 import com.google.inject.Inject;
 import models.Product;
 import models.User;
-
+import controllers.UserController;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
@@ -20,8 +20,7 @@ public class ProductController extends Controller {
      * @return
      */
     public Result newProduct() {
-
-        return ok(newProduct.render("LES PRODUITS"));
+        return ok(newProduct.render(UserController.getStatusUserText()));
     }
 
     /**
@@ -29,8 +28,7 @@ public class ProductController extends Controller {
      * @return
      */
     public Result userAllProducts() {
-        System.out.println("TESTTT");
-        return ok(allProducts.render("LES PRODUITS"));
+        return ok(allProducts.render(UserController.getStatusUserText()));
     }
 
     @Inject

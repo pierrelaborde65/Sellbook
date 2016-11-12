@@ -24,7 +24,7 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(index.render("  "));
+        return ok(index.render(getStatusUserText()));
     }
 
     @Inject
@@ -43,6 +43,27 @@ public class UserController extends Controller {
         }
     }
 
+
+    public static String getStatusUserText() {
+        System.out.println("AVANT");
+        if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
+            System.out.println("Après");
+            int id = Integer.parseInt(request().cookies().get("id").value());
+            String token = request().cookies().get("token").value();
+            User user = User.find.where().like("id", "%" + id + "%").like("token", "%" + token + "%").findUnique();
+            if (user != null) {
+                if (user.getStatusUser() == 0)
+                    return "SU";
+                if (user.getStatusUser() == 0)
+                    return "SC";
+                if (user.getStatusUser() == 0)
+                    return "SC";
+                if (user.getStatusUser() == 0)
+                    return "Admin";
+            }
+        }
+        return "None";
+    }
     public Result deleteUser(Long id) {
         if(User.find.byId(id) == null) {
             return notFound("User does not exist.");
@@ -91,15 +112,11 @@ public class UserController extends Controller {
      * Else return 404 Not Found<
      */
     public Result isConnected(int id, String token) {
-        System.out.println("ENTER");
         User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
-
 //        System.out.println("isConnected(id, token) FROM PersonController.java -- isExist="+isExist);
         if(user != null) {
-            System.out.println("conected");
             return ok(Json.toJson(user));
         }else {
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return notFound("Your connection is expired or invalid. Please log in again");
         }
     }

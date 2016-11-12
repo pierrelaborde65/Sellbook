@@ -6,7 +6,7 @@
  *@
 
 
-@(title: String, scripts: Html = Html(""))(content: Html)
+@(title: String, scripts: Html = Html(""),status: String ="None")(content: Html)
 
 <!DOCTYPE html>
 <html lang="en" ng-app="Sellbook">
@@ -51,25 +51,32 @@
                 <h3>User</h3>
                 <ul>
                     <li><a href="/">Home</a></li>
+                @if(status == "SU"){
+                    <!--POUR USER--!>
                     <li><a href="/user/allProducts">All Produit</a></li>
+                }
                 </ul>
+
+                @if(status == "SC"){
+                    <!--POUR SELLER--!>
                 <h3>Seller</h3>
                 <ul>
                     <li><a href="/newProduct">Add Product</a></li>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
-                    <li><a href="#">Link 5</a></li>
                 </ul>
+                }
+                @if(status == "Admin"){
+                    <!--POUR ADMIN--!>
                 <h3>Admin</h3>
                 <ul>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
-                    <li><a href="#">Link 5</a></li>
                 </ul>
+                }
+
             </div>
         </nav>
     </div>
