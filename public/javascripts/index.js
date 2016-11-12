@@ -61,6 +61,7 @@ moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $c
         };
         $http(rqt).success(function(data){
             $scope.hideError = true;
+            window.location.reload();
         }).error(function(data) {
             $scope.hideError = false;
             $scope.titleError = data;
