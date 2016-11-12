@@ -3,7 +3,7 @@
 <div ng-app="SellbookLogin" ng-controller="login" class="login">
 <div class="loginForm">
     <form name="loginForm" ng-submit="logout()">
-        <button ng-disabled="loginForm.$invalid" class="btn btn-ok">Log Out</button>
+        <button ng-disabled="loginForm.$invalid" class="btn btn-ok" id="btn-logout">Log Out</button>
     </form>
     <div ng-hide="hideError" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
 </div>

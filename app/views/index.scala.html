@@ -14,6 +14,7 @@
 * argument is an `Html` object containing the body of the page
 *@
 @main("Home", scripts, message) {
+@if(message == "None"){
 <table>
     <tr>
         <td>
@@ -83,5 +84,8 @@
     </tr>
 </table>
 
+}else{
+    <h1>Welcome on Sellbook</h1>
+}
 
 }
