@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static tyrex.util.Configuration.console;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -54,11 +56,9 @@ public class UserController extends Controller {
             if (user != null) {
                 if (user.getStatusUser() == 0)
                     return "SU";
-                if (user.getStatusUser() == 0)
+                if (user.getStatusUser() == 1)
                     return "SC";
-                if (user.getStatusUser() == 0)
-                    return "SC";
-                if (user.getStatusUser() == 0)
+                if (user.getStatusUser() == 2)
                     return "Admin";
             }
         }
@@ -98,7 +98,7 @@ public class UserController extends Controller {
                 // save the user with the new token in the database
                 users.get(0).save();
                 // get the status of the user to redirect him to the good homepage
-                return ok(index.render("Welcome")).withCookies(new Http.Cookie("token", token, 86400 , null, null, false, false)).withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 86400 , null, null, false, false));
+                return ok(index.render(getStatusUserText())).withCookies(new Http.Cookie("token", token, 86400 , null, null, false, false)).withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 86400 , null, null, false, false));
             }
         }
     }
@@ -155,7 +155,7 @@ public class UserController extends Controller {
         String phoneNumber = form.get("phoneNumber")[0];
         int status = 0;
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
-        // check if email not already used
+        // check if email is not already used
         User user2 = User.find.where().like("email", "%"+email+"%").findUnique();
         if (user2 != null)
             return notFound("Email already used");
@@ -170,6 +170,7 @@ public class UserController extends Controller {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String name = form.get("name")[0];
         String email = form.get("email")[0];
+        System.out.println(email);
         String numberAddress = form.get("numberAddress")[0];
         String streetAddress = form.get("streetAddress")[0];
         String cityAddress = form.get("cityAddress")[0];
@@ -178,17 +179,12 @@ public class UserController extends Controller {
         String siret = form.get("siret")[0];
         String descriptionSeller = form.get("descriptionSeller")[0];
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
-        int status;
+        int status = 1;
         // check if email not already used
         User userTest = User.find.where().like("email", "%"+email+"%").findUnique();
         if (userTest != null)
             return notFound("Email already used");
         else {
-           /*-------------Check SIRET*/
-            if (siret == null)
-                status = 1;
-            else
-                status = 2;
             User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null);
             user.save();
             return created();

@@ -30,78 +30,75 @@
 
     <body>
 
-    <header id="header">
-        <div class="innertube">
-            <div class= "headerLeft" >
-                <h1><center>Sellbook</center></h1>
-            </div>
-
-            @if(request.cookies.get("id") == null){
-                @login()
-            }else{
-                @logout()
-            }
-
-        </div>
-    </header>
-
-    <div id="wrapper">
-        <nav id="nav">
+        <header id="header">
             <div class="innertube">
-                <h3>User</h3>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/user/allProducts">All Produit</a></li>
-                @if(status == "SU"){
-                    <!--POUR USER--!>
+                <div class= "headerLeft" >
+                    <h1><center>Sellbook</center></h1>
+                </div>
 
-                }
-                </ul>
-
-                @if(status == "SC"){
-                    <!--POUR SELLER--!>
-                <h3>Seller</h3>
-                <ul>
-                    <li><a href="/newProduct">Add Product</a></li>
-                    <li><a href="#">My Products</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
-                }
-                @if(status == "Admin"){
-                    <!--POUR ADMIN--!>
-                <h3>Admin</h3>
-                <ul>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
+                @if(request.cookies.get("id") == null){
+                    @login()
+                }else{
+                    @logout()
                 }
 
             </div>
-        </nav>
-    </div>
+        </header>
+
+        <div id="wrapper">
+            <nav id="nav">
+                <div class="innertube">
+                    <!--POUR USER--!>
+                    @if(status == "SU"){
+                        <h3>User</h3>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/user/allProducts">All Products</a></li>
+                        </ul>
+                    }
+
+                    <!--POUR SELLER--!>
+                    @if(status == "SC"){
+                        <h3>Seller</h3>
+                        <ul>
+                            <li><a href="/newProduct">Add Product</a></li>
+                            <li><a href="#">My Products</a></li>
+                            <li><a href="#">Link 2</a></li>
+                            <li><a href="#">Link 3</a></li>
+                        </ul>
+                    }
+
+                    <!--POUR ADMIN--!>
+                    @if(status == "Admin"){
+                        <h3>Admin</h3>
+                        <ul>
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                            <li><a href="#">Link 3</a></li>
+                        </ul>
+                    }
+                </div>
+            </nav>
+        </div>
+
         <main>
             <div id="content">
                 <div class="innertube">
                     <h1>@title</h1>
 
-                     @* And here's where we render the `Html` object containing
-                     * the page content. *@
-                     @content
+                    @* And here's where we render the `Html` object containing
+                    * the page content. *@
+                    @content
 
                 </div>
             </div>
         </main>
 
+        <footer id="footer">
+            <div class="innertube">
+                <p>Footer...</p>
+            </div>
+        </footer>
 
-
-
-
-    <footer id="footer">
-        <div class="innertube">
-            <p>Footer...</p>
-        </div>
-    </footer>
     </body>
 </html>
