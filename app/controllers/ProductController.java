@@ -31,6 +31,12 @@ public class ProductController extends Controller {
         return ok(allProducts.render(UserController.getStatusUserText()));
     }
 
+
+    public Result myProductSeller() {
+        return ok(myProducts.render(UserController.getStatusUserText()));
+    }
+
+
     @Inject
     FormFactory formFactory;
 

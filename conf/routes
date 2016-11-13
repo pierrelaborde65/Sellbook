@@ -11,6 +11,8 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET    /newProduct                   controllers.ProductController.newProduct()
 
+GET    /seller/myProducts             controllers.ProductController.myProductSeller()
+
 POST   /newProduct                   controllers.ProductController.addProduct()
 
 # Get all Product
