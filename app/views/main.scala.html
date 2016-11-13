@@ -36,11 +36,11 @@
                     <h1><center>Sellbook</center></h1>
                 </div>
 
-                @if(request.cookies.get("id") == null){
-                    @login()
-                }else{
-                    @logout()
-                }
+            @if(status == "None"){
+                @login()
+            }else{
+                @logout()
+            }
 
             </div>
         </header>
