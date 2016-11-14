@@ -42,7 +42,7 @@ public class ProductController extends Controller {
 
     /** add a Product
      *
-     * @return add a Product in JSon file and redirect on the page "newProduct"
+     * @return add a Product in JSon file
      */
     public Result addProduct() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -57,19 +57,20 @@ public class ProductController extends Controller {
         System.out.println(price);
         System.out.println(quantity);
         System.out.println(id);
-
-/*
         User seller = User.find.byId(Long.valueOf(id));
-        if(seller.getStatusUser() != 2) {
-            return notFound("The person is not a seller");
-        }
-        else {*/
-        Product product = new Product(null, Integer.parseInt(id),name, description, Float.parseFloat(price), Integer.parseInt(quantity));
-        return created("The product has been created");
+        if (seller != null) {
+            if(seller.getStatusUser() == 1) {
+                Product product = new Product(null, Integer.parseInt(id),name, description, Float.parseFloat(price), Integer.parseInt(quantity));
+                return created("The product has been created");
 
+            }
+
+        }
+        return notFound("The person is not a seller");
     }
 
-    /** Get All Products
+
+        /** Get All Products
      *
      * @return IF there isn't any Product, return "Product Not Found"
      * else return the list of Products
@@ -109,25 +110,19 @@ public class ProductController extends Controller {
     }
 
 
-
-
-
     /**
      * DELETE a Product in the database with his ID
      * @param id The id of a Product
      * @return If Product doesn't exist in the dababase, return "Product Not Found"
      * Else return <b>200 Ok</b>
      */
-
-    /*
     public Result deleteProduct(Long id) {
         if(Product.find.byId(id) == null) {
             return notFound("Product not found.");
-        }
-        else {
+        }else{
             Product.find.deleteById(id);
-            return ok("The person has been deleted");
+            return ok("The Product has been deleted");
         }
-    }*/
+    }
 
 }
