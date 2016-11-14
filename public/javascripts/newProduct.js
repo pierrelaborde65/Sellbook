@@ -1,5 +1,4 @@
-moduleSellbook.controller('newProduct',
-    function($scope, $http, $window, $cookies, $cookieStore) {
+moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookies, $cookieStore) {
 
 
         // Check if the person is already connected or not and redirect or not
