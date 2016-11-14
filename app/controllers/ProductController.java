@@ -45,7 +45,6 @@ public class ProductController extends Controller {
      * @return add a Product in JSon file and redirect on the page "newProduct"
      */
     public Result addProduct() {
-        System.out.println("ENTER DANS ADD PROD");
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String name = values.get("nameProduct")[0];
         String description = values.get("descriptionProduct")[0];
@@ -102,12 +101,10 @@ public class ProductController extends Controller {
      *
      */
     public Result getMyProducts(Long id) {
-        System.out.println("IIIIIIIDDDDDDD");
-        System.out.println(id);
-        if (Product.find.where().like("idSeller", "%" + id + "%") == null) {
+        if (Product.find.where().like("idSeller", id.toString()) == null) {
             return notFound("No Product.");
         } else {
-            return ok(Json.toJson(Product.find.where().like("idSeller", "%" + id + "%").findList()));
+            return ok(Json.toJson(Product.find.where().like("idSeller", id.toString()).findList()));
         }
     }
 

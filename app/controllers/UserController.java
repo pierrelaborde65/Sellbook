@@ -48,9 +48,9 @@ public class UserController extends Controller {
 
     public static String getStatusUserText() {
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
-            int id = Integer.parseInt(request().cookies().get("id").value());
+            String id = request().cookies().get("id").value();
             String token = request().cookies().get("token").value();
-            User user = User.find.where().like("id", "%" + id + "%").like("token", "%" + token + "%").findUnique();
+            User user = User.find.where().like("id", id).like("token", token).findUnique();
             if (user != null) {
                 if (user.getStatusUser() == 0)
                     return "SU";
@@ -78,7 +78,7 @@ public class UserController extends Controller {
         String email = form.get("email")[0];
         String password = form.get("password")[0];
         // Search and take users in the database with this email ( maximum 1 because email is unique in the DB)
-        List<User> users = User.find.where().like("email", "%"+email+"%").findList();
+        List<User> users = User.find.where().like("email", email).findList();
         if(users.size() == 0) {
             return notFound("email or password incorrect");
         }
@@ -108,8 +108,7 @@ public class UserController extends Controller {
      * Else return 404 Not Found<
      */
     public Result isConnected(int id, String token) {
-        User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
-//        System.out.println("isConnected(id, token) FROM PersonController.java -- isExist="+isExist);
+        User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
         if(user != null) {
             return ok(Json.toJson(user));
         }else {
@@ -129,7 +128,7 @@ public class UserController extends Controller {
         String token = values.get("token")[0];
         System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
-        User user = User.find.where().like("id", "%"+id+"%").like("token", "%"+token+"%").findUnique();
+        User user = User.find.where().like("id", id).like("token", token).findUnique();
         if(user != null) {
             response().discardCookie("token");
             response().discardCookie("id");
@@ -152,7 +151,7 @@ public class UserController extends Controller {
         int status = 0;
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         // check if email is not already used
-        User user2 = User.find.where().like("email", "%"+email+"%").findUnique();
+        User user2 = User.find.where().like("email", email).findUnique();
         if (user2 != null)
             return notFound("Email already used");
         else {
@@ -177,7 +176,7 @@ public class UserController extends Controller {
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         int status = 1;
         // check if email not already used
-        User userTest = User.find.where().like("email", "%"+email+"%").findUnique();
+        User userTest = User.find.where().like("email", email).findUnique();
         if (userTest != null)
             return notFound("Email already used");
         else {
