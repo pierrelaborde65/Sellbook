@@ -48,14 +48,20 @@
         <div id="wrapper">
             <nav id="nav">
                 <div class="innertube">
+
                     <!--POUR USER--!>
+
+                    <ul>
+                        <h3>Welcome</h3>
+                        <li><a href="/">Home</a></li>
+                    @if(status != "None"){
+                        <li><a href="/user/allProducts">All Products</a></li>
+                    }
                     @if(status == "SU"){
                         <h3>User</h3>
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/user/allProducts">All Products</a></li>
-                        </ul>
+                            <li><a href="">Link User</a></li>
                     }
+                    </ul>
 
                     <!--POUR SELLER--!>
                     @if(status == "SC"){
