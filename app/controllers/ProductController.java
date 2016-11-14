@@ -97,6 +97,24 @@ public class ProductController extends Controller {
         }
     }
 
+
+    /**
+     *
+     */
+    public Result getMyProducts(Long id) {
+        System.out.println("IIIIIIIDDDDDDD");
+        System.out.println(id);
+        if (Product.find.where().like("idSeller", "%" + id + "%") == null) {
+            return notFound("No Product.");
+        } else {
+            return ok(Json.toJson(Product.find.where().like("idSeller", "%" + id + "%").findList()));
+        }
+    }
+
+
+
+
+
     /**
      * DELETE a Product in the database with his ID
      * @param id The id of a Product

@@ -20,6 +20,8 @@ GET    /user/allProducts             controllers.ProductController.userAllProduc
 
 GET     /products                    controllers.ProductController.getProducts()
 
+GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
+
 # Get a user by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)
 
