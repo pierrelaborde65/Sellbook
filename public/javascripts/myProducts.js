@@ -23,15 +23,16 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     }
 
     //Get all the product to fill the table for update the product
-    $scope.getAllProducts = function() {
-        console.log("AllProducts");
+    $scope.getMyProducts = function() {
+        console.log("MyProducts");
         var rqt = {
                 method: 'GET',
-                url : '/products',
+                url : '/seller/' + id_person +'/products',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.allProducts = data;
+            console.log(data);
+            $scope.myProducts = data;
         });
     };
 

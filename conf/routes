@@ -11,12 +11,16 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET    /newProduct                   controllers.ProductController.newProduct()
 
+GET    /seller/myProducts             controllers.ProductController.myProductSeller()
+
 POST   /newProduct                   controllers.ProductController.addProduct()
 
 # Get all Product
 GET    /user/allProducts             controllers.ProductController.userAllProducts()
 
 GET     /products                    controllers.ProductController.getProducts()
+
+GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
 
 # Get a user by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)

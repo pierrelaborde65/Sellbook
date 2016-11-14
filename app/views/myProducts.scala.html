@@ -9,9 +9,9 @@
 }
 
 @main("All Products", scripts, message) {
-<div ng-controller="myProducts" class="allProducts" ng-init="getAllProducts()">
-    <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
-        <table st-table="TableAllProducts" st-safe-src="allProducts" class="table table-striped">
+<div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
+    <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
+        <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
             <thead>
             <tr>
                 <th st-sort="name">Name</th>
@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="product in allProducts">
+            <tr ng-repeat="product in myProducts">
                 <td>{{product.nameProduct}}</td>
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>

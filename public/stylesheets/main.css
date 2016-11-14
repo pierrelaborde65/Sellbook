@@ -17,15 +17,15 @@
 			}
 
 			main {
-				padding-bottom: 10010px;
-				margin-bottom: -10000px;
+				/*padding-bottom: 10010px;
+				margin-bottom: -10000px;*/
 				float: left;
 				/*width: 100%;*/
 				display: inline-block;
 			}
 
 			#nav {
-				padding-bottom: 400px;
+				padding-bottom: 800px;
 				/*margin-bottom: -10000px;*/
 				float: left;
 				width: 230px;

@@ -31,6 +31,12 @@ public class ProductController extends Controller {
         return ok(allProducts.render(UserController.getStatusUserText()));
     }
 
+
+    public Result myProductSeller() {
+        return ok(myProducts.render(UserController.getStatusUserText()));
+    }
+
+
     @Inject
     FormFactory formFactory;
 
@@ -90,6 +96,24 @@ public class ProductController extends Controller {
             return ok(Json.toJson(Product.find.byId(id)));
         }
     }
+
+
+    /**
+     *
+     */
+    public Result getMyProducts(Long id) {
+        System.out.println("IIIIIIIDDDDDDD");
+        System.out.println(id);
+        if (Product.find.where().like("idSeller", "%" + id + "%") == null) {
+            return notFound("No Product.");
+        } else {
+            return ok(Json.toJson(Product.find.where().like("idSeller", "%" + id + "%").findList()));
+        }
+    }
+
+
+
+
 
     /**
      * DELETE a Product in the database with his ID

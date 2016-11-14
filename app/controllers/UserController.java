@@ -47,9 +47,7 @@ public class UserController extends Controller {
 
 
     public static String getStatusUserText() {
-        System.out.println("AVANT");
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
-            System.out.println("Après");
             int id = Integer.parseInt(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
             User user = User.find.where().like("id", "%" + id + "%").like("token", "%" + token + "%").findUnique();
@@ -79,8 +77,6 @@ public class UserController extends Controller {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String email = form.get("email")[0];
         String password = form.get("password")[0];
-        System.out.println(email);
-        System.out.println(password);
         // Search and take users in the database with this email ( maximum 1 because email is unique in the DB)
         List<User> users = User.find.where().like("email", "%"+email+"%").findList();
         if(users.size() == 0) {

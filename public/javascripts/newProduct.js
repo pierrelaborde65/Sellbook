@@ -16,7 +16,7 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
             };
             $http(rqt).success(function(data){
                 // If the person is a SC ok else redirect /
-                if(data["statusUser"] != 2 || data["statusUser"] != 1) {
+                if(data["statusUser"] != 1) {
                     $window.location.href = '/';
                 }
             });
