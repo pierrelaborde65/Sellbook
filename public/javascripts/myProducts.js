@@ -12,15 +12,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
 
     $scope.product;
 
-    // Hide the error and success message on the page
-    $scope.hideErrorOrSuccessMessage = function() {
-        if($scope.hideError == false) {
-            $scope.hideError = true;
-        }
-        if($scope.hideSuccess == false) {
-            $scope.hideSuccess = true;
-        }
-    }
 
     //Get all the product to fill the table for update the product
     $scope.getMyProducts = function() {
@@ -31,7 +22,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            console.log(data);
             $scope.myProducts = data;
         });
     };
@@ -44,6 +34,21 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         $scope.hideErrorOrSuccessMessage();
         $scope.getAllProducts();
     };
+
+    // Delete the product
+    $scope.deleteProduct = function(product) {
+        var rqt = {
+                method : 'DELETE',
+                url : '/products/' + product.idProduct,
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            $scope.getMyProducts();
+            $scope.hideSuccess = false;
+            $scope.titleSuccess = data;
+        });
+    }
+
 
 /*
    // Get all seller who will fill the combo

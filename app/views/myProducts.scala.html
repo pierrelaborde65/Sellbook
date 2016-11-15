@@ -8,19 +8,21 @@
 <script src="@routes.Assets.versioned("javascripts/myProducts.js")" type="text/javascript"></script>
 }
 
-@main("All Products", scripts, message) {
+@main("My Products", scripts, message) {
 <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
         <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
             <thead>
             <tr>
+                <th colspan="5"><input st-search="" class="form-control" placeholder="Search in the table" type="text"/></th>
+            </tr>
+            <tr>
                 <th st-sort="name">Name</th>
                 <th st-sort="description">description</th>
                 <th st-sort="price">price</th>
                 <th st-sort="quantity">quantity</th>
-            </tr>
-            <tr>
-                <th colspan="5"><input st-search="" class="form-control" placeholder="Search in the table" type="text"/></th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +31,10 @@
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>
                 <td>{{product.quantityStock}}</td>
+                <td> <button type="button" ng-click="UpdateFormProduct(product)" class="btn btn-default">Update</button> </td>
+                <td> <button type="button" ng-click="deleteProduct(product)" class="btn btn-sm btn-danger">
+                    <i class="glyphicon glyphicon-remove-circle">
+                    </i>
             </tr>
             </tbody>
             <tfoot>

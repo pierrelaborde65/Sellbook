@@ -25,6 +25,7 @@ GET     /seller/:id/products         controllers.ProductController.getMyProducts
 # Get a user by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)
 
+DELETE  /products/:id                controllers.ProductController.deleteProduct(id : Long)
 
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
 GET     /                         controllers.UserController.index
