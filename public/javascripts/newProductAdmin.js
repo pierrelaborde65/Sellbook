@@ -39,6 +39,7 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
             });
         };
 
+        // Get all sellers in the database
         $scope.getAllSellers = function() {
                 console.log("AllSellers");
                 var rqt = {
@@ -49,7 +50,7 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
                 $http(rqt).success(function(data){
                     $scope.allSellers = data;
                 });
-            };
+        };
 
 
     });

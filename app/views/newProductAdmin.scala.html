@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="control-label">Seller *</label>
                     <div>
-                    <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'titre' " id="sellerProduct" required>
+                    <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'name' " id="sellerProduct" required>
                         <option value="">Select a seller</option>
                    </select>
                     </div>

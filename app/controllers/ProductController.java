@@ -8,6 +8,8 @@ import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -136,6 +138,24 @@ public class ProductController extends Controller {
             return notFound("No Product.");
         } else {
             return ok(Json.toJson(Product.find.where().like("idSeller", id.toString()).findList()));
+        }
+    }
+
+    /**
+     *
+     */
+    public Result searchProduct() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String idSeller = values.get("idSeller")[0];
+        String nameProduct = values.get("nameProduct")[0];
+        if (idSeller == null && nameProduct == null) {
+            return ok(Json.toJson(Product.find.all()));
+        } else  if (idSeller != null && nameProduct == null){
+            return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).findList()));
+        } else  if (idSeller == null && nameProduct != null){
+            return ok(Json.toJson(Product.find.where().like("nameProduct", "%"+nameProduct+"%").findList()));
+        } else {
+            return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).like("nameProduct", "%"+nameProduct+"%").findList()));
         }
     }
 

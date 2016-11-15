@@ -9,8 +9,21 @@
 }
 
 @main("All Products", scripts, message) {
-<div ng-controller="allProducts" class="allProducts" ng-init="getAllProducts()">
+<div ng-controller="allProducts" class="allProducts" ng-init="getAllProducts();getAllSellers()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+        <form name="searchProductForm" ng-submit="searchProduct(sellerProduct.id, nameProduct)">
+            <div class="form-group">
+                <div>
+                <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'name' " id="sellerProduct">
+                    <option value="">All sellers</option>
+               </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="nameProduct" placeholder="Search a product by keyword">
+            </div>
+            <button class="btn btn-success">Search</button>
+        </form>
         <table st-table="TableAllProducts" st-safe-src="allProducts" class="table table-striped">
             <thead>
             <tr>
@@ -18,10 +31,9 @@
                 <th st-sort="description">description</th>
                 <th st-sort="price">price</th>
                 <th st-sort="quantity">quantity</th>
+                <th st-sort="quantity">seller</th>
             </tr>
-            <tr>
-                <th colspan="5"><input st-search="" class="form-control" placeholder="Search in the table" type="text"/></th>
-            </tr>
+
             </thead>
             <tbody>
             <tr ng-repeat="product in allProducts">
@@ -29,6 +41,7 @@
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>
                 <td>{{product.quantityStock}}</td>
+                <td>{{product.idSeller}}</td>
             </tr>
             </tbody>
             <tfoot>
