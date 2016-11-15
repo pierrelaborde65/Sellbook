@@ -35,6 +35,9 @@ GET     /user/:id                 controllers.UserController.getUser(id : Long)
 # Get all persons
 GET     /users                    controllers.UserController.getUsers()
 
+# Get all sellers
+GET     /sellers                  controllers.UserController.getSellers()
+
 # Delete a user by his id
 DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long)
 
@@ -48,6 +51,11 @@ POST    /registerSU                 controllers.UserController.registerSU
 
 POST    /registerSC                 controllers.UserController.registerSC
 
+#Routes --------------------------------Admin -----------------------------------------------------------------------------------------
+
+GET    /newProductAdmin             controllers.ProductController.newProductAdmin()
+
+POST   /newProductAdmin             controllers.ProductController.addProductAdmin()
 
 # ----------------------------------------------------------------------------------------------------------
 
