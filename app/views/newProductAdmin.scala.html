@@ -10,13 +10,13 @@
 
 @main("Add Product", scripts, message) {
 
-        <div id="newProductID" ng-controller="newProductAdmin" class="newProduct" ng-init="getAllSellers()>
+        <div id="newProductID" ng-controller="newProductAdmin" class="newProduct" ng-init="getAllSellers()">
             <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
             <form name="newProductForm" ng-submit="newProduct(sellerProduct.id, nameProduct, descriptionProduct, priceSeller, quantityStock)">
                 <div class="form-group">
                     <label class="control-label">Seller *</label>
                     <div>
-                    <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in users | orderBy:'titre' " id="sellerProduct" required>
+                    <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'titre' " id="sellerProduct" required>
                         <option value="">Select a seller</option>
                    </select>
                     </div>

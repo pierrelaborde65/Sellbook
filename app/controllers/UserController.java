@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.enhance.agent.SysoutMessageOutput;
 import com.google.inject.Inject;
 import models.User;
 import play.data.FormFactory;
@@ -39,6 +40,7 @@ public class UserController extends Controller {
     }
 
     public Result getSellers() {
+        System.out.print(Json.toJson(User.find.where().like("statusUser", "1").findList()));
         return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
     }
 
