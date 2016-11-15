@@ -27,6 +27,14 @@ public class ProductController extends Controller {
      *
      * @return
      */
+    public Result newProductAdmin() {
+        return ok(newProductAdmin.render(UserController.getStatusUserText()));
+    }
+
+    /**
+     *
+     * @return
+     */
     public Result userAllProducts() {
         return ok(allProducts.render(UserController.getStatusUserText()));
     }
@@ -65,6 +73,29 @@ public class ProductController extends Controller {
         }
         else {*/
         Product product = new Product(null, Integer.parseInt(id),name, description, Float.parseFloat(price), Integer.parseInt(quantity));
+        return created("The product has been created");
+
+    }
+
+    /** add a Product by an admin
+     *
+     * @return add a Product in JSon file and redirect on the page "newProductAdmin"
+     */
+    public Result addProductAdmin() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String idSeller = values.get("idSeller")[0];
+        String name = values.get("nameProduct")[0];
+        String description = values.get("descriptionProduct")[0];
+        String price = values.get("priceSeller")[0];
+        String quantity = values.get("quantityStock")[0];
+
+/*
+        User seller = User.find.byId(Long.valueOf(id));
+        if(seller.getStatusUser() != 2) {
+            return notFound("The person is not a seller");
+        }
+        else {*/
+        Product product = new Product(null, Integer.parseInt(idSeller),name, description, Float.parseFloat(price), Integer.parseInt(quantity));
         return created("The product has been created");
 
     }
