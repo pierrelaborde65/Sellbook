@@ -49,7 +49,13 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     };
 
     // When the user want to connect, if it success redirect to the right home, else display error message
-    $scope.searchProduct = function(idSeller, nameProduct) {
+    $scope.searchProduct = function(seller, nameProduct) {
+        var idSeller;
+        if (seller == null){
+            idSeller = 0;
+        } else {
+            idSeller = seller.id;
+        }
         var rqt = {
                 method : 'POST',
                 url : '/searchProduct',

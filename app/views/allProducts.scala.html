@@ -11,7 +11,7 @@
 @main("All Products", scripts, message) {
 <div ng-controller="allProducts" class="allProducts" ng-init="getAllProducts();getAllSellers()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
-        <form name="searchProductForm" ng-submit="searchProduct(sellerProduct.id, nameProduct)">
+        <form name="searchProductForm" ng-submit="searchProduct(sellerProduct, nameProduct)">
             <div class="form-group">
                 <div>
                 <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'name' " id="sellerProduct">
