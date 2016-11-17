@@ -21,6 +21,9 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
                 }
             });
         }
+        else {
+            $window.location.href = '/';
+        }
     //----------------------------------------------------------------------------------------------------------
         // Show or not the error message depending on the return from the application
         $scope.hideSuccess = true;

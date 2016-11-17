@@ -20,6 +20,9 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
                 }
             });
     }
+    else {
+        $window.location.href = '/';
+    }
 
 
 

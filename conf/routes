@@ -46,7 +46,7 @@ DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long
 
 POST    /login                      controllers.UserController.login
 
-GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Int, token: String)
+GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Long, token: String)
 
 POST    /logout                     controllers.UserController.logout
 

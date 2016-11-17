@@ -134,7 +134,11 @@ public class UserController extends Controller {
      */
     public Result isConnected(Long id, String token) {
         //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
+        System.out.println("ID USER : "+id);
+        System.out.println("TOKEN USER : "+token);
         User user = User.find.byId(id);
+        System.out.println("USER : "+user);
+        System.out.println("USER TOKEN: "+user.getToken());
         if(user.getToken().equals(token)) {
             return ok(Json.toJson(user));
         }else {
