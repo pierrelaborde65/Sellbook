@@ -68,10 +68,11 @@ public class UserController extends Controller {
 
     public static String getStatusUserText() {
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
-            String id = request().cookies().get("id").value();
+            Long id = Long.valueOf(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
-            User user = User.find.where().like("id", id).like("token", token).findUnique();
-            if (user != null) {
+            //User user = User.find.where().like("id", id).like("token", token).findUnique();
+            User user = User.find.byId(id);
+            if (user.getToken().equals(token)) {
                 if (user.getStatusUser() == 0)
                     return "SU";
                 if (user.getStatusUser() == 1)
@@ -127,9 +128,10 @@ public class UserController extends Controller {
      * @return If the user has a valid session, return <b>200 Ok</b> <br/>
      * Else return 404 Not Found<
      */
-    public Result isConnected(int id, String token) {
-        User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
-        if(user != null) {
+    public Result isConnected(Long id, String token) {
+        //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
+        User user = User.find.byId(id);
+        if(user.getToken().equals(token)) {
             return ok(Json.toJson(user));
         }else {
             return notFound("Your connection is expired or invalid. Please log in again");
@@ -144,12 +146,13 @@ public class UserController extends Controller {
     public Result logout() {
         // Get attribute from the form
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String id = values.get("id")[0];
+        Long id = Long.valueOf(values.get("id")[0]);
         String token = values.get("token")[0];
         System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
-        User user = User.find.where().like("id", id).like("token", token).findUnique();
-        if(user != null) {
+        //User user = User.find.where().like("id", id).like("token", token).findUnique();
+        User user = User.find.byId(id);
+        if(user.getToken().equals(token)) {
             response().discardCookie("token");
             response().discardCookie("id");
             return ok();
