@@ -35,6 +35,40 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     };
 
+    // Get all sellers in the database
+    $scope.getAllSellers = function() {
+                    console.log("AllSellers");
+                    var rqt = {
+                            method: 'GET',
+                            url : '/sellers',
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        $scope.allSellers = data;
+                    });
+    };
+
+    // When the user want to connect, if it success redirect to the right home, else display error message
+    $scope.searchProduct = function(seller, nameProduct) {
+        var idSeller;
+        if (seller == null){
+            idSeller = 0;
+        } else {
+            idSeller = seller.id;
+        }
+        var rqt = {
+                method : 'POST',
+                url : '/searchProduct',
+                data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            $scope.allProducts = data;
+            console.log(data);
+        });
+    };
+
+
 
     // Hide the different choice and show the table with the product in the database
     $scope.showUpdateTable = function() {

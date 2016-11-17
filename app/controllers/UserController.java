@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.enhance.agent.SysoutMessageOutput;
 import com.google.inject.Inject;
 import models.User;
 import play.data.FormFactory;
@@ -26,6 +27,8 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
+        //User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, 2, null);
+        //user.save();
         return ok(index.render(getStatusUserText()));
     }
 
@@ -35,6 +38,12 @@ public class UserController extends Controller {
     public Result getUsers() {
         return ok(Json.toJson(User.find.all()));
     }
+
+    public Result getSellers() {
+        System.out.print(Json.toJson(User.find.where().like("statusUser", "1").findList()));
+        return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
+    }
+
 
     public Result getUser(Long id) {
         if(User.find.byId(id) == null) {

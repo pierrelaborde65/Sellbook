@@ -15,6 +15,8 @@ GET    /seller/myProducts             controllers.ProductController.myProductSel
 
 POST   /newProduct                   controllers.ProductController.addProduct()
 
+POST   /searchProduct                controllers.ProductController.searchProduct()
+
 # Get all Product
 GET    /user/allProducts             controllers.ProductController.userAllProducts()
 
@@ -36,6 +38,9 @@ GET     /user/:id                 controllers.UserController.getUser(id : Long)
 # Get all persons
 GET     /users                    controllers.UserController.getUsers()
 
+# Get all sellers
+GET     /sellers                  controllers.UserController.getSellers()
+
 # Delete a user by his id
 DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long)
 
@@ -49,6 +54,11 @@ POST    /registerSU                 controllers.UserController.registerSU
 
 POST    /registerSC                 controllers.UserController.registerSC
 
+#Routes --------------------------------Admin -----------------------------------------------------------------------------------------
+
+GET    /newProductAdmin             controllers.ProductController.newProductAdmin()
+
+POST   /newProductAdmin             controllers.ProductController.addProductAdmin()
 
 # ----------------------------------------------------------------------------------------------------------
 
