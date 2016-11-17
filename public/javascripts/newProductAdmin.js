@@ -15,7 +15,7 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).success(function(data){
-                // If the person is a SC ok else redirect /
+                // If the person is a Admin ok else redirect /
                 if(data["statusUser"] != 2) {
                     $window.location.href = '/';
                 }
