@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by Pierre on 07/11/2016.
  */
 @Entity
+@Table(name = "User_Sellbook")
 public class User extends com.avaje.ebean.Model {
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(User.class);
