@@ -1,8 +1,28 @@
 moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("myProducts");
-    // Test if the person can stay on the page
-    var id_person = $cookies.get('id');
-    var token_person = $cookies.get('token');
+
+
+    // Test if the User can stay on the page
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
+
+
+           //--------------------- Check SELLER ----------------------------------------------------
+    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+            var rqt = {
+                method : 'GET',
+                url : '/isConnected/' + idUser + '/' + tokenUser,
+                data : $.param({id: idUser, token: tokenUser}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
+            $http(rqt).success(function(data){
+                // If the USER is a SC ok else redirect /
+                if(data["statusUser"] != 1) {
+                    $window.location.href = '/';
+                }
+            });
+    }
+
 
 
     // Hide the error message at the beginning
@@ -10,29 +30,20 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     // Hide the success message at the beginning
     $scope.hideSuccess = true;
 
-    $scope.product;
+    $scope.isShowUpdateFormProduct = false;
 
 
-    //Get all the product to fill the table for update the product
+    //Get seller's products
     $scope.getMyProducts = function() {
         console.log("MyProducts");
         var rqt = {
                 method: 'GET',
-                url : '/seller/' + id_person +'/products',
+                url : '/seller/' + idUser +'/products',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
             $scope.myProducts = data;
         });
-    };
-
-
-    // Hide the different choice and show the table with the product in the database
-    $scope.showUpdateTable = function() {
-        $scope.isChoiceShow = false;
-        $scope.isTableShow = true;
-        $scope.hideErrorOrSuccessMessage();
-        $scope.getAllProducts();
     };
 
     // Delete the product
@@ -49,26 +60,42 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         });
     }
 
+    //Update ---------------------------------------------------------------------------------
+
+    //Show update Form
+    $scope.ShowUpdateFormProduct = function(product) {
+        console.log("updateform");
+        $scope.isShowUpdateFormProduct = true;
+        $scope.product = product;
+        $scope.nameUpdate = product["name"];
+        $scope.descriptionUpdate = product["description"];
+        $scope.priceUpdate = product["price"];
+        $scope.quantityUpdate = product["quantity"];
+    }
+
+
+
 
 /*
-   // Get all seller who will fill the combo
-   $scope.getAllSeller = function() {
-       var rqt = {
-           method: 'GET',
-           url : '/persons/seller',
-           headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-       };
-       $http(rqt).success(function(data){
-           $scope.allSeller = data;
-       });
-   }
+    $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
+        var rqt = {
+            method : 'PUT',
+            url : '/product/' + $scope.product["id"],
+            data : $.param({newName: nameToUpdate, newDescription: descriptionToUpdate, newPrice: priceToUpdate, newQuantity: quantityToUpdate}),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            $scope.getAllProductForSeller();
+            $scope.isFormUpdateShow = false;
+            $scope.hideSuccess = false;
+            $scope.titleSuccess = "The product has been updated";
+        });
+    }*/
 
-   // When the user select a company, we retrieve the company and get all products from his company
-   $scope.hasChanged = function(seller) {
-       if(seller.name != null) {
-           id_seller = seller.name.id;
-       }
-   }
-*/
+
+
+    $scope.cancelFormUpdate = function() {
+        $scope.isShowUpdateFormProduct = false;
+    }
 
 });

@@ -9,6 +9,38 @@
 }
 
 @main("My Products", scripts, message) {
+
+
+        <div class="FormUpdateProduct" ng-show="isShowUpdateFormProduct">
+            <form name="updateForm" ng-submit="updateProduct(nameUpdate, descriptionUpdate, priceUpdate, quantityUpdate)">
+               <table>
+                   <thead>
+                        <tr>
+                            <th st-sort="name">Name</th>
+                            <th st-sort="description">description</th>
+                            <th st-sort="price">price</th>
+                            <th st-sort="quantity">quantity</th>
+                            <th>Update</th>
+                            <th>Cancel</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                        <td><input type="text" class="form-control" ng-model="nameUpdate" placeholder="Name"></td>
+                        <td><input type="text" class="form-control" ng-model="descriptionUpdate" placeholder="Description"></td>
+                        <td><input type="number" step="0.001" class="form-control" ng-model="priceToUpdate" placeholder="Price"></td>
+                        <td><input type="number" step="1" class="form-control" ng-model="quantityUpdate" placeholder="Quantity" required></td>
+                        <td><button class="btn btn-success">Update</button></td><!--attention ng-submit--!>
+                        <td><button class="btn btn-danger" ng-click="cancelFormUpdate()">Cancel</button></td>
+                    </tbody>
+                </table>
+                <hr size=4   width=80% color=#FFFFFF>
+            </form>
+        </div>
+
+
+
+
+
 <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
         <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
@@ -18,9 +50,9 @@
             </tr>
             <tr>
                 <th st-sort="name">Name</th>
-                <th st-sort="description">description</th>
-                <th st-sort="price">price</th>
-                <th st-sort="quantity">quantity</th>
+                <th st-sort="description">Description</th>
+                <th st-sort="price">Price</th>
+                <th st-sort="quantity">Quantity</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -31,7 +63,7 @@
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>
                 <td>{{product.quantityStock}}</td>
-                <td> <button type="button" ng-click="UpdateFormProduct(product)" class="btn btn-default">Update</button> </td>
+                <td> <button type="button" ng-click="ShowUpdateFormProduct(product)" class="btn btn-default">Update</button> </td>
                 <td> <button type="button" ng-click="deleteProduct(product)" class="btn btn-sm btn-danger">
                     <i class="glyphicon glyphicon-remove-circle">
                     </i>
