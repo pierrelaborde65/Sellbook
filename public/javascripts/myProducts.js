@@ -1,8 +1,8 @@
 moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("myProducts");
     // Test if the person can stay on the page
-    var id_person = $cookies.get('id');
-    var token_person = $cookies.get('token');
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
 
 
     // Hide the error message at the beginning
@@ -18,11 +18,25 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         console.log("MyProducts");
         var rqt = {
                 method: 'GET',
-                url : '/seller/' + id_person +'/products',
+                url : '/seller/' + idUser +'/products',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
             $scope.myProducts = data;
+        });
+    };
+
+     // When a user uses keywords to search a product
+    $scope.searchProduct = function(nameProduct) {
+        var rqt = {
+                method : 'POST',
+                url : '/searchProduct',
+                data : $.param({idSeller: idUser, nameProduct: nameProduct}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            $scope.myProducts = data;
+            console.log(data);
         });
     };
 

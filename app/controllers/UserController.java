@@ -32,6 +32,10 @@ public class UserController extends Controller {
         return ok(index.render(getStatusUserText()));
     }
 
+    public Result newSU() {
+        return ok(newSU.render(getStatusUserText()));
+    }
+
     @Inject
     FormFactory formFactory;
 

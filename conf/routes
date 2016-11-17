@@ -24,7 +24,7 @@ GET     /products                    controllers.ProductController.getProducts()
 
 GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
 
-# Get a user by his id
+# Get a product by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)
 
 DELETE  /products/:id                controllers.ProductController.deleteProduct(id : Long)
@@ -49,6 +49,8 @@ POST    /login                      controllers.UserController.login
 GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Int, token: String)
 
 POST    /logout                     controllers.UserController.logout
+
+GET     /newSU                      controllers.UserController.newSU
 
 POST    /registerSU                 controllers.UserController.registerSU
 

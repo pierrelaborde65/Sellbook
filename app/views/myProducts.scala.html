@@ -11,11 +11,14 @@
 @main("My Products", scripts, message) {
 <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
+        <form name="searchProductForm" ng-submit="searchProduct(nameProduct)">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="nameProduct" placeholder="Search a product by keyword">
+            </div>
+            <button class="btn btn-success">Search</button>
+        </form>
         <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
             <thead>
-            <tr>
-                <th colspan="5"><input st-search="" class="form-control" placeholder="Search in the table" type="text"/></th>
-            </tr>
             <tr>
                 <th st-sort="name">Name</th>
                 <th st-sort="description">description</th>
