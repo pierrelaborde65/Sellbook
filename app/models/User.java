@@ -24,14 +24,14 @@ public class User extends com.avaje.ebean.Model {
     String password;
     String siret;
     String descriptionSeller;
-    int statusUser;
+    String statusUser;
     String token;
 
     // Constructors
     public User() {
     }
 
-    public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, int statusUser, String token) {
+    public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, String statusUser, String token) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -152,11 +152,11 @@ public class User extends com.avaje.ebean.Model {
         this.descriptionSeller = descriptionSeller;
     }
 
-    public int getStatusUser() {
+    public String getStatusUser() {
         return statusUser;
     }
 
-    public void setStatusUser(int statusUser) {
+    public void setStatusUser(String statusUser) {
         this.statusUser = statusUser;
     }
 
