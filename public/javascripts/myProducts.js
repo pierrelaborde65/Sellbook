@@ -68,17 +68,19 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     };
 
     // Delete the product
-    $scope.deleteProduct = function(product) {
-        var rqt = {
-                method : 'DELETE',
-                url : '/products/' + product.idProduct,
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-        };
-        $http(rqt).success(function(data){
-            $scope.getMyProducts();
-            $scope.hideSuccess = false;
-            $scope.titleSuccess = data;
-        });
+    $scope.confirmDelete = function(product) {
+        if (confirm("Do you really want to delete this product ?")){
+            var rqt = {
+                            method : 'DELETE',
+                            url : '/products/' + product.idProduct,
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        $scope.getMyProducts();
+                        $scope.hideSuccess = false;
+                        $scope.titleSuccess = data;
+                    });
+        }
     }
 
     //Update ---------------------------------------------------------------------------------

@@ -10,7 +10,7 @@
 
 @main("My Products", scripts, message) {
 
-
+    <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
         <div class="FormUpdateProduct" ng-show="isShowUpdateFormProduct">
             <form name="updateForm" ng-submit="updateProduct(nameUpdate, descriptionUpdate, priceUpdate, quantityUpdate)">
                <table>
@@ -41,7 +41,6 @@
 
 
 
-<div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
         <form name="searchProductForm" ng-submit="searchProduct(nameProduct)">
             <div class="form-group">
@@ -66,10 +65,9 @@
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>
                 <td>{{product.quantityStock}}</td>
-                <td> <button type="button" ng-click="ShowUpdateFormProduct(product)" class="btn btn-default">Update</button> </td>
-                <td> <button type="button" ng-click="deleteProduct(product)" class="btn btn-sm btn-danger">
-                    <i class="glyphicon glyphicon-remove-circle">
-                    </i>
+                <td> <button type="button" ng-click="ShowUpdateFormProduct(product)" class="btn">Update</button> </td>
+                <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+
             </tr>
             </tbody>
             <tfoot>
