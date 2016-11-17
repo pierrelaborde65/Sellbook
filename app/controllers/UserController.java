@@ -36,6 +36,10 @@ public class UserController extends Controller {
         return ok(newSU.render(getStatusUserText()));
     }
 
+    public Result allSU() {
+        return ok(allSU.render(getStatusUserText()));
+    }
+
     @Inject
     FormFactory formFactory;
 
@@ -44,8 +48,11 @@ public class UserController extends Controller {
     }
 
     public Result getSellers() {
-        System.out.print(Json.toJson(User.find.where().like("statusUser", "1").findList()));
         return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
+    }
+
+    public Result getSimpleUsers() {
+        return ok(Json.toJson(User.find.where().like("statusUser", "0").findList()));
     }
 
 
@@ -196,6 +203,19 @@ public class UserController extends Controller {
             User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null);
             user.save();
             return created();
+        }
+    }
+
+    /**
+     *
+     */
+    public Result searchSU() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String nameSU = values.get("nameSU")[0];
+        if (nameSU == null){
+            return ok(Json.toJson(User.find.where().like("statusUser", "0").findList()));
+        } else {
+            return ok(Json.toJson(User.find.where().like("statusUser", "0").like("name", "%"+nameSU+"%").findList()));
         }
     }
 

@@ -57,6 +57,9 @@
                     @if(status != "None"){
                         <li><a href="/user/allProducts">All Products</a></li>
                     }
+                    @if(status == "Admin"){
+                        <li><a href="/allSU">All Simple users</a></li>
+                    }
                     @if(status == "SU"){
                         <h3>User</h3>
                             <li><a href="">Link User</a></li>

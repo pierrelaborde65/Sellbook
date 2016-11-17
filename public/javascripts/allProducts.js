@@ -1,8 +1,8 @@
 moduleSellbook.controller('allProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("Products");
     // Test if the person can stay on the page
-    var id_person = $cookies.get('id');
-    var token_person = $cookies.get('token');
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
 
 
     // Hide the error message at the beginning

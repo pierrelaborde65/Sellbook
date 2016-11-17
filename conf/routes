@@ -62,6 +62,15 @@ GET    /newProductAdmin             controllers.ProductController.newProductAdmi
 
 POST   /newProductAdmin             controllers.ProductController.addProductAdmin()
 
+GET    /allSU                       controllers.UserController.allSU()
+
+GET    /simpleUsers                 controllers.UserController.getSimpleUsers()
+
+POST   /searchSU                    controllers.UserController.searchSU()
+
+
+
+
 # ----------------------------------------------------------------------------------------------------------
 
 # An example controller showing how to use dependency injection
