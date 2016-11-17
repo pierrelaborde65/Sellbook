@@ -21,6 +21,9 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
                 }
             });
         }
+        else {
+            $window.location.href = '/';
+        }
     //----------------------------------------------------------------------------------------------------------
         // Show or not the error message depending on the return from the application
         $scope.hideSuccess = true;
