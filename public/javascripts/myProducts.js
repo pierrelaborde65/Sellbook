@@ -3,8 +3,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     // Test if the User can stay on the page
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
-
-
            //--------------------- Check SELLER ----------------------------------------------------
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
@@ -20,16 +18,16 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
                 }
             });
     }
-
-
-
     // Hide the error message at the beginning
     $scope.hideError = true;
     // Hide the success message at the beginning
     $scope.hideSuccess = true;
 
-    $scope.isShowUpdateFormProduct = false;
+    $scope.hideID = true;
 
+
+    $scope.showMyProductsInfos = true;
+    $scope.showUpdateProductForm = false;
 
     //Get seller's products
     $scope.getMyProducts = function() {
@@ -43,7 +41,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
             $scope.myProducts = data;
         });
     };
-
      // When a user uses keywords to search a product
     $scope.searchProduct = function(nameProduct) {
         var rqt = {
@@ -56,15 +53,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
             $scope.myProducts = data;
             console.log(data);
         });
-    };
-
-
-    // Hide the different choice and show the table with the product in the database
-    $scope.showUpdateTable = function() {
-        $scope.isChoiceShow = false;
-        $scope.isTableShow = true;
-        $scope.hideErrorOrSuccessMessage();
-        $scope.getAllProducts();
     };
 
     // Delete the product
@@ -83,42 +71,53 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         }
     }
 
-    //Update ---------------------------------------------------------------------------------
 
     //Show update Form
-    $scope.ShowUpdateFormProduct = function(product) {
-        console.log("updateform");
-        $scope.isShowUpdateFormProduct = true;
-        $scope.product = product;
-        $scope.nameUpdate = product["name"];
-        $scope.descriptionUpdate = product["description"];
-        $scope.priceUpdate = product["price"];
-        $scope.quantityUpdate = product["quantity"];
+    $scope.updateProduct = function(product) {
+        var id = product.idProduct;
+        $scope.showMyProductsInfos = false;
+        $scope.showUpdateProductForm = true;
+
+         var rqt = {
+                        method : 'GET',
+                        url : '/products/' + id,
+                        data : $.param({id: id}),
+                        headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                };
+                $http(rqt).success(function(data){
+                    var productGot = data;
+                    console.log(data);
+                    $scope.nameP = productGot.nameProduct;
+                    $scope.descriptionP = productGot.descriptionProduct;
+                    $scope.priceS = productGot.priceSeller;
+                    $scope.quantityS = productGot.quantityStock;
+                    $scope.idP = productGot.idProduct;
+         });
+
+
     }
 
-
-
-
-/*
-    $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
+    $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
+        console.log(nameProduct);
+        console.log(descriptionProduct);
+        console.log(idProduct);
         var rqt = {
-            method : 'PUT',
-            url : '/product/' + $scope.product["id"],
-            data : $.param({newName: nameToUpdate, newDescription: descriptionToUpdate, newPrice: priceToUpdate, newQuantity: quantityToUpdate}),
+            method : 'POST',
+            url : '/updateProduct',
+            data : $.param({idProduct: idProduct, nameProduct: nameProduct, descriptionProduct: descriptionProduct, priceSeller: priceSeller, quantityStock: quantityStock}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.getAllProductForSeller();
-            $scope.isFormUpdateShow = false;
+            $scope.getMyProducts();
+            $scope.showMyProductsInfos = true;
+            $scope.showUpdateProductForm = false;
             $scope.hideSuccess = false;
             $scope.titleSuccess = "The product has been updated";
         });
-    }*/
-
-
-
-    $scope.cancelFormUpdate = function() {
-        $scope.isShowUpdateFormProduct = false;
     }
 
+    $scope.cancelUpdateForm = function() {
+        $scope.showMyProductsInfos = true;
+        $scope.showUpdateProductForm = false;
+        }
 });
