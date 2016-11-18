@@ -147,7 +147,7 @@ public class ProductController extends Controller {
             return ok(Json.toJson(Product.find.where().like("idSeller", id.toString()).findList()));
         }
     }
- 
+
     /**
      * SEARCH PRODUCT - ALL
      * @return 200 - Product

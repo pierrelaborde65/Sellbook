@@ -258,7 +258,7 @@ public class UserController extends Controller {
             return created();
         }
     }
-
+ 
 
     /**
      * SELLER REGISTRATION
