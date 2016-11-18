@@ -1,8 +1,8 @@
 moduleSellbook.controller('allProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("Products");
     // Test if the person can stay on the page
-    var id_person = $cookies.get('id');
-    var token_person = $cookies.get('token');
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
 
 
     // Hide the error message at the beginning
@@ -10,19 +10,12 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     // Hide the success message at the beginning
     $scope.hideSuccess = true;
 
-    $scope.product;
+    $scope.hideID = true;
 
-    // Hide the error and success message on the page
-    $scope.hideErrorOrSuccessMessage = function() {
-        if($scope.hideError == false) {
-            $scope.hideError = true;
-        }
-        if($scope.hideSuccess == false) {
-            $scope.hideSuccess = true;
-        }
-    }
+    $scope.showAllProductsInfos = true;
+    $scope.showUpdateProductForm = false;
 
-    //Get all the product to fill the table for update the product
+    //Get all the products in the database
     $scope.getAllProducts = function() {
         console.log("AllProducts");
         var rqt = {
@@ -48,7 +41,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                     });
     };
 
-    // When the user want to connect, if it success redirect to the right home, else display error message
+     // When a user uses keywords to search a product
     $scope.searchProduct = function(seller, nameProduct) {
         var idSeller;
         if (seller == null){
@@ -68,35 +61,72 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     };
 
+    // Delete the product
+    $scope.confirmDelete = function(product) {
+        if (confirm("Do you really want to delete this product ?")){
+            var rqt = {
+                            method : 'DELETE',
+                            url : '/products/' + product.idProduct,
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        $scope.getAllProducts();
+                        $scope.hideSuccess = false;
+                        $scope.titleSuccess = data;
+                    });
+        }
+    }
+
+    //Show update Form
+        $scope.updateProduct = function(product) {
+            var id = product.idProduct;
+            $scope.showAllProductsInfos = false;
+            $scope.showUpdateProductForm = true;
+
+             var rqt = {
+                            method : 'GET',
+                            url : '/products/' + id,
+                            data : $.param({id: id}),
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        var productGot = data;
+                        console.log(data);
+                        $scope.nameP = productGot.nameProduct;
+                        $scope.descriptionP = productGot.descriptionProduct;
+                        $scope.priceS = productGot.priceSeller;
+                        $scope.quantityS = productGot.quantityStock;
+                        $scope.idP = productGot.idProduct;
+             });
 
 
-    // Hide the different choice and show the table with the product in the database
-    $scope.showUpdateTable = function() {
-        $scope.isChoiceShow = false;
-        $scope.isTableShow = true;
-        $scope.hideErrorOrSuccessMessage();
-        $scope.getAllProducts();
-    };
+        }
 
-/*
-   // Get all seller who will fill the combo
-   $scope.getAllSeller = function() {
-       var rqt = {
-           method: 'GET',
-           url : '/persons/seller',
-           headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-       };
-       $http(rqt).success(function(data){
-           $scope.allSeller = data;
-       });
-   }
 
-   // When the user select a company, we retrieve the company and get all products from his company
-   $scope.hasChanged = function(seller) {
-       if(seller.name != null) {
-           id_seller = seller.name.id;
-       }
-   }
-*/
+    $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
+        console.log(nameProduct);
+        console.log(descriptionProduct);
+        console.log(idProduct);
+        var rqt = {
+            method : 'POST',
+            url : '/updateProduct',
+            data : $.param({idProduct: idProduct, nameProduct: nameProduct, descriptionProduct: descriptionProduct, priceSeller: priceSeller, quantityStock: quantityStock}),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            $scope.getAllProducts();
+            $scope.showAllProductsInfos = true;
+            $scope.showUpdateProductForm = false;
+            $scope.hideSuccess = false;
+            $scope.titleSuccess = "The product has been updated";
+        });
+    }
+
+    $scope.cancelUpdateForm = function() {
+        $scope.showAllProductsInfos = true;
+        $scope.showUpdateProductForm = false;
+
+    }
+
 
 });

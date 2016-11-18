@@ -24,10 +24,13 @@ GET     /products                    controllers.ProductController.getProducts()
 
 GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
 
-# Get a user by his id
+# Get a product by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)
 
 DELETE  /products/:id                controllers.ProductController.deleteProduct(id : Long)
+
+POST    /updateProduct               controllers.ProductController.updateProduct()
+
 
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
 GET     /                         controllers.UserController.index
@@ -46,9 +49,11 @@ DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long
 
 POST    /login                      controllers.UserController.login
 
-GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Int, token: String)
+GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Long, token: String)
 
 POST    /logout                     controllers.UserController.logout
+
+GET     /newSU                      controllers.UserController.newSU
 
 POST    /registerSU                 controllers.UserController.registerSU
 
@@ -59,6 +64,15 @@ POST    /registerSC                 controllers.UserController.registerSC
 GET    /newProductAdmin             controllers.ProductController.newProductAdmin()
 
 POST   /newProductAdmin             controllers.ProductController.addProductAdmin()
+
+GET    /allSU                       controllers.UserController.allSU()
+
+GET    /simpleUsers                 controllers.UserController.getSimpleUsers()
+
+POST   /searchSU                    controllers.UserController.searchSU()
+
+
+
 
 # ----------------------------------------------------------------------------------------------------------
 

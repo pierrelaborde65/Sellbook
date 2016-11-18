@@ -1,20 +1,8 @@
 moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("myProducts");
-
-
     // Test if the User can stay on the page
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
-
-
-    // Hide the error message at the beginning
-    $scope.hideError = true;
-    // Hide the success message at the beginning
-    $scope.hideSuccess = true;
-
-    $scope.isHideUpdateFormProduct = false;
-
-
            //--------------------- Check SELLER ----------------------------------------------------
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
@@ -30,10 +18,21 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
                 }
             });
     }
+    else {
+        $window.location.href = '/';
+    }
 
 
 
+    // Hide the error message at the beginning
+    $scope.hideError = true;
+    // Hide the success message at the beginning
+    $scope.hideSuccess = true;
 
+    $scope.hideID = true;
+
+    $scope.showMyProductsInfos = true;
+    $scope.showUpdateProductForm = false;
 
     //Get seller's products
     $scope.getMyProducts = function() {
@@ -48,62 +47,83 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         });
     };
 
-    // Delete the product
-    $scope.deleteProduct = function(product) {
+     // When a user uses keywords to search a product
+    $scope.searchProduct = function(nameProduct) {
         var rqt = {
-                method : 'DELETE',
-                url : '/products/' + product.idProduct,
+                method : 'POST',
+                url : '/searchProduct',
+                data : $.param({idSeller: idUser, nameProduct: nameProduct}),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.getMyProducts();
-            $scope.hideSuccess = false;
-            $scope.titleSuccess = data;
+            $scope.myProducts = data;
+            console.log(data);
         });
+    };
+
+    // Delete the product
+    $scope.confirmDelete = function(product) {
+        if (confirm("Do you really want to delete this product ?")){
+            var rqt = {
+                            method : 'DELETE',
+                            url : '/products/' + product.idProduct,
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        $scope.getMyProducts();
+                        $scope.hideSuccess = false;
+                        $scope.titleSuccess = data;
+                    });
+        }
     }
 
-    //Update ---------------------------------------------------------------------------------
 
     //Show update Form
-    $scope.ShowUpdateFormProduct = function(product) {
-        $scope.isHideUpdateFormProduct = true;
-        console.log("updateform");
-        $scope.product = product;
-        $scope.nameUpdate = product["name"];
-        $scope.descriptionUpdate = product["description"];
-        $scope.priceUpdate = product["price"];
-        $scope.quantityUpdate = product["quantity"];
+    $scope.updateProduct = function(product) {
+        var id = product.idProduct;
+        $scope.showMyProductsInfos = false;
+        $scope.showUpdateProductForm = true;
+
+         var rqt = {
+                        method : 'GET',
+                        url : '/products/' + id,
+                        data : $.param({id: id}),
+                        headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                };
+                $http(rqt).success(function(data){
+                    var productGot = data;
+                    console.log(data);
+                    $scope.nameP = productGot.nameProduct;
+                    $scope.descriptionP = productGot.descriptionProduct;
+                    $scope.priceS = productGot.priceSeller;
+                    $scope.quantityS = productGot.quantityStock;
+                    $scope.idP = productGot.idProduct;
+         });
 
 
-
-        console.log($scope.isHideUpdateFormProduct);
     }
 
-
-    $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
-        return true;
-    }
-
-/*
-    $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
+    $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
+        console.log(nameProduct);
+        console.log(descriptionProduct);
+        console.log(idProduct);
         var rqt = {
-            method : 'PUT',
-            url : '/product/' + $scope.product["id"],
-            data : $.param({newName: nameToUpdate, newDescription: descriptionToUpdate, newPrice: priceToUpdate, newQuantity: quantityToUpdate}),
+            method : 'POST',
+            url : '/updateProduct',
+            data : $.param({idProduct: idProduct, nameProduct: nameProduct, descriptionProduct: descriptionProduct, priceSeller: priceSeller, quantityStock: quantityStock}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.getAllProductForSeller();
-            $scope.isFormUpdateShow = false;
+            $scope.getMyProducts();
+            $scope.showMyProductsInfos = true;
+            $scope.showUpdateProductForm = false;
             $scope.hideSuccess = false;
             $scope.titleSuccess = "The product has been updated";
         });
     }
-*/
 
-
-    $scope.cancelFormUpdate = function() {
-        $scope.isHideUpdateFormProduct = false;
-    }
-
+    $scope.cancelUpdateForm = function() {
+        $scope.showMyProductsInfos = true;
+        $scope.showUpdateProductForm = false;
+        }
 });
