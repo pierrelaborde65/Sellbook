@@ -43,7 +43,7 @@ public class Product extends com.avaje.ebean.Model {
     public Product(){
 
     }
-
+ 
     // Constructor
     public Product(Long idProduct, String idSeller, String name, String descProd, float price, int qtyStock/*, String image*/,List<ProductInShoppingCart> shoppingCart){
         this.idProduct = idProduct;
