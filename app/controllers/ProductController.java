@@ -174,7 +174,7 @@ public class ProductController extends Controller {
         String idProduct = values.get("idProduct")[0];
         System.out.println(idProduct);
         long id = Long.parseLong(idProduct);
-        String nameProduct = values.get("nameProduct")[0]; 
+        String nameProduct = values.get("nameProduct")[0];
         String descriptionProduct = values.get("descriptionProduct")[0];
         String priceSeller = values.get("priceSeller")[0];
         String quantityStock = values.get("quantityStock")[0];
@@ -194,7 +194,7 @@ public class ProductController extends Controller {
         }
 
     }
-
+ 
 
 
 
