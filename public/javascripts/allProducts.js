@@ -126,6 +126,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     $scope.ShowAddToShoppingCart = function(product) {
         $scope.idProductCart = product.idProduct;
         $scope.quantityDesired = 1;
+        $scope.quantityMax = product.quantityStock;
         $scope.hideSuccess = true;
         $scope.showAddToShoppingCart = true;
     }
