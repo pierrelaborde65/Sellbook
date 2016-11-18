@@ -2,6 +2,11 @@ package models;
 import com.avaje.ebean.Model;
 import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 /**
  * Created by Pierre on 07/11/2016.
  */
@@ -51,12 +56,17 @@ public class User extends com.avaje.ebean.Model {
     // Token (Cookie) of the User
     String token;
 
+    @OneToMany(mappedBy = "referenceUser")
+    @JsonManagedReference
+    List<ProductInShoppingCart> shoppingCart = new ArrayList<ProductInShoppingCart>();
+
+
     // Empty Constructor
     public User() {
     }
 
     // Constructor
-    public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, String statusUser, String token) {
+    public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, String statusUser, String token, List<ProductInShoppingCart> shoppingCart) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -70,6 +80,7 @@ public class User extends com.avaje.ebean.Model {
         this.descriptionSeller = descriptionSeller;
         this.statusUser = statusUser;
         this.token = token;
+        this.shoppingCart = shoppingCart;
         this.save();
     }
 
@@ -192,5 +203,18 @@ public class User extends com.avaje.ebean.Model {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public List<ProductInShoppingCart> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(List<ProductInShoppingCart> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public void addToShoppingCart(ProductInShoppingCart product){
+        this.shoppingCart.add(product);
+    }
+
 
 }
