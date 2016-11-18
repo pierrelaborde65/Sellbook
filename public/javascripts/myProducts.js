@@ -7,6 +7,14 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     var tokenUser = $cookies.get('token');
 
 
+    // Hide the error message at the beginning
+    $scope.hideError = true;
+    // Hide the success message at the beginning
+    $scope.hideSuccess = true;
+
+    $scope.isHideUpdateFormProduct = false;
+
+
            //--------------------- Check SELLER ----------------------------------------------------
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
@@ -25,12 +33,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
 
 
 
-    // Hide the error message at the beginning
-    $scope.hideError = true;
-    // Hide the success message at the beginning
-    $scope.hideSuccess = true;
-
-    $scope.isShowUpdateFormProduct = false;
 
 
     //Get seller's products
@@ -64,17 +66,23 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
 
     //Show update Form
     $scope.ShowUpdateFormProduct = function(product) {
+        $scope.isHideUpdateFormProduct = true;
         console.log("updateform");
-        $scope.isShowUpdateFormProduct = true;
         $scope.product = product;
         $scope.nameUpdate = product["name"];
         $scope.descriptionUpdate = product["description"];
         $scope.priceUpdate = product["price"];
         $scope.quantityUpdate = product["quantity"];
+
+
+
+        console.log($scope.isHideUpdateFormProduct);
     }
 
 
-
+    $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
+        return true;
+    }
 
 /*
     $scope.updateProduct = function(nameToUpdate, descriptionToUpdate, priceToUpdate, quantityToUpdate) {
@@ -90,12 +98,12 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
             $scope.hideSuccess = false;
             $scope.titleSuccess = "The product has been updated";
         });
-    }*/
-
+    }
+*/
 
 
     $scope.cancelFormUpdate = function() {
-        $scope.isShowUpdateFormProduct = false;
+        $scope.isHideUpdateFormProduct = false;
     }
 
 });
