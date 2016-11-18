@@ -13,24 +13,49 @@ public class User extends com.avaje.ebean.Model {
 
     @Id @GeneratedValue
     Long id;
+
+    // Name of the User
     String name;
+
+    // Email of the User
     @Column(unique=true)
     String email;
+
+    // Number Address of the User
     int numberAddress;
+
+    // Street Address of the User
     String streetAddress;
+
+    // City Address of the User
     String cityAddress;
+
+    // Postcode of the User
     int postCodeAddress;
+
+    // Phone number of the User
     String phoneNumber;
+
+    // Password of the User
     String password;
+
+    // Siret of the User (Seller)
     String siret;
+
+    // Description of the Seller
     String descriptionSeller;
+
+    // Status of the User (0 : SU / 1 : SC / 2 : Admin)
     String statusUser;
+
+    // Token (Cookie) of the User
     String token;
 
-    // Constructors
+    // Empty Constructor
     public User() {
     }
 
+    // Constructor
     public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, String statusUser, String token) {
         this.id = id;
         this.name = name;

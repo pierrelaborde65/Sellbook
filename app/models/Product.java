@@ -13,31 +13,32 @@ public class Product extends com.avaje.ebean.Model {
     @Id @GeneratedValue
     public Long idProduct;
 
-    //Product's Seller
+    //Product's Seller id
     public String idSeller;
 
-    //name of Product
+    // name of the Product
     public String nameProduct;
 
-    /* Description of Product */
+    // description of the Product
     public String descriptionProduct;
 
-    //price of Product
+    // price of the Product
     public float priceSeller;
 
-    //Quantity in stock
+    // Quantity in stock for the Product
     public int quantityStock;
 
-    //image
+    // image for the Product
     public String imageProduct;
 
 
-
+    // Empty Constructor
     public Product(){
 
 
     }
 
+    // Constructor
     public Product(Long idProduct, String idSeller, String name, String descProd, float price, int qtyStock/*, String image*/){
         this.idProduct = idProduct;
         this.idSeller = idSeller;
@@ -48,14 +49,5 @@ public class Product extends com.avaje.ebean.Model {
         //this.imageProduct = image;
         this.save();
     }
-
-
-
-
-    /*
-    public save(){
-
-    }
-    */
 
 }
