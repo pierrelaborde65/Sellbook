@@ -37,6 +37,9 @@
                         <th>Update</th>
                         <th>Delete</th>
                     }
+                    @if(message == "SU"){
+                        <th>Shopping Cart</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +51,13 @@
                 @if(message == "Admin"){
                     <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
                     <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+                }
+                @if(message == "SU"){
+                    <td>
+                       <button type="button" class="btn btn-default btn-sm" ng-click="ShowAddToShoppingCart(product)" >
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                       </button>
+                    </td>
                 }
             </tr>
             </tbody>
@@ -61,27 +71,52 @@
         </table>
     </div>
 
+
+
+
+    <div class="addToCartForm" ng-show="showAddToShoppingCart">
+        <form name="addToCartForm" ng-submit="addToShoppingCart(idProductCart,quantityDesired)">
+            <div class="form-group">
+                <center><label class="control-label">Quantity Desired</label></center>
+                <div>
+                    <center><input type="number" id="quantityDesired" class="form-control" ng-model="quantityDesired" required></center>
+                </div>
+                <div>
+                    <input ng-hide="hideID" type="number" id="idProductCart" class="form-control" ng-model="idProductCart">
+                </div>
+            </div>
+            <center><button class="btn btn-success" ng-disabled="addToCartForm.$invalid">Add to Cart</button></center>
+        </form>
+        <center><button class="btn" ng-click="cancelAddToShoppingCart()">Cancel</button></center>
+    </div>
+
+
+
+
+
+
+
     <div class="updateProductForm" ng-show="showUpdateProductForm">
             <form name="updateForm" ng-submit="updateP(nameP, descriptionP, priceS, quantityS, idP)">
                 <div class="form-group">
-                    <label class="control-label">Name *</label>
+                    <label class="control-label">Name</label>
                     <div>
                         <input type="text" id="nameP" class="form-control" ng-model="nameP" required>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">Description *</label>
+                <div class="form-group"> <label class="control-label">Description</label>
                     <div>
                         <input type="text" id="descriptionP" class="form-control" ng-model="descriptionP" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Price *</label>
+                    <label class="control-label">Price</label>
                     <div>
                         <input type="number" id="priceP" step="0.01" class="form-control" ng-model="priceS" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Quantity *</label>
+                    <label class="control-label">Quantity</label>
                     <div>
                         <input type="number" id="quantityP" class="form-control" ng-model="quantityS" required>
                     </div>

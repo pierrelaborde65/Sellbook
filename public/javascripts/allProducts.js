@@ -13,7 +13,10 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     $scope.hideID = true;
 
     $scope.showAllProductsInfos = true;
+
     $scope.showUpdateProductForm = false;
+
+    $scope.showAddToShoppingCart = false;
 
     //Get all the products in the database
     $scope.getAllProducts = function() {
@@ -122,10 +125,41 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     }
 
+    //Cart -------------------------
+    $scope.ShowAddToShoppingCart = function(product) {
+        $scope.idProductCart = product.idProduct;
+        $scope.quantityDesired = 1;
+        $scope.hideSuccess = true;
+        $scope.showAddToShoppingCart = true;
+    }
+
+
+    $scope.addToShoppingCart = function(idProduct,quantityDesired) {
+        var rqt = {
+            method : 'POST',
+            url : '/user/addToCart',
+            data : $.param({idUser: idUser, idProduct: idProduct, quantityDesired: quantityDesired}),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            console.log(data);
+            $scope.hideSuccess = false;
+            $scope.titleSuccess = "The product has been add to your cart";
+            $scope.showAddToShoppingCart = false;
+        });
+    }
+
+
+
+    $scope.cancelAddToShoppingCart = function() {
+        $scope.showAddToShoppingCart = false;
+    }
+    //-------------------------------------
+
+
     $scope.cancelUpdateForm = function() {
         $scope.showAllProductsInfos = true;
         $scope.showUpdateProductForm = false;
-
     }
 
 
