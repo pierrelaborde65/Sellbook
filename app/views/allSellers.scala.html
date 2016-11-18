@@ -59,41 +59,43 @@
     <div class="updateSCForm" ng-show="showUpdateSCForm">
             <form name="updateForm" ng-submit="updateSeller(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, idSC)">
                 <div class="form-group">
-                    <label class="control-label">Name Company</label>
+                    <label class="control-label">Name Company *</label>
                     <div>
                         <input type="text" id="name" class="form-control" ng-model="name" required>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">SIRET Company</label>
+                <div class="form-group fieldWrapper">
+                    <label for="siret"><b>SIRET Company</b></label><br>
                     <div>
-                        <input type="text" id="siret" class="form-control" ng-model="siret" required>
+                        <input class="form-control" pattern="[0-9]{14}" placeholder="14 numbers" type="text" ng-model="siret" name="siret" id="siret" onkeyup="checkSiret(); return false;">
+                        <span id="confirmMessageSiret" class="confirmMessageSiret"></span>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">Email</label>
+                <div class="form-group"> <label class="control-label">Email *</label>
                     <div>
                         <input type="text" id="email" class="form-control" ng-model="email" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Number Address</label>
+                    <label class="control-label">Number Address *</label>
                     <div>
                         <input type="number" id="numberAddress" class="form-control" ng-model="numberAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Street Address</label>
+                    <label class="control-label">Street Address *</label>
                     <div>
                         <input type="text" id="streetAddress" class="form-control" ng-model="streetAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">City Address</label>
+                    <label class="control-label">City Address *</label>
                     <div>
                         <input type="text" id="cityAddress" class="form-control" ng-model="cityAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">PostCode Address</label>
+                    <label class="control-label">PostCode Address *</label>
                     <div>
                         <input type="number" id="postCodeAddress" class="form-control" ng-model="postCodeAddress" required>
                     </div>
@@ -101,19 +103,21 @@
                 <div class="form-group">
                     <label class="control-label">Phone Number</label>
                     <div>
-                        <input type="number" id="phoneNumber" class="form-control" ng-model="phoneNumber" required>
+                        <input type="text" id="phoneNumber" class="form-control" ng-model="phoneNumber">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description Company</label>
                     <div>
-                        <input type="text" id="descriptionSeller" class="form-control" ng-model="descriptionSeller" required>
+                        <textarea maxlength="255" rows="3" id="descriptionSeller" class="form-control" ng-model="descriptionSeller" placeholder="Maximum 255 characters"></textarea>
                     </div>
                 </div>
+                <label class="control-label">(*) Compulsory</label>
+
                 <div>
                     <input ng-hide="hideID" type="number" id="idSC" class="form-control" ng-model="idSC">
                 </div>
-                <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update Seller</button>
+                <button id="buttonUpdate" class="btn btn-success" ng-disabled="updateForm.$invalid" disabled>Update Seller</button>
                 <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
             </form>
         </div>

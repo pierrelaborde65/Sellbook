@@ -11,30 +11,32 @@
         <div ng-hide="hideSuccessSU" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
         <div class="registerSUForm">
             <form name="registerSUForm" ng-submit="newSU(name,email,numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password)">
-                <label><b>Name</b></label><br>
-                <input type="text" ng-model="name" required><br>
-                <label><b>Email</b></label><br>
-                <input type="email" ng-model="email" required><br>
-                <label><b>Number Address</b></label><br>
-                <input type="number" ng-model="numberAddress" required><br>
-                <label><b>Street Address</b></label><br>
-                <input type="text" ng-model="streetAddress" required><br>
-                <label><b>City Address</b></label><br>
-                <input type="text" ng-model="cityAddress" required><br>
-                <label><b>PostCode Address</b></label><br>
-                <input type="number" ng-model="postCodeAddress" required><br>
+                <label><b>Name *</b></label><br>
+                <input class="form-control" type="text" ng-model="name" required>
+                <label><b>Email *</b></label><br>
+                <input class="form-control" type="email" ng-model="email" required>
+                <label><b>Number Address *</b></label><br>
+                <input class="form-control" type="number" ng-model="numberAddress" required>
+                <label><b>Street Address *</b></label><br>
+                <input class="form-control" type="text" ng-model="streetAddress" required>
+                <label><b>City Address *</b></label><br>
+                <input class="form-control" type="text" ng-model="cityAddress" required>
+                <label><b>PostCode Address *</b></label><br>
+                <input class="form-control" type="number" ng-model="postCodeAddress" required>
                 <label><b>Phone Number</b></label><br>
-                <input type="number" ng-model="phoneNumber" required><br>
+                <input class="form-control" type="text" ng-model="phoneNumber">
                 <div class="fieldWrapper">
-                    <label for="password"><b>Password</b></label><br>
-                    <input pattern=".{6,}" type="password" ng-model="password" placeholder="At least 6 characters" name="password" id="password" required><br>
+                    <label for="password"><b>Password *</b></label><br>
+                    <input class="form-control" pattern=".{6,}" type="password" ng-model="password" placeholder="At least 6 characters" name="password" id="password" required>
                 </div>
                 <div class="fieldWrapper">
-                    <label for="confirmPassword"><b>Confirm Password</b></label><br>
-                    <input pattern=".{6,}" type="password" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" onkeyup="checkPassSU(); return false;" required><br>
+                    <label for="confirmPassword"><b>Confirm Password *</b></label><br>
+                    <input class="form-control" pattern=".{6,}" type="password" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" onkeyup="checkPassSU(); return false;" required>
                     <span id="confirmMessage" class="confirmMessage"></span>
                 </div>
-                <button id="buttonRegister" ng-disabled="registerSUForm.$invalid" type="submit">Submit</button>
+                </br>
+                <label class="control-label">(*) Compulsory</label></br>
+                <button class="btn" id="buttonRegister" ng-disabled="registerSUForm.$invalid" type="submit">Submit</button>
             </form>
              <div ng-hide="hideErrorSU" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
         </div>

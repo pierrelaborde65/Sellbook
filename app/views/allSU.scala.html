@@ -60,36 +60,36 @@
     <div class="updateSUForm" ng-show="showUpdateSUForm">
             <form name="updateForm" ng-submit="updateSimpleUser(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, idSU)">
                 <div class="form-group">
-                    <label class="control-label">Name</label>
+                    <label class="control-label">Name *</label>
                     <div>
                         <input type="text" id="name" class="form-control" ng-model="name" required>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">Email</label>
+                <div class="form-group"> <label class="control-label">Email *</label>
                     <div>
                         <input type="text" id="email" class="form-control" ng-model="email" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Number Address</label>
+                    <label class="control-label">Number Address *</label>
                     <div>
                         <input type="number" id="numberAddress" class="form-control" ng-model="numberAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Street Address</label>
+                    <label class="control-label">Street Address *</label>
                     <div>
                         <input type="text" id="streetAddress" class="form-control" ng-model="streetAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">City Address</label>
+                    <label class="control-label">City Address *</label>
                     <div>
                         <input type="text" id="cityAddress" class="form-control" ng-model="cityAddress" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">PostCode Address</label>
+                    <label class="control-label">PostCode Address *</label>
                     <div>
                         <input type="number" id="postCodeAddress" class="form-control" ng-model="postCodeAddress" required>
                     </div>
@@ -97,9 +97,10 @@
                 <div class="form-group">
                     <label class="control-label">Phone Number</label>
                     <div>
-                        <input type="number" id="phoneNumber" class="form-control" ng-model="phoneNumber" required>
+                        <input type="text" id="phoneNumber" class="form-control" ng-model="phoneNumber">
                     </div>
                 </div>
+                <label class="control-label">(*) Compulsory</label>
                 <div>
                     <input ng-hide="hideID" type="number" id="idSU" class="form-control" ng-model="idSU">
                 </div>
@@ -108,7 +109,7 @@
             </form>
         </div>
 
- 
+
 </div>
 
 
