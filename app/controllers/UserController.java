@@ -101,7 +101,7 @@ public class UserController extends Controller {
         }
         else {
             User.find.deleteById(id);
-            return ok("The person has been succesfully deleted");
+            return ok("The user has been succesfully deleted");
         }
     }
 
@@ -249,6 +249,37 @@ public class UserController extends Controller {
         } else {
             return ok(Json.toJson(User.find.where().like("statusUser", "1").like("name", "%"+nameSeller+"%").findList()));
         }
+    }
+
+    public Result updateSimpleUser() {
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String idSU = form.get("id")[0];
+        long id = Long.parseLong(idSU);
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+
+        if(User.find.byId(id) == null) {
+            return notFound("User not found.");
+        }else{
+
+            User su = User.find.byId(id);
+            su.setName(name);
+            su.setEmail(email);
+            su.setNumberAddress(Integer.valueOf(numberAddress));
+            su.setStreetAddress(streetAddress);
+            su.setCityAddress(cityAddress);
+            su.setPostCodeAddress(Integer.valueOf(postCodeAddress));
+            su.setPhoneNumber(phoneNumber);
+            su.save();
+
+            return ok("The user has been updated");
+        }
+
     }
 
 }

@@ -77,6 +77,9 @@ GET     /newSU                      controllers.UserController.newSU
 
 GET     /newSeller                  controllers.UserController.newSeller
 
+POST    /updateSimpleUser           controllers.UserController.updateSimpleUser()
+
+
 
 
 

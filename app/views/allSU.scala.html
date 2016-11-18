@@ -8,9 +8,11 @@
 <script src="@routes.Assets.versioned("javascripts/allSU.js")" type="text/javascript"></script>
 }
 
-@main("All simple users", scripts, message) {
+@main("", scripts, message) {
 <div ng-controller="allSU" class="allSU" ng-init="getAllSU()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+    <div class="allSUInfos" ng-show="showAllSUInfos">
+        <label class="title">All Simple Users</label>
         <form name="searchSUForm" ng-submit="searchSU(nameSU)">
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="nameSU" placeholder="Search a simple user by name">
@@ -25,6 +27,10 @@
                 <th>Email</th>
                 <th>City</th>
                 <th>Phone Number</th>
+                @if(message == "Admin"){
+                    <th>Update</th>
+                    <th>Delete</th>
+                }
             </tr>
 
             </thead>
@@ -35,6 +41,10 @@
                 <td>{{su.email}}</td>
                 <td>{{su.cityAddress}}</td>
                 <td>{{su.phoneNumber}}</td>
+                @if(message == "Admin"){
+                    <td> <button type="button" ng-click="updateSU(su)" class="btn">Update</button> </td>
+                    <td> <button type="button" ng-click="confirmDelete(su)" class="btn">Delete</button> </td>
+                }
             </tr>
             </tbody>
             <tfoot>
@@ -45,6 +55,60 @@
             </tr>
             </tfoot>
         </table>
+    </div>
+
+    <div class="updateSUForm" ng-show="showUpdateSUForm">
+            <form name="updateForm" ng-submit="updateSimpleUser(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, idSU)">
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <div>
+                        <input type="text" id="name" class="form-control" ng-model="name" required>
+                    </div>
+                </div>
+                <div class="form-group"> <label class="control-label">Email</label>
+                    <div>
+                        <input type="text" id="email" class="form-control" ng-model="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Number Address</label>
+                    <div>
+                        <input type="number" id="numberAddress" class="form-control" ng-model="numberAddress" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Street Address</label>
+                    <div>
+                        <input type="text" id="streetAddress" class="form-control" ng-model="streetAddress" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">City Address</label>
+                    <div>
+                        <input type="text" id="cityAddress" class="form-control" ng-model="cityAddress" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">PostCode Address</label>
+                    <div>
+                        <input type="number" id="postCodeAddress" class="form-control" ng-model="postCodeAddress" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Phone Number</label>
+                    <div>
+                        <input type="number" id="phoneNumber" class="form-control" ng-model="phoneNumber" required>
+                    </div>
+                </div>
+                <div>
+                    <input ng-hide="hideID" type="number" id="idSU" class="form-control" ng-model="idSU">
+                </div>
+                <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update Simple User</button>
+                <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
+            </form>
+        </div>
+
+
 </div>
 
 
