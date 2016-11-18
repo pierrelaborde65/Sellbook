@@ -59,9 +59,9 @@
                         <input type="text" id="nameP" class="form-control" ng-model="nameP" required>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">Description *</label>
+                <div class="form-group"> <label class="control-label">Description</label>
                     <div>
-                        <input type="text" id="descriptionP" class="form-control" ng-model="descriptionP" required>
+                        <textarea maxlength="255" rows="3" id="descriptionP" class="form-control" ng-model="descriptionP" placeholder="Maximum 255 characters"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,9 +78,9 @@
                     <div>
                         <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
                     </div>
-
-
                 </div>
+                <label class="control-label">(*) Compulsory</label></br>
+
                 <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
                 <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
 

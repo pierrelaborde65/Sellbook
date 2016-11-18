@@ -99,32 +99,35 @@
     <div class="updateProductForm" ng-show="showUpdateProductForm">
             <form name="updateForm" ng-submit="updateP(nameP, descriptionP, priceS, quantityS, idP)">
                 <div class="form-group">
-                    <label class="control-label">Name</label>
+                    <label class="control-label">Name *</label>
                     <div>
                         <input type="text" id="nameP" class="form-control" ng-model="nameP" required>
                     </div>
                 </div>
-                <div class="form-group"> <label class="control-label">Description</label>
+                <div class="form-group">
+                    <label class="control-label">Description</label>
                     <div>
-                        <input type="text" id="descriptionP" class="form-control" ng-model="descriptionP" required>
+                        <textarea maxlength="255" rows="3" id="descriptionP" class="form-control" ng-model="descriptionP" placeholder="Maximum 255 characters"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Price</label>
+                    <label class="control-label">Price *</label>
                     <div>
                         <input type="number" id="priceP" step="0.01" class="form-control" ng-model="priceS" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Quantity</label>
+                    <label class="control-label">Quantity *</label>
                     <div>
                         <input type="number" id="quantityP" class="form-control" ng-model="quantityS" required>
                     </div>
-                    <div>
-                        <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
-                    </div>
                 </div>
-                <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
+                <label class="control-label">(*) Compulsory</label>
+
+                <div>
+                    <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
+                </div>
+                <button id="buttonUpdate" class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
                 <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
 
             </form>
