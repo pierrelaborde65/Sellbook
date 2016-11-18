@@ -113,7 +113,7 @@ public class UserController extends Controller {
             if (!BCrypt.checkpw(password, passwordHashed)) {
                 return notFound("email or password incorrect");
             } else {
-                // Generate a random token and give it to the user to identify him
+                // Generate a random token and give it to the User to identify him
                 String token = UUID.randomUUID().toString();
                 users.get(0).setToken(token);
                 // save the user with the new token in the database
