@@ -40,8 +40,16 @@ public class UserController extends Controller {
         return ok(newSU.render(getStatusUserText()));
     }
 
+    public Result newSeller() {
+        return ok(newSeller.render(getStatusUserText()));
+    }
+
     public Result allSU() {
         return ok(allSU.render(getStatusUserText()));
+    }
+
+    public Result allSellers() {
+        return ok(allSellers.render(getStatusUserText()));
     }
 
     @Inject
@@ -227,6 +235,19 @@ public class UserController extends Controller {
             return ok(Json.toJson(User.find.where().like("statusUser", "0").findList()));
         } else {
             return ok(Json.toJson(User.find.where().like("statusUser", "0").like("name", "%"+nameSU+"%").findList()));
+        }
+    }
+
+    /**
+     *
+     */
+    public Result searchSeller() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String nameSeller = values.get("nameSeller")[0];
+        if (nameSeller == null){
+            return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
+        } else {
+            return ok(Json.toJson(User.find.where().like("statusUser", "1").like("name", "%"+nameSeller+"%").findList()));
         }
     }
 
