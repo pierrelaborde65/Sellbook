@@ -187,7 +187,7 @@ public class UserController extends Controller {
                 return ok(index.render(getStatusUserText())).withCookies(new Http.Cookie("token", token, 86400 , null, null, false, false)).withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 86400 , null, null, false, false));
             }
         }
-    }
+    } 
 
 
     /**
@@ -258,7 +258,7 @@ public class UserController extends Controller {
             return created();
         }
     }
- 
+
 
     /**
      * SELLER REGISTRATION
