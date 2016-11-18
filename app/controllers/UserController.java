@@ -217,7 +217,6 @@ public class UserController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         Long id = Long.valueOf(values.get("id")[0]);
         String token = values.get("token")[0];
-        System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
         //User user = User.find.where().like("id", id).like("token", token).findUnique();
         User user = User.find.byId(id);
@@ -359,6 +358,12 @@ public class UserController extends Controller {
 
     }
 
+    /**
+     * UPDATE SELLER
+     * @return IF Seller exists : 200 - "The Seller has been updated"
+     * ELSE 404 - "Seller not found"
+     *
+     */
     public Result updateSeller() {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String idSC = form.get("id")[0];
@@ -374,7 +379,7 @@ public class UserController extends Controller {
         String descriptionSeller = form.get("descriptionSeller")[0];
 
         if(User.find.byId(id) == null) {
-            return notFound("User not found.");
+            return notFound("Seller not found.");
         }else{
 
             User sc = User.find.byId(id);
@@ -389,11 +394,17 @@ public class UserController extends Controller {
             sc.setDescriptionSeller(descriptionSeller);
             sc.save();
 
-            return ok("The user has been updated");
+            return ok("The seller has been updated");
         }
 
     }
 
+    /**
+     * ADD TO SHOPPING CART - SU
+     * @return IF User id does not match : 404 - "User doesn't exist"
+     * ELSE IF Product id does not match : 404 - "Product doesn't exist"
+     * ELSE 200 - OK
+     */
     public Result addToCart(){
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String idProduct = values.get("idProduct")[0];

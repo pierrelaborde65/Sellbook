@@ -1,6 +1,6 @@
 moduleSellbook.controller('allProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("Products");
-    // Test if the person can stay on the page
+    // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
 
@@ -18,7 +18,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     $scope.showAddToShoppingCart = false;
 
-    //Get all the products in the database
+    //Return all the database products through get method on /products
     $scope.getAllProducts = function() {
         console.log("AllProducts");
         var rqt = {
@@ -31,7 +31,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     };
 
-    // Get all sellers in the database
+    // Return all the database sellers through get method on /sellers
     $scope.getAllSellers = function() {
                     console.log("AllSellers");
                     var rqt = {
@@ -44,7 +44,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                     });
     };
 
-     // When a user uses keywords to search a product
+     // Return
     $scope.searchProduct = function(seller, nameProduct) {
         var idSeller;
         if (seller == null){
