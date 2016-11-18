@@ -13,7 +13,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import static tyrex.util.Configuration.console;
 
 /**
@@ -217,7 +218,6 @@ public class UserController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         Long id = Long.valueOf(values.get("id")[0]);
         String token = values.get("token")[0];
-        System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
         //User user = User.find.where().like("id", id).like("token", token).findUnique();
         User user = User.find.byId(id);
@@ -359,6 +359,12 @@ public class UserController extends Controller {
 
     }
 
+    /**
+     * UPDATE SELLER
+     * @return IF Seller exists : 200 - "The Seller has been updated"
+     * ELSE 404 - "Seller not found"
+     *
+     */
     public Result updateSeller() {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String idSC = form.get("id")[0];
@@ -374,7 +380,7 @@ public class UserController extends Controller {
         String descriptionSeller = form.get("descriptionSeller")[0];
 
         if(User.find.byId(id) == null) {
-            return notFound("User not found.");
+            return notFound("Seller not found.");
         }else{
 
             User sc = User.find.byId(id);
@@ -389,11 +395,17 @@ public class UserController extends Controller {
             sc.setDescriptionSeller(descriptionSeller);
             sc.save();
 
-            return ok("The user has been updated");
+            return ok("The seller has been updated");
         }
 
     }
 
+    /**
+     * ADD TO SHOPPING CART - SU
+     * @return IF User id does not match : 404 - "User doesn't exist"
+     * ELSE IF Product id does not match : 404 - "Product doesn't exist"
+     * ELSE 200 - OK
+     */
     public Result addToCart(){
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String idProduct = values.get("idProduct")[0];
@@ -410,6 +422,33 @@ public class UserController extends Controller {
         user.addToShoppingCart(new ProductInShoppingCart(null, Integer.valueOf(quantityDesired),user,product));
         return ok(Json.toJson(user));
 
+    }
+
+    public Result cart() {
+        return ok(cart.render(getStatusUserText()));
+    }
+
+    public Result getCartUser(Long id) {
+        System.out.println("getcartU");
+        User user = User.find.byId(id);
+        if(user == null) {
+            return notFound("User does not exist.");
+        }
+        else {
+            ArrayNode shoppingCart = Json.newArray();
+            for (int i = 0; i< user.getShoppingCart().size(); i++) {
+                User seller = User.find.byId(Long.valueOf(user.getShoppingCart().get(i).getReferenceProduct().getIdSeller()));
+                ObjectNode shoppingCartLine = Json.newObject();
+                shoppingCartLine.put("id", user.getShoppingCart().get(i).getReferenceProduct().getIdProduct());
+                shoppingCartLine.put("name", user.getShoppingCart().get(i).getReferenceProduct().getNameProduct());
+                shoppingCartLine.put("nameSeller", seller.getName());
+                shoppingCartLine.put("description", user.getShoppingCart().get(i).getReferenceProduct().getDescriptionProduct());
+                shoppingCartLine.put("price", user.getShoppingCart().get(i).getReferenceProduct().getPriceSeller());
+                shoppingCartLine.put("quantity", user.getShoppingCart().get(i).getQuantity());
+                shoppingCart.add(shoppingCartLine);
+            }
+            return ok(Json.toJson(shoppingCart));
+        }
     }
 
 
