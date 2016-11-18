@@ -134,7 +134,6 @@ public class ProductController extends Controller {
         }
     }
 
-
     /**
      * GET PRODUCTS BY SELLER ID - SELLER
      * @param id (Long) the id of a Seller
@@ -200,7 +199,7 @@ public class ProductController extends Controller {
         }
 
     }
-  
+
 
 
 

@@ -79,6 +79,7 @@ GET     /newSeller                  controllers.UserController.newSeller
 
 POST    /updateSimpleUser           controllers.UserController.updateSimpleUser()
 
+POST    /updateSeller               controllers.UserController.updateSeller()
 
 
 

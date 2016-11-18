@@ -282,4 +282,39 @@ public class UserController extends Controller {
 
     }
 
+    public Result updateSeller() {
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String idSC = form.get("id")[0];
+        long id = Long.parseLong(idSC);
+        String siret = form.get("siret")[0];
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+        String descriptionSeller = form.get("descriptionSeller")[0];
+
+        if(User.find.byId(id) == null) {
+            return notFound("User not found.");
+        }else{
+
+            User sc = User.find.byId(id);
+            sc.setName(name);
+            sc.setSiret(siret);
+            sc.setEmail(email);
+            sc.setNumberAddress(Integer.valueOf(numberAddress));
+            sc.setStreetAddress(streetAddress);
+            sc.setCityAddress(cityAddress);
+            sc.setPostCodeAddress(Integer.valueOf(postCodeAddress));
+            sc.setPhoneNumber(phoneNumber);
+            sc.setDescriptionSeller(descriptionSeller);
+            sc.save();
+
+            return ok("The user has been updated");
+        }
+
+    }
+
 }
