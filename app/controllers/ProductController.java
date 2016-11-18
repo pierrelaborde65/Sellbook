@@ -169,6 +169,12 @@ public class ProductController extends Controller {
         }
     }
 
+    /**
+     * UPDATE PRODUCT
+     * @return IF Product exists : 200 - "The Product has been updated"
+     * ELSE 400 - "Product not found"
+     *
+     */
     public Result updateProduct() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String idProduct = values.get("idProduct")[0];
