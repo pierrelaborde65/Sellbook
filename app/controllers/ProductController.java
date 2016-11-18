@@ -27,7 +27,7 @@ public class ProductController extends Controller {
         return ok(newProduct.render(UserController.getStatusUserText()));
     }
 
-    /**
+    /** PRODUCT CREATION - ADMIN
      *
      * @return 200 - Product Created
      */
