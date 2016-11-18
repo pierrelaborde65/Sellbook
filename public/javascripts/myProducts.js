@@ -18,6 +18,12 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
                 }
             });
     }
+    else {
+        $window.location.href = '/';
+    }
+
+
+
     // Hide the error message at the beginning
     $scope.hideError = true;
     // Hide the success message at the beginning

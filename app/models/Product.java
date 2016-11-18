@@ -14,7 +14,7 @@ public class Product extends com.avaje.ebean.Model {
     public Long idProduct;
 
     //Product's Seller
-    public int idSeller;
+    public String idSeller;
 
     //name of Product
     public String nameProduct;
@@ -38,7 +38,7 @@ public class Product extends com.avaje.ebean.Model {
 
     }
 
-    public Product(Long idProduct, int idSeller, String name, String descProd, float price, int qtyStock/*, String image*/){
+    public Product(Long idProduct, String idSeller, String name, String descProd, float price, int qtyStock/*, String image*/){
         this.idProduct = idProduct;
         this.idSeller = idSeller;
         this.nameProduct = name;

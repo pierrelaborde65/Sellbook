@@ -27,8 +27,12 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        //User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, 2, null);
-        //user.save();
+        /*User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "2", null);
+        User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null);
+        user.save();
+        user2.save();
+        User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null);
+        user3.save();*/
         return ok(index.render(getStatusUserText()));
     }
 
@@ -68,15 +72,16 @@ public class UserController extends Controller {
 
     public static String getStatusUserText() {
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
-            String id = request().cookies().get("id").value();
+            Long id = Long.valueOf(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
-            User user = User.find.where().like("id", id).like("token", token).findUnique();
-            if (user != null) {
-                if (user.getStatusUser() == 0)
+            //User user = User.find.where().like("id", id).like("token", token).findUnique();
+            User user = User.find.byId(id);
+            if (user.getToken().equals(token)) {
+                if (user.getStatusUser().equals("0"))
                     return "SU";
-                if (user.getStatusUser() == 1)
+                if (user.getStatusUser().equals("1"))
                     return "SC";
-                if (user.getStatusUser() == 2)
+                if (user.getStatusUser().equals("2"))
                     return "Admin";
             }
         }
@@ -108,7 +113,7 @@ public class UserController extends Controller {
             if (!BCrypt.checkpw(password, passwordHashed)) {
                 return notFound("email or password incorrect");
             } else {
-                // Generate a random token and give it to the user to identify him
+                // Generate a random token and give it to the User to identify him
                 String token = UUID.randomUUID().toString();
                 users.get(0).setToken(token);
                 // save the user with the new token in the database
@@ -127,9 +132,14 @@ public class UserController extends Controller {
      * @return If the user has a valid session, return <b>200 Ok</b> <br/>
      * Else return 404 Not Found<
      */
-    public Result isConnected(int id, String token) {
-        User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
-        if(user != null) {
+    public Result isConnected(Long id, String token) {
+        //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
+        System.out.println("ID USER : "+id);
+        System.out.println("TOKEN USER : "+token);
+        User user = User.find.byId(id);
+        System.out.println("USER : "+user);
+        System.out.println("USER TOKEN: "+user.getToken());
+        if(user.getToken().equals(token)) {
             return ok(Json.toJson(user));
         }else {
             return notFound("Your connection is expired or invalid. Please log in again");
@@ -144,12 +154,13 @@ public class UserController extends Controller {
     public Result logout() {
         // Get attribute from the form
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String id = values.get("id")[0];
+        Long id = Long.valueOf(values.get("id")[0]);
         String token = values.get("token")[0];
         System.out.println("Tentative logout");
         //LIKE -----------------------------------------------------------------------------------
-        User user = User.find.where().like("id", id).like("token", token).findUnique();
-        if(user != null) {
+        //User user = User.find.where().like("id", id).like("token", token).findUnique();
+        User user = User.find.byId(id);
+        if(user.getToken().equals(token)) {
             response().discardCookie("token");
             response().discardCookie("id");
             return ok();
@@ -168,7 +179,7 @@ public class UserController extends Controller {
         String cityAddress = form.get("cityAddress")[0];
         String postCodeAddress = form.get("postCodeAddress")[0];
         String phoneNumber = form.get("phoneNumber")[0];
-        int status = 0;
+        String status = "0";
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         // check if email is not already used
         User user2 = User.find.where().like("email", email).findUnique();
@@ -194,7 +205,7 @@ public class UserController extends Controller {
         String siret = form.get("siret")[0];
         String descriptionSeller = form.get("descriptionSeller")[0];
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
-        int status = 1;
+        String status = "1";
         // check if email not already used
         User userTest = User.find.where().like("email", email).findUnique();
         if (userTest != null)
