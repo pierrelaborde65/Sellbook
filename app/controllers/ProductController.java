@@ -17,9 +17,9 @@ import java.util.Map;
  */
 public class ProductController extends Controller {
 
-    /**
+    /** PRODUCT CREATION - SELLER
      *
-     * @return
+     * @return 200 - Product Created
      */
     public Result newProduct() {
         return ok(newProduct.render(UserController.getStatusUserText()));
@@ -27,21 +27,24 @@ public class ProductController extends Controller {
 
     /**
      *
-     * @return
+     * @return 200 - Product Created
      */
     public Result newProductAdmin() {
         return ok(newProductAdmin.render(UserController.getStatusUserText()));
     }
 
-    /**
+    /** PRODUCT SELECTION
      *
-     * @return
+     * @return 200 - All Products
      */
     public Result userAllProducts() {
         return ok(allProducts.render(UserController.getStatusUserText()));
     }
 
-
+    /** OWN PRODUCT SELECTION - SELLER
+     *
+     * @return 200 - All Seller's Products
+     */
     public Result myProductSeller() {
         return ok(myProducts.render(UserController.getStatusUserText()));
     }
@@ -50,9 +53,9 @@ public class ProductController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    /** add a Product
+    /**  ADD Product - SELLER
      *
-     * @return add a Product in JSon file and redirect on the page "newProduct"
+     * @return Add a Product associated to the Seller into the Database : 200 - Product Created
      */
     public Result addProduct() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -79,9 +82,9 @@ public class ProductController extends Controller {
 
     }
 
-    /** add a Product by an admin
+    /** ADD Product - ADMIN
      *
-     * @return add a Product in JSon file and redirect on the page "newProductAdmin"
+     * @return Add a Product associated to the Admin into the database : 200 - Product Created
      */
     public Result addProductAdmin() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -102,24 +105,24 @@ public class ProductController extends Controller {
 
     }
 
-    /** Get All Products
+    /** GET PRODUCTS - ALL
      *
-     * @return IF there isn't any Product, return "Product Not Found"
-     * else return the list of Products
+     * @return IF there isn't any Product, return 404 - "No Products Found"
+     * else return 200 - all Products
      */
     public Result getProducts() {
         if (Product.find.all().isEmpty()) {
-            return notFound("No Product Found");
+            return notFound("No Products Found");
         }else {
             return ok(Json.toJson(Product.find.all()));
         }
     }
 
     /**
-     * Get a Product with his ID
-     * @param id the id of a Product
-     * @return IF the Product doesn't exist, return "Product Not Found"
-     * Else return 200 OK
+     * GET PRODUCT BY ID - ALL
+     * @param id  (Long) the id of a Product
+     * @return IF the Product doesn't exist, return 404 - "This Product does not exist"
+     * Else return 200 - Product
      */
     public Result getProduct(Long id) {
         if (Product.find.byId(id) == null) {
@@ -131,17 +134,22 @@ public class ProductController extends Controller {
 
 
     /**
-     *
+     * GET PRODUCTS BY SELLER ID - SELLER
+     * @param id (Long) the id of a Seller
+     * @return IF the Seller doesn't exist, return 404 - "This Seller does not exist."
+     * Else return 200 - All Seller's Products
      */
     public Result getMyProducts(Long id) {
         if (Product.find.where().like("idSeller", id.toString()) == null) {
-            return notFound("No Product.");
+            return notFound("This Seller does not exist.");
         } else {
             return ok(Json.toJson(Product.find.where().like("idSeller", id.toString()).findList()));
         }
     }
 
     /**
+     * SEARCH PRODUCT - ALL
+     * @return 200 - Product
      *
      */
     public Result searchProduct() {
@@ -164,10 +172,10 @@ public class ProductController extends Controller {
 
 
     /**
-     * DELETE a Product in the database with his ID
-     * @param id The id of a Product
-     * @return If Product doesn't exist in the dababase, return "Product Not Found"
-     * Else return <b>200 Ok</b>
+     * DELETE PRODUCT BY ID
+     * @param id The Product id
+     * @return IF Product doesn't exist in the dababase, return 404 - "Product Not Found"
+     * Else return 200 - "The Product has been deleted"
      */
     public Result deleteProduct(Long id) {
         if(Product.find.byId(id) == null) {
