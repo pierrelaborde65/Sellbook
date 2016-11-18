@@ -118,7 +118,7 @@ public class ProductController extends Controller {
     /**
      * Get a Product with his ID
      * @param id the id of a Product
-     * @return IF Product doesn't exist, return "Product Not Found"
+     * @return IF the Product doesn't exist, return "Product Not Found"
      * Else return 200 OK
      */
     public Result getProduct(Long id) {
