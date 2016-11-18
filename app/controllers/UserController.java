@@ -13,7 +13,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import static tyrex.util.Configuration.console;
 
 /**
@@ -410,6 +411,33 @@ public class UserController extends Controller {
         user.addToShoppingCart(new ProductInShoppingCart(null, Integer.valueOf(quantityDesired),user,product));
         return ok(Json.toJson(user));
 
+    }
+
+    public Result cart() {
+        return ok(cart.render(getStatusUserText()));
+    }
+
+    public Result getCartUser(Long id) {
+        System.out.println("getcartU");
+        User user = User.find.byId(id);
+        if(user == null) {
+            return notFound("User does not exist.");
+        }
+        else {
+            ArrayNode shoppingCart = Json.newArray();
+            for (int i = 0; i< user.getShoppingCart().size(); i++) {
+                User seller = User.find.byId(Long.valueOf(user.getShoppingCart().get(i).getReferenceProduct().getIdSeller()));
+                ObjectNode shoppingCartLine = Json.newObject();
+                shoppingCartLine.put("id", user.getShoppingCart().get(i).getReferenceProduct().getIdProduct());
+                shoppingCartLine.put("name", user.getShoppingCart().get(i).getReferenceProduct().getNameProduct());
+                shoppingCartLine.put("nameSeller", seller.getName());
+                shoppingCartLine.put("description", user.getShoppingCart().get(i).getReferenceProduct().getDescriptionProduct());
+                shoppingCartLine.put("price", user.getShoppingCart().get(i).getReferenceProduct().getPriceSeller());
+                shoppingCartLine.put("quantity", user.getShoppingCart().get(i).getQuantity());
+                shoppingCart.add(shoppingCartLine);
+            }
+            return ok(Json.toJson(shoppingCart));
+        }
     }
 
 

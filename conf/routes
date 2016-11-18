@@ -33,10 +33,14 @@ POST    /updateProduct               controllers.ProductController.updateProduct
 
 
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
-GET     /                         controllers.UserController.index
+
+
+GET    /user/cart                   controllers.UserController.cart
 
 # Get a user by his id
 GET     /user/:id                 controllers.UserController.getUser(id : Long)
+
+GET     /user/:id/cart                 controllers.UserController.getCartUser(id : Long)
 
 # Get all persons
 GET     /users                    controllers.UserController.getUsers()
@@ -58,6 +62,7 @@ POST    /registerSU                 controllers.UserController.registerSU
 POST    /registerSC                 controllers.UserController.registerSC
 
 POST    /user/addToCart             controllers.UserController.addToCart
+
 
 #Routes --------------------------------Admin -----------------------------------------------------------------------------------------
 
@@ -85,7 +90,7 @@ POST    /updateSeller               controllers.UserController.updateSeller()
 
 
 
-
+GET     /                         controllers.UserController.index
 
 
 # ----------------------------------------------------------------------------------------------------------
