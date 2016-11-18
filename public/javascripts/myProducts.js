@@ -31,7 +31,6 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
 
     $scope.hideID = true;
 
-
     $scope.showMyProductsInfos = true;
     $scope.showUpdateProductForm = false;
 
@@ -47,6 +46,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
             $scope.myProducts = data;
         });
     };
+
      // When a user uses keywords to search a product
     $scope.searchProduct = function(nameProduct) {
         var rqt = {

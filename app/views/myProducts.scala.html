@@ -3,9 +3,11 @@
 * message to display.
 *@
 @(message: String)
+
 @scripts = {
 <script src="@routes.Assets.versioned("javascripts/myProducts.js")" type="text/javascript"></script>
 }
+
 @main("", scripts, message) {
     <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
         <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
@@ -21,10 +23,10 @@
             <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
                 <thead>
                 <tr>
-                    <th st-sort="name">Name</th>
-                    <th st-sort="description">Description</th>
-                    <th st-sort="price">Price</th>
-                    <th st-sort="quantity">Quantity</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -85,5 +87,5 @@
             </form>
         </div>
 
-</div>
+    </div>
 }
