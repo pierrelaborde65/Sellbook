@@ -27,7 +27,7 @@ public class ProductController extends Controller {
         return ok(newProduct.render(UserController.getStatusUserText()));
     }
 
-    /**
+    /** PRODUCT CREATION - ADMIN
      *
      * @return 200 - Product Created
      */
@@ -169,6 +169,12 @@ public class ProductController extends Controller {
         }
     }
 
+    /**
+     * UPDATE PRODUCT
+     * @return IF Product exists : 200 - "The Product has been updated"
+     * ELSE 400 - "Product not found"
+     *
+     */
     public Result updateProduct() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String idProduct = values.get("idProduct")[0];
