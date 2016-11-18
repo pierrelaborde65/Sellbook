@@ -29,6 +29,9 @@ GET     /products/:id                controllers.ProductController.getProduct(id
 
 DELETE  /products/:id                controllers.ProductController.deleteProduct(id : Long)
 
+POST    /updateProduct               controllers.ProductController.updateProduct()
+
+
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
 GET     /                         controllers.UserController.index
 

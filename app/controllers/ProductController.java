@@ -12,6 +12,8 @@ import views.html.*;
 import java.util.List;
 import java.util.Map;
 
+import static tyrex.util.Configuration.console;
+
 /**
  * Created by meier on 07/11/2016.
  */
@@ -165,6 +167,32 @@ public class ProductController extends Controller {
         } else {
             return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).like("nameProduct", "%"+nameProduct+"%").findList()));
         }
+    }
+
+    public Result updateProduct() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String idProduct = values.get("idProduct")[0];
+        System.out.println(idProduct);
+        long id = Long.parseLong(idProduct);
+        String nameProduct = values.get("nameProduct")[0];
+        String descriptionProduct = values.get("descriptionProduct")[0];
+        String priceSeller = values.get("priceSeller")[0];
+        String quantityStock = values.get("quantityStock")[0];
+
+        if(Product.find.byId(id) == null) {
+            return notFound("Product not found.");
+        }else{
+
+            Product product = Product.find.byId(id);
+            product.nameProduct = nameProduct;
+            product.descriptionProduct = descriptionProduct;
+            product.priceSeller =  Float.valueOf(priceSeller);
+            product.quantityStock = Integer.valueOf(quantityStock);
+            product.save();
+
+            return ok("The Product has been updated");
+        }
+
     }
 
 

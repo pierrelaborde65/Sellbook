@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table product (
-  id_product                    bigserial not null,
+  id_product                    bigint not null,
   id_seller                     varchar(255),
   name_product                  varchar(255),
   description_product           varchar(255),
@@ -13,9 +13,10 @@ create table product (
   image_product                 varchar(255),
   constraint pk_product primary key (id_product)
 );
+create sequence product_seq;
 
 create table user_sellbook (
-  id                            bigserial not null,
+  id                            bigint not null,
   name                          varchar(255),
   email                         varchar(255),
   number_address                integer,
@@ -26,16 +27,19 @@ create table user_sellbook (
   password                      varchar(255),
   siret                         varchar(255),
   description_seller            varchar(255),
-  status_user                   varchar(255),
+  status_user                   integer,
   token                         varchar(255),
-  constraint uq_user_sellbook_email unique (email),
-  constraint pk_user_sellbook primary key (id)
+  constraint uq_user_email unique (email),
+  constraint pk_user primary key (id)
 );
+create sequence User_Sellbook_seq;
 
 
 # --- !Downs
 
-drop table if exists product cascade;
+drop table if exists product;
+drop sequence if exists product_seq;
 
-drop table if exists user_sellbook cascade;
+drop table if exists user_sellbook;
+drop sequence if exists User_Sellbook_seq;
 

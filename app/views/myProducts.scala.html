@@ -8,77 +8,84 @@
 <script src="@routes.Assets.versioned("javascripts/myProducts.js")" type="text/javascript"></script>
 }
 
-@main("My Products", scripts, message) {
-
+@main("", scripts, message) {
     <div ng-controller="myProducts" class="allProducts" ng-init="getMyProducts()">
-        <div class="FormUpdateProduct" ng-show="isShowUpdateFormProduct">
-            <form name="updateForm" ng-submit="updateProduct(nameUpdate, descriptionUpdate, priceUpdate, quantityUpdate)">
-               <table>
-                   <thead>
-                        <tr>
-                            <th st-sort="name">Name</th>
-                            <th st-sort="description">description</th>
-                            <th st-sort="price">price</th>
-                            <th st-sort="quantity">quantity</th>
-                            <th>Update</th>
-                            <th>Cancel</th>
-                        </tr>
-                   </thead>
-                   <tbody>
-                        <td><input type="text" class="form-control" ng-model="nameUpdate" placeholder="Name"></td>
-                        <td><input type="text" class="form-control" ng-model="descriptionUpdate" placeholder="Description"></td>
-                        <td><input type="number" step="0.001" class="form-control" ng-model="priceToUpdate" placeholder="Price"></td>
-                        <td><input type="number" step="1" class="form-control" ng-model="quantityUpdate" placeholder="Quantity" required></td>
-                        <td><button class="btn btn-success">Update</button></td><!--attention ng-submit--!>
-                        <td><button class="btn btn-danger" ng-click="cancelFormUpdate()">Cancel</button></td>
-                    </tbody>
-                </table>
-                <hr size=4   width=80% color=#FFFFFF>
+        <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
+
+        <div class="myProductsInfos" ng-show="showMyProductsInfos">
+            <label class="title">My Products</label>
+            <form name="searchProductForm" ng-submit="searchProduct(nameProduct)">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="nameProduct" placeholder="Search a product by keyword">
+                </div>
+                <button class="btn btn-success">Search</button>
+            </form>
+            <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="product in myProducts">
+                    <td>{{product.nameProduct}}</td>
+                    <td>{{product.descriptionProduct}}</td>
+                    <td>{{product.priceSeller}}</td>
+                    <td>{{product.quantityStock}}</td>
+                    <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
+                    <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="updateProductForm" ng-show="showUpdateProductForm">
+            <form name="updateForm" ng-submit="updateP(nameP, descriptionP, priceS, quantityS, idP)">
+                <div class="form-group">
+                    <label class="control-label">Name *</label>
+                    <div>
+                        <input type="text" id="nameP" class="form-control" ng-model="nameP" required>
+                    </div>
+                </div>
+                <div class="form-group"> <label class="control-label">Description *</label>
+                    <div>
+                        <input type="text" id="descriptionP" class="form-control" ng-model="descriptionP" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Price *</label>
+                    <div>
+                        <input type="number" id="priceP" step="0.01" class="form-control" ng-model="priceS" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Quantity *</label>
+                    <div>
+                        <input type="number" id="quantityP" class="form-control" ng-model="quantityS" required>
+                    </div>
+                    <div>
+                        <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
+                    </div>
+
+
+                </div>
+                <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
+                <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
+
             </form>
         </div>
 
-
-
-
-
-    <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}}</div>
-        <form name="searchProductForm" ng-submit="searchProduct(nameProduct)">
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="nameProduct" placeholder="Search a product by keyword">
-            </div>
-            <button class="btn btn-success">Search</button>
-        </form>
-        <table st-table="TableAllProducts" st-safe-src="myProducts" class="table table-striped">
-            <thead>
-            <tr>
-                <th st-sort="name">Name</th>
-                <th st-sort="description">Description</th>
-                <th st-sort="price">Price</th>
-                <th st-sort="quantity">Quantity</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="product in myProducts">
-                <td>{{product.nameProduct}}</td>
-                <td>{{product.descriptionProduct}}</td>
-                <td>{{product.priceSeller}}</td>
-                <td>{{product.quantityStock}}</td>
-                <td> <button type="button" ng-click="ShowUpdateFormProduct(product)" class="btn">Update</button> </td>
-                <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
-
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-</div>
-
-
+    </div>
 }

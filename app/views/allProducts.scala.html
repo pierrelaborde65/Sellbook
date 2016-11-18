@@ -8,9 +8,11 @@
 <script src="@routes.Assets.versioned("javascripts/allProducts.js")" type="text/javascript"></script>
 }
 
-@main("All Products", scripts, message) {
+@main("", scripts, message) {
 <div ng-controller="allProducts" class="allProducts" ng-init="getAllProducts();getAllSellers()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+    <div class="allProductsInfos" ng-show="showAllProductsInfos">
+        <label class="title">All Products</label>
         <form name="searchProductForm" ng-submit="searchProduct(sellerProduct, nameProduct)">
             <div class="form-group">
                 <div>
@@ -26,14 +28,16 @@
         </form>
         <table st-table="TableAllProducts" st-safe-src="allProducts" class="table table-striped">
             <thead>
-            <tr>
-                <th st-sort="name">Name</th>
-                <th st-sort="description">description</th>
-                <th st-sort="price">price</th>
-                <th st-sort="quantity">quantity</th>
-                <th st-sort="quantity">seller</th>
-            </tr>
-
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    @if(message == "Admin"){
+                        <th>Update</th>
+                        <th>Delete</th>
+                    }
+                </tr>
             </thead>
             <tbody>
             <tr ng-repeat="product in allProducts">
@@ -41,7 +45,10 @@
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}}</td>
                 <td>{{product.quantityStock}}</td>
-                <td>{{product.idSeller}}</td>
+                @if(message == "Admin"){
+                    <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
+                    <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+                }
             </tr>
             </tbody>
             <tfoot>
@@ -52,6 +59,44 @@
             </tr>
             </tfoot>
         </table>
+    </div>
+
+    <div class="updateProductForm" ng-show="showUpdateProductForm">
+            <form name="updateForm" ng-submit="updateP(nameP, descriptionP, priceS, quantityS, idP)">
+                <div class="form-group">
+                    <label class="control-label">Name *</label>
+                    <div>
+                        <input type="text" id="nameP" class="form-control" ng-model="nameP" required>
+                    </div>
+                </div>
+                <div class="form-group"> <label class="control-label">Description *</label>
+                    <div>
+                        <input type="text" id="descriptionP" class="form-control" ng-model="descriptionP" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Price *</label>
+                    <div>
+                        <input type="number" id="priceP" step="0.01" class="form-control" ng-model="priceS" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Quantity *</label>
+                    <div>
+                        <input type="number" id="quantityP" class="form-control" ng-model="quantityS" required>
+                    </div>
+                    <div>
+                        <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
+                    </div>
+                </div>
+                <button class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
+                <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
+
+            </form>
+        </div>
+
+
+
 </div>
 
 
