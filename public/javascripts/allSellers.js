@@ -111,4 +111,33 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
         }
 
 
+
+
 });
+
+    function checkSiret()
+             {
+                 //Store the siret field object into variable ...
+                 var siret = document.getElementById('siret');
+                 //Store the Confimation Message Object ...
+                 var message = document.getElementById('confirmMessageSiret');
+                 //Set the colors we will be using ...
+                 var goodColor = "#66cc66";
+                 var badColor = "#ff6666";
+                 // check if there are only numeric input
+                 var isnum = /^\d+$/.test(siret.value);
+                 //Compare the siret field to the format
+                 if(siret.value.length == 14 && isnum==true){
+                     //Set the color to the good color and inform
+                     //the user that they have entered the correct format fo siret
+                     siret.style.backgroundColor = goodColor;
+                     message.style.color = goodColor;
+                     message.innerHTML = "ok!"
+                 }else{
+                     //Set the color to the bad color and
+                     //notify the user.
+                     siret.style.backgroundColor = badColor;
+                     message.style.color = badColor;
+                     message.innerHTML = "A SIRET is composed of 14 numbers!"
+                 }
+             }
