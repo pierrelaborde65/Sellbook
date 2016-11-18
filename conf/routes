@@ -57,6 +57,8 @@ POST    /registerSU                 controllers.UserController.registerSU
 
 POST    /registerSC                 controllers.UserController.registerSC
 
+POST    /user/addToCart             controllers.UserController.addToCart
+
 #Routes --------------------------------Admin -----------------------------------------------------------------------------------------
 
 GET    /newProductAdmin             controllers.ProductController.newProductAdmin()

@@ -2,6 +2,8 @@ package controllers;
 
 import com.avaje.ebean.enhance.agent.SysoutMessageOutput;
 import com.google.inject.Inject;
+import models.Product;
+import models.ProductInShoppingCart;
 import models.User;
 import play.data.FormFactory;
 import play.libs.Json;
@@ -19,7 +21,7 @@ import static tyrex.util.Configuration.console;
  * to the application's home page.
  */
 public class UserController extends Controller {
-
+    @Inject FormFactory formFactory;
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -27,12 +29,14 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        /*User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "2", null);
-        User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null);
+        /*User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "2", null, null);
+        User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
         user.save();
-        user2.save();
-        User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null);
-        user3.save();*/
+        user2.save();*/
+        //User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
+        /*User user4 = new User(null, "user", "user@user.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "0", null, null);
+        user4.save();/*
+        //user3.save();*/
         return ok(index.render(getStatusUserText()));
     }
 
@@ -67,9 +71,6 @@ public class UserController extends Controller {
     public Result allSellers() {
         return ok(allSellers.render(getStatusUserText()));
     }
-
-    @Inject
-    FormFactory formFactory;
 
     /** GET USERS - ALL
      *
@@ -125,7 +126,6 @@ public class UserController extends Controller {
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
             Long id = Long.valueOf(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
-            //User user = User.find.where().like("id", id).like("token", token).findUnique();
             User user = User.find.byId(id);
             if (user.getToken().equals(token)) {
                 if (user.getStatusUser().equals("0"))
@@ -253,7 +253,7 @@ public class UserController extends Controller {
         if (checkEmailUser != null)
             return status(422,"This email is already used");
         else {
-            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, null, null, status, null);
+            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, null, null, status, null, null);
             user.save();
             return created();
         }
@@ -285,7 +285,7 @@ public class UserController extends Controller {
         if (checkEmailUser != null)
             return status(422,"This email is already used");
         else {
-            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null);
+            User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null, null);
             user.save();
             return created();
         }
@@ -393,5 +393,24 @@ public class UserController extends Controller {
         }
 
     }
+
+    public Result addToCart(){
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String idProduct = values.get("idProduct")[0];
+        String idUser = values.get("idUser")[0];
+        String quantityDesired = values.get("quantityDesired")[0];
+
+        User user = User.find.byId(Long.valueOf(idUser));
+        if (user == null)
+            return notFound("User doesn't exist");
+        Product product = Product.find.byId(Long.valueOf(idProduct));
+        if (product == null){
+            return notFound("Product doesn't exist");
+        }
+        user.addToShoppingCart(new ProductInShoppingCart(null, Integer.valueOf(quantityDesired),user,product));
+        return ok(Json.toJson(user));
+
+    }
+
 
 }

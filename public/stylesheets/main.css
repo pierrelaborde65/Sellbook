@@ -55,6 +55,11 @@
                 margin-right:10%;
             }
 
+            #quantityDesired{
+            width: 90px;
+            }
+
+
             .headerLeft{
                 width: 65%;
                 display: inline-block;
@@ -82,6 +87,19 @@
 
            	.control-label-login{
             	display: inline-block;
+           	}
+
+           	.addToCartForm{
+                    position: fixed;
+                    margin: auto;
+                    bottom: 20%;
+                    left: 30%;
+                    overflow: auto;
+                    right: 20%;
+                    top: 20%;
+                    width:15%;
+                    height: 20%;
+                    background: #ccc;
            	}
 
 /**/

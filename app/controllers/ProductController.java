@@ -79,7 +79,7 @@ public class ProductController extends Controller {
             return notFound("The person is not a seller");
         }
         else {*/
-        Product product = new Product(null, id,name, description, Float.parseFloat(price), Integer.parseInt(quantity));
+        Product product = new Product(null, id,name, description, Float.parseFloat(price), Integer.parseInt(quantity),null);
         return created("The product has been created");
 
     }
@@ -102,7 +102,7 @@ public class ProductController extends Controller {
             return notFound("The person is not a seller");
         }
         else {*/
-        Product product = new Product(null, idSeller,name, description, Float.parseFloat(price), Integer.parseInt(quantity));
+        Product product = new Product(null, idSeller,name, description, Float.parseFloat(price), Integer.parseInt(quantity),null);
         return created("The product has been created");
 
     }
