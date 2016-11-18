@@ -40,27 +40,71 @@ public class UserController extends Controller {
         return ok(index.render(getStatusUserText()));
     }
 
+    /** USER CREATION
+     *
+     * @return 200 - User Created
+     */
     public Result newSU() {
         return ok(newSU.render(getStatusUserText()));
     }
 
+    /** SELLER CREATION
+     *
+     * @return 200 - Seller Created
+     */
+    public Result newSeller() {
+        return ok(newSeller.render(getStatusUserText()));
+    }
+
+    /** USER SELECTION
+     *
+     * @return 200 - All Users
+     */
     public Result allSU() {
         return ok(allSU.render(getStatusUserText()));
     }
 
+    /** SELLER SELECTION
+     *
+     * @return 200 - All Sellers
+     */
+    public Result allSellers() {
+        return ok(allSellers.render(getStatusUserText()));
+    }
+
+    /** GET USERS - ALL
+     *
+     * @return IF there isn't any Users, return 404 - "No Users Found"
+     * else return 200 - all Users
+     */
     public Result getUsers() {
         return ok(Json.toJson(User.find.all()));
     }
 
+    /** GET SELLERS - ALL
+     *
+     * @return IF there isn't any Sellers, return 404 - "No Sellers Found"
+     * else return 200 - all Sellers
+     */
     public Result getSellers() {
         return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
     }
 
+    /** GET SIMPLE USERS - ALL
+     *
+     * @return IF there isn't any Simple Users, return 404 - "No Simple Users Found"
+     * else return 200 - all Simple Users
+     */
     public Result getSimpleUsers() {
         return ok(Json.toJson(User.find.where().like("statusUser", "0").findList()));
     }
 
-
+    /**
+     * GET USERS BY ID - ALL
+     * @param id  (Long) the id of a User
+     * @return IF the User doesn't exist, return 404 - "User does not exist"
+     * Else return 200 - User
+     */
     public Result getUser(Long id) {
         if(User.find.byId(id) == null) {
             return notFound("User does not exist.");
@@ -70,7 +114,14 @@ public class UserController extends Controller {
         }
     }
 
-
+    /**
+     * GET STATUT - ALL
+     *
+     * @return IF the User doesn't exist, return "None"
+     * Else IF getStatusUser = 0 return "SU"
+     *      IF getStatusUser = 1 return "SC"
+     *      IF getStatusUser = 2 return "Admin"
+     */
     public static String getStatusUserText() {
         if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
             Long id = Long.valueOf(request().cookies().get("id").value());
@@ -87,16 +138,30 @@ public class UserController extends Controller {
         }
         return "None";
     }
+
+    /**
+     * DELETE USER BY ID
+     * @param id The User id
+     * @return IF User doesn't exist in the dababase, return 404 - "User does not exist."
+     * Else return 200 - "The User has been succesfully deleted"
+     */
     public Result deleteUser(Long id) {
         if(User.find.byId(id) == null) {
             return notFound("User does not exist.");
         }
         else {
             User.find.deleteById(id);
-            return ok("The person has been succesfully deleted");
+            return ok("The user has been succesfully deleted");
         }
     }
 
+
+    /**
+     * LOGIN
+     *
+     * @return IF email or password does not match return 404 - "email or password incorrect"
+     * ELSE 200 - OK Cookie Created with ID + Token
+     */
     public Result login() {
         // Get information from the login form
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
@@ -126,19 +191,15 @@ public class UserController extends Controller {
 
 
     /**
-     * Check if the user session is valid or not
-     * @param id The ID of the person
-     * @param token The token of the person
-     * @return If the user has a valid session, return <b>200 Ok</b> <br/>
-     * Else return 404 Not Found<
+     * AUTHENTIFICATION
+     * @param id The User ID
+     * @param token The User Token
+     * @return IF ID & Token Match 200 - OK
+     * Else return 404 - "Your connection is expired or invalid. Please log in again"
      */
     public Result isConnected(Long id, String token) {
         //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
-        System.out.println("ID USER : "+id);
-        System.out.println("TOKEN USER : "+token);
         User user = User.find.byId(id);
-        System.out.println("USER : "+user);
-        System.out.println("USER TOKEN: "+user.getToken());
         if(user.getToken().equals(token)) {
             return ok(Json.toJson(user));
         }else {
@@ -147,9 +208,9 @@ public class UserController extends Controller {
     }
 
     /**
-     * Log out. Delete cookies and set the value of token in the database to null
-     * @return If the person doesn't exist, return 404 Not Found
-     * Else return ok
+     * LOG OUT
+     * @return IF ID & Token Match 200 - OK & discard Cookie
+     * Else return 404 - "Log out error"
      */
     public Result logout() {
         // Get attribute from the form
@@ -170,6 +231,12 @@ public class UserController extends Controller {
         }
     }
 
+    /**
+     * SIMPLE USER REGISTRATION
+     *
+     * @return IF email already used return 422 - "This email is already used"
+     * ELSE 200 - Created
+     */
     public Result registerSU() {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String name = form.get("name")[0];
@@ -182,9 +249,9 @@ public class UserController extends Controller {
         String status = "0";
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         // check if email is not already used
-        User user2 = User.find.where().like("email", email).findUnique();
-        if (user2 != null)
-            return notFound("Email already used");
+        User checkEmailUser = User.find.where().like("email", email).findUnique();
+        if (checkEmailUser != null)
+            return status(422,"This email is already used");
         else {
             User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, null, null, status, null, null);
             user.save();
@@ -192,6 +259,13 @@ public class UserController extends Controller {
         }
     }
 
+
+    /**
+     * SELLER REGISTRATION
+     *
+     * @return IF email already used return 422 - "This email is already used"
+     * ELSE 200 - Created
+     */
     public Result registerSC() {
         final Map<String, String[]> form = request().body().asFormUrlEncoded();
         String name = form.get("name")[0];
@@ -207,9 +281,9 @@ public class UserController extends Controller {
         String password = BCrypt.hashpw(form.get("password")[0], BCrypt.gensalt());
         String status = "1";
         // check if email not already used
-        User userTest = User.find.where().like("email", email).findUnique();
-        if (userTest != null)
-            return notFound("Email already used");
+        User checkEmailUser = User.find.where().like("email", email).findUnique();
+        if (checkEmailUser != null)
+            return status(422,"This email is already used");
         else {
             User user = new User(null, name, email, Integer.parseInt(numberAddress), streetAddress, cityAddress, Integer.parseInt(postCodeAddress), phoneNumber, password, siret, descriptionSeller, status, null, null);
             user.save();
@@ -218,6 +292,8 @@ public class UserController extends Controller {
     }
 
     /**
+     * SEARCH SIMPLE USER - ALL
+     * @return 200 - Users
      *
      */
     public Result searchSU() {
@@ -230,6 +306,93 @@ public class UserController extends Controller {
         }
     }
 
+
+    /**
+     * SEARCH SELLER - ALL
+     * @return 200 - Sellers
+     *
+     */
+    public Result searchSeller() {
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String nameSeller = values.get("nameSeller")[0];
+        if (nameSeller == null){
+            return ok(Json.toJson(User.find.where().like("statusUser", "1").findList()));
+        } else {
+            return ok(Json.toJson(User.find.where().like("statusUser", "1").like("name", "%"+nameSeller+"%").findList()));
+        }
+    }
+
+    /**
+     * UPDATE SIMPLE USER
+     * @return IF Simple User exists : 200 - "The Simple User has been updated"
+     * ELSE 404 - "User not found"
+     *
+     */
+    public Result updateSimpleUser() {
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String idSU = form.get("id")[0];
+        long id = Long.parseLong(idSU);
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+
+        if(User.find.byId(id) == null) {
+            return notFound("User not found.");
+        }else{
+
+            User su = User.find.byId(id);
+            su.setName(name);
+            su.setEmail(email);
+            su.setNumberAddress(Integer.valueOf(numberAddress));
+            su.setStreetAddress(streetAddress);
+            su.setCityAddress(cityAddress);
+            su.setPostCodeAddress(Integer.valueOf(postCodeAddress));
+            su.setPhoneNumber(phoneNumber);
+            su.save();
+
+            return ok("The Simple User has been updated");
+        }
+
+    }
+
+    public Result updateSeller() {
+        final Map<String, String[]> form = request().body().asFormUrlEncoded();
+        String idSC = form.get("id")[0];
+        long id = Long.parseLong(idSC);
+        String siret = form.get("siret")[0];
+        String name = form.get("name")[0];
+        String email = form.get("email")[0];
+        String numberAddress = form.get("numberAddress")[0];
+        String streetAddress = form.get("streetAddress")[0];
+        String cityAddress = form.get("cityAddress")[0];
+        String postCodeAddress = form.get("postCodeAddress")[0];
+        String phoneNumber = form.get("phoneNumber")[0];
+        String descriptionSeller = form.get("descriptionSeller")[0];
+
+        if(User.find.byId(id) == null) {
+            return notFound("User not found.");
+        }else{
+
+            User sc = User.find.byId(id);
+            sc.setName(name);
+            sc.setSiret(siret);
+            sc.setEmail(email);
+            sc.setNumberAddress(Integer.valueOf(numberAddress));
+            sc.setStreetAddress(streetAddress);
+            sc.setCityAddress(cityAddress);
+            sc.setPostCodeAddress(Integer.valueOf(postCodeAddress));
+            sc.setPhoneNumber(phoneNumber);
+            sc.setDescriptionSeller(descriptionSeller);
+            sc.save();
+
+            return ok("The user has been updated");
+        }
+
+    }
 
     public Result addToCart(){
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
@@ -248,4 +411,6 @@ public class UserController extends Controller {
         return ok(Json.toJson(user));
 
     }
+
+
 }

@@ -16,32 +16,35 @@ public class Product extends com.avaje.ebean.Model {
     @Id @GeneratedValue
     public Long idProduct;
 
-    //Product's Seller
+    //Product's Seller id
     public String idSeller;
 
-    //name of Product
+    // name of the Product
     public String nameProduct;
 
-    /* Description of Product */
+    // description of the Product
     public String descriptionProduct;
 
-    //price of Product
+    // price of the Product
     public float priceSeller;
 
-    //Quantity in stock
+    // Quantity in stock for the Product
     public int quantityStock;
 
-    //image
+    // image for the Product
     public String imageProduct;
 
     @OneToMany(mappedBy = "referenceProduct")
     @JsonManagedReference
     List<ProductInShoppingCart> shoppingCart = new ArrayList<ProductInShoppingCart>();
 
+
+    // Empty Constructor
     public Product(){
 
     }
 
+    // Constructor
     public Product(Long idProduct, String idSeller, String name, String descProd, float price, int qtyStock/*, String image*/,List<ProductInShoppingCart> shoppingCart){
         this.idProduct = idProduct;
         this.idSeller = idSeller;

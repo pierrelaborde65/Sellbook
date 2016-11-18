@@ -107,9 +107,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
 
     $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
-        console.log(nameProduct);
-        console.log(descriptionProduct);
-        console.log(idProduct);
         var rqt = {
             method : 'POST',
             url : '/updateProduct',

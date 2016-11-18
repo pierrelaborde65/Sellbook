@@ -53,8 +53,6 @@ GET     /isConnected/:id/:token               controllers.UserController.isConne
 
 POST    /logout                     controllers.UserController.logout
 
-GET     /newSU                      controllers.UserController.newSU
-
 POST    /registerSU                 controllers.UserController.registerSU
 
 POST    /registerSC                 controllers.UserController.registerSC
@@ -69,9 +67,23 @@ POST   /newProductAdmin             controllers.ProductController.addProductAdmi
 
 GET    /allSU                       controllers.UserController.allSU()
 
+GET    /allSellers                  controllers.UserController.allSellers()
+
 GET    /simpleUsers                 controllers.UserController.getSimpleUsers()
 
 POST   /searchSU                    controllers.UserController.searchSU()
+
+POST   /searchSeller                controllers.UserController.searchSeller()
+
+GET     /newSU                      controllers.UserController.newSU
+
+GET     /newSeller                  controllers.UserController.newSeller
+
+POST    /updateSimpleUser           controllers.UserController.updateSimpleUser()
+
+POST    /updateSeller               controllers.UserController.updateSeller()
+
+
 
 
 

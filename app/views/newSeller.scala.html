@@ -1,0 +1,50 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(message: String)
+
+@scripts = { <script src="@routes.Assets.versioned("javascripts/newSellerAdmin.js")" type="text/javascript"></script> }
+
+@main("Register Seller", scripts, message) {
+    <div ng-controller="newSellerAdmin" class="newSellerAdmin">
+        <div ng-hide="hideSuccessSU" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+        <div class="registerSellerForm">
+            <form name="registerSellerForm" ng-submit="newSeller(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, password)">
+                <label><b>Company Name</b></label><br>
+                <input type="text" ng-model="name" required><br>
+                <div class="fieldWrapper">
+                    <label for="siret"><b>SIRET Company</b></label><br>
+                    <input pattern="[0-9]{14}" placeholder="14 numbers" type="text" ng-model="siret" name="siret" id="siret" onkeyup="checkSiret(); return false;" required><br>
+                    <span id="confirmMessageSiret" class="confirmMessageSiret"></span>
+                </div>
+                <label><b>Email</b></label><br>
+                <input type="email" ng-model="email" required><br>
+                <label><b>Number Address</b></label><br>
+                <input type="number" ng-model="numberAddress" required><br>
+                <label><b>Street Address</b></label><br>
+                <input type="text" ng-model="streetAddress" required><br>
+                <label><b>City Address</b></label><br>
+                <input type="text" ng-model="cityAddress" required><br>
+                <label><b>PostCode Address</b></label><br>
+                <input type="number" ng-model="postCodeAddress" required><br>
+                <label><b>Phone Number</b></label><br>
+                <input type="number" ng-model="phoneNumber" required><br>
+                <label><b>Description Company</b></label><br>
+                <input type="text" ng-model="descriptionSeller" required><br>
+               <div class="fieldWrapper">
+                    <label for="password"><b>Password</b></label><br>
+                    <input pattern=".{6,}" type="password" ng-model="password" placeholder="At least 6 characters" name="password" id="password" required><br>
+                </div>
+                <div class="fieldWrapper">
+                    <label for="confirmPassword"><b>Confirm Password</b></label><br>
+                    <input pattern=".{6,}" type="password" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" onkeyup="checkPassSC(); return false;" required><br>
+                    <span id="confirmMessage" class="confirmMessage"></span>
+                </div>
+                <button id="buttonRegister" ng-disabled="registerSellerForm.$invalid" type="submit">Submit</button>
+            </form>
+             <div ng-hide="hideErrorSU" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
+        </div>
+    </div>
+
+}
