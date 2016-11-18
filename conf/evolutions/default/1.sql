@@ -27,10 +27,10 @@ create table user_sellbook (
   password                      varchar(255),
   siret                         varchar(255),
   description_seller            varchar(255),
-  status_user                   varchar(255),
+  status_user                   integer,
   token                         varchar(255),
-  constraint uq_user_sellbook_email unique (email),
-  constraint pk_user_sellbook primary key (id)
+  constraint uq_user_email unique (email),
+  constraint pk_user primary key (id)
 );
 create sequence User_Sellbook_seq;
 
