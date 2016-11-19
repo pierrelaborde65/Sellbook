@@ -118,6 +118,49 @@ POST    /updateSeller               controllers.UserController.updateSeller()
 
 GET     /                         controllers.UserController.index
 
+#Routes -------------------------------- Diaries -----------------------------------------------------------------------------------------
+
+GET    /newDiary                    controllers.DiaryController.newDiary()
+
+POST   /newDiary                    controllers.DiaryController.addDiary()
+
+GET    /myDiaries                   controllers.DiaryController.showMyDiaries()
+
+GET    /updateDiary/:id             controllers.DiaryController.showUpdateForm(id: Long)
+
+PUT   /myDiaries/:id                controllers.DiaryController.updateDiary(id: Long)
+
+#Get user's all diaries
+GET    /user/:id/myDiaries          controllers.DiaryController.getMyDiaries(id: Long)
+
+
+#Get all diaries
+GET    /diaries                     controllers.DiaryController.getDiaries()
+
+#Get diary by id
+GET    /diaries/:id                 controllers.DiaryController.getDiary(id: Long)
+
+
+#Delete diary by id
+DELETE /diaries/:id                 controllers.DiaryController.deleteDiary(id: Long)
+
+
+#Routes --------------------------------Objectives -----------------------------------------------------------------------------------------
+
+GET    /newObjective                   controllers.ObjectivesController.newObjective()
+
+POST   /newObjective                   controllers.ObjectivesController.addObjective()
+
+GET    /objectives                     controllers.ObjectivesController.getObjectives()
+
+#Get objective by id
+GET    /objective/:id                  controllers.ObjectivesController.getObjective(id: Long)
+
+#Get diary's objectives
+GET    /diary/:id/objectives           controllers.ObjectivesController.getDiaryObjectives(id: Long)
+
+#delete objective by id
+DELETE /objectives/:id                 controllers.ObjectivesController.deleteObjective(id: Long)
 
 # ----------------------------------------------------------------------------------------------------------
 

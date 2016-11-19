@@ -1,0 +1,40 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(message: String)
+
+@scripts = {
+<script src="@routes.Assets.versioned("javascripts/myDiaries.js")" type="text/javascript"></script>
+}
+
+@main("My Diaries", scripts, message) {
+<div ng-controller="myDiaries" class="myDiaries" ng-init="getMyDiaries()">
+    <div ng-hide="hideSuccess" class="alert alert-success"> <strong> Success! </strong>{{titleSuccess}}</div>
+    <table st-table="showDiary" st-safe-src="myDiaries" class="table table-striped">
+            <thead>
+              <tr>
+                <th st-sort="title">Title</th>
+                <th st-sort="description">Description</th>
+                <th st-sort="date">Date</th>
+                <th style="visibility:hidden;">Update Diary</th>
+                <th style="visibility:hidden;">Delete Diary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="diary in myDiaries">
+                <td>{{diary.titleDiary}}</td>
+                <td>{{diary.descriptionDiary}}</td>
+                <td>{{diary.dateDiary}}</td>
+                <td> <a type="button" ng-href="/updateDiary/{{diary.idDiary}}" class="btn btn-default">Update Diary</a> </td>
+                <td> <button type="button" ng-click="deleteDiary(diary)" class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-remove-circle">
+                  </i>
+                     </button>
+                </td>
+              </tr>
+            </tbody>
+    </table>
+</div>
+
+}
