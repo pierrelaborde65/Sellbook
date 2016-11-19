@@ -187,14 +187,12 @@ public class ProductController extends Controller {
         if(Product.find.byId(id) == null) {
             return notFound("Product not found.");
         }else{
-
             Product product = Product.find.byId(id);
-            product.nameProduct = nameProduct;
-            product.descriptionProduct = descriptionProduct;
-            product.priceSeller =  Float.valueOf(priceSeller);
-            product.quantityStock = Integer.valueOf(quantityStock);
+            product.setNameProduct(nameProduct);
+            product.setDescriptionProduct(descriptionProduct);
+            product.setPriceSeller(Float.valueOf(priceSeller));
+            product.setQuantityStock(Integer.valueOf(quantityStock));
             product.save();
-
             return ok("The Product has been updated");
         }
 
@@ -216,6 +214,30 @@ public class ProductController extends Controller {
         }else{
             Product.find.deleteById(id);
             return ok("The Product has been deleted");
+        }
+    }
+
+    /**
+     * DELETE PRODUCTS BY IDSELLER
+     * @param id The Seller id
+     * @return IF Products don't exist in the dababase, return 404 - "No Products Found"
+     * Else return 200 - "The Products of this seller have been deleted"
+     */
+    public Result deleteProducts(Long id) {
+        if(Product.find.where().like("idSeller", id.toString()).findList() == null) {
+            System.out.println("test test");
+
+            return notFound("No Products Found");
+        }else{
+            System.out.println("ok ok");
+            List<Product> l = Product.find.where().like("idSeller", id.toString()).findList();
+            System.out.println(l.size());
+            int cpt = 0;
+            while (cpt<l.size()) {
+                Product.find.deleteById(l.get(cpt).getIdProduct());
+                cpt = cpt+1;
+            }
+            return ok("The Products of this seller have been deleted");
         }
     }
 
