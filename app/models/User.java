@@ -56,6 +56,7 @@ public class User extends com.avaje.ebean.Model {
     // Token (Cookie) of the User
     String token;
 
+    // Shopping Cart lines of the User
     @OneToMany(mappedBy = "referenceUser")
     @JsonManagedReference
     List<ProductInShoppingCart> shoppingCart = new ArrayList<ProductInShoppingCart>();
@@ -65,7 +66,23 @@ public class User extends com.avaje.ebean.Model {
     public User() {
     }
 
-    // Constructor
+    /**
+     * CONSTRUCTOR
+     * @param id
+     * @param name
+     * @param email
+     * @param numberAddress
+     * @param streetAddress
+     * @param cityAddress
+     * @param postCodeAddress
+     * @param phoneNumber
+     * @param password
+     * @param siret
+     * @param descriptionSeller
+     * @param statusUser
+     * @param token
+     * @param shoppingCart
+     */
     public User(Long id, String name, String email, int numberAddress, String streetAddress, String cityAddress, int postCodeAddress, String phoneNumber, String password, String siret, String descriptionSeller, String statusUser, String token, List<ProductInShoppingCart> shoppingCart) {
         this.id = id;
         this.name = name;
@@ -84,7 +101,7 @@ public class User extends com.avaje.ebean.Model {
         this.save();
     }
 
-    // getters and setters
+    // GETTERS & SETTERS
 
     public static Finder<Long, User> getFind() {
         return find;

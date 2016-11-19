@@ -34,6 +34,7 @@ public class Product extends com.avaje.ebean.Model {
     // image for the Product
     public String imageProduct;
 
+    // lines of Shopping Cart for a Product
     @OneToMany(mappedBy = "referenceProduct")
     @JsonManagedReference
     List<ProductInShoppingCart> shoppingCart = new ArrayList<ProductInShoppingCart>();
@@ -44,7 +45,16 @@ public class Product extends com.avaje.ebean.Model {
 
     }
 
-    // Constructor
+    /**
+     * CONSTRUCTOR
+     * @param idProduct
+     * @param idSeller
+     * @param name
+     * @param descProd
+     * @param price
+     * @param qtyStock
+     * @param shoppingCart
+     */
     public Product(Long idProduct, String idSeller, String name, String descProd, float price, int qtyStock/*, String image*/,List<ProductInShoppingCart> shoppingCart){
         this.idProduct = idProduct;
         this.idSeller = idSeller;
@@ -56,6 +66,7 @@ public class Product extends com.avaje.ebean.Model {
         this.save();
     }
 
+    // GETTERS & SETTERS
     public Long getIdProduct() {
         return idProduct;
     }
