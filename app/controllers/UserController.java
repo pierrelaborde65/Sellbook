@@ -424,12 +424,21 @@ public class UserController extends Controller {
 
     }
 
+    /**
+     * SHOW CART
+     * @return 200 - OK
+     */
     public Result cart() {
         return ok(cart.render(getStatusUserText()));
     }
 
+    /**
+     * GET CART BY USER ID
+     * @param id
+     * @return IF the id user does not match : 404 - "User does not exist"
+     * ELSE 200 - OK
+     */
     public Result getCartUser(Long id) {
-        System.out.println("getcartU");
         User user = User.find.byId(id);
         if(user == null) {
             return notFound("User does not exist.");
