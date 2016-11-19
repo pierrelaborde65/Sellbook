@@ -38,6 +38,7 @@ public class UserController extends Controller {
         User user4 = new User(null, "user", "user@user.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "0", null, null);
         user4.save();
         user3.save();*/
+        System.out.println("test");
         return ok(index.render(getStatusUserText()));
     }
 
