@@ -1,5 +1,6 @@
 import controllers.ProductController;
 import controllers.UserController;
+import models.User;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,14 +11,37 @@ import static org.junit.Assert.assertEquals;
  */
 public class UserTest {
 
-    UserController uc = new UserController();
+    /* ----------------- TEST Product ---------------------------*/
+    //no Products
 
-    /*
+    User u = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"0",null,null);
+
+
     @Test
-    public void addUser() {
-        int nbUser = uc.getUsers().size;
-        uc.addUser();
-        assertEquals(nbUser+1,uc.getUsers().size);
+    public void TestGetUsers(){
+        u.save();
+        Assert.assertNotNull("No User Found",User.find.all());
     }
-    */
+
+    @Test
+    public void TestGetUserByID() {
+        u.save();
+        Assert.assertNotNull("No User Found",User.find.byId(u.getId()));
+    }
+
+    @Test
+    public void addUser(){
+        int nb = u.find.all().size();
+        Assert.assertEquals(nb,u.find.all().size());
+        u.save();
+        Assert.assertEquals(nb+1,u.find.all().size());
+    }
+
+    @Test
+    public void deleteProduct(){
+        int nb = u.find.all().size();
+        Assert.assertEquals(nb,u.find.all().size());
+        u.delete();
+        Assert.assertEquals(nb-1,u.find.all().size());
+    }
 }
