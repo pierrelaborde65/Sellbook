@@ -14,7 +14,7 @@ public class Diary extends com.avaje.ebean.Model {
     public Long idDiary;
 
     //user's diary
-    public Long idUser;
+    public String idUser;
 
     // diary's title
     public String titleDiary;
@@ -27,7 +27,7 @@ public class Diary extends com.avaje.ebean.Model {
 
     public Diary(){}
 
-    public Diary(Long idDiary, Long idUser, String titleDiary, String descriptionDiary, String dateDiary){
+    public Diary(Long idDiary, String idUser, String titleDiary, String descriptionDiary, String dateDiary){
         this.idDiary = idDiary;
         this.idUser = idUser;
         this.titleDiary = titleDiary;

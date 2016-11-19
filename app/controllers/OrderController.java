@@ -62,9 +62,9 @@ public class OrderController extends Controller{
             SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
             Date date = new java.util.Date();
             Order order = new Order(null,
-                    Linecart.getReferenceUser().getId(),
-                    Long.valueOf(Linecart.getReferenceProduct().getIdSeller()),
-                    Linecart.getReferenceProduct().getIdProduct(),
+                    Linecart.getReferenceUser().getId().toString(),
+                    Linecart.getReferenceProduct().getIdSeller(),
+                    Linecart.getReferenceProduct().getIdProduct().toString(),
                     formater.format(date),
                     Linecart.getQuantity(),
                     Linecart.getReferenceProduct().getPriceSeller(),
@@ -93,8 +93,11 @@ public class OrderController extends Controller{
         else {
             ArrayNode orders = Json.newArray();
             for (int i = 0; i< ordersUser.size(); i++) {
-                User seller = User.find.byId(ordersUser.get(i).getIdSeller());
-                Product product = Product.find.byId(ordersUser.get(i).getIdProduct());
+                Long userID = Long.valueOf(ordersUser.get(i).getIdUser());
+                Long productID = Long.valueOf(ordersUser.get(i).getIdProduct());
+
+                User seller = User.find.byId(userID);
+                Product product = Product.find.byId(productID);
                 ObjectNode order = Json.newObject();
                 order.put("id", ordersUser.get(i).getIdOrder());
                 order.put("date", ordersUser.get(i).getDateOrder());
@@ -119,8 +122,12 @@ public class OrderController extends Controller{
         else {
             ArrayNode orders = Json.newArray();
             for (int i = 0; i< ordersAdmin.size(); i++) {
-                User seller = User.find.byId(ordersAdmin.get(i).getIdSeller());
-                Product product = Product.find.byId(ordersAdmin.get(i).getIdProduct());
+                Long userID = Long.valueOf(ordersAdmin.get(i).getIdUser());
+                Long productID = Long.valueOf(ordersAdmin.get(i).getIdProduct());
+
+                User seller = User.find.byId(userID);
+                Product product = Product.find.byId(productID);
+
                 ObjectNode order = Json.newObject();
                 order.put("id", ordersAdmin.get(i).getIdOrder());
                 order.put("date", ordersAdmin.get(i).getDateOrder());
@@ -149,7 +156,7 @@ public class OrderController extends Controller{
     public Result declinedOrder(Long idOrder){
         Order order = Order.find.byId(idOrder);
         //maj quantity
-        Product product = Product.find.byId(order.getIdProduct());
+        Product product = Product.find.byId(Long.valueOf(order.getIdProduct()));
         product.setQuantityStock(product.getQuantityStock()+ order.getQuantityOrder());
         product.save();
 
@@ -159,7 +166,9 @@ public class OrderController extends Controller{
     }
 
     public Result getOrdersSeller(Long idSeller){
-        List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
+
+        //List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
+        List <Order> ordersSeller = Order.find.findList();
 
         if(ordersSeller == null) {
             return notFound("There is no order ");
@@ -167,9 +176,11 @@ public class OrderController extends Controller{
         else {
             ArrayNode orders = Json.newArray();
             for (int i = 0; i< ordersSeller.size(); i++) {
-                User buyer = User.find.byId(ordersSeller.get(i).getIdUser());
+                Long userID = Long.valueOf(ordersSeller.get(i).getIdUser());
+                Long productID = Long.valueOf(ordersSeller.get(i).getIdProduct());
+                User buyer = User.find.byId(userID);
 
-                Product product = Product.find.byId(ordersSeller.get(i).getIdProduct());
+                Product product = Product.find.byId(productID);
                 ObjectNode order = Json.newObject();
                 order.put("id", ordersSeller.get(i).getIdOrder());
                 order.put("date", ordersSeller.get(i).getDateOrder());

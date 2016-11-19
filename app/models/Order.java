@@ -15,12 +15,11 @@ public class Order extends com.avaje.ebean.Model {
 
     @Id @GeneratedValue Long idOrder;
 
-    @ManyToOne
-    Long idUser;
-    @ManyToOne
-    Long idSeller;
-    @ManyToOne
-    Long idProduct;
+    String idUser;
+
+    String idSeller;
+
+    String idProduct;
 
     // Date of the Order
     String dateOrder;
@@ -51,7 +50,7 @@ public class Order extends com.avaje.ebean.Model {
      * @param priceOrder
      * @param stateOrder
      */
-    public Order(Long idOrder, Long idUser, Long idSeller, Long idProduct, String dateOrder, int quantityOrder, float priceOrder, String stateOrder) {
+    public Order(Long idOrder, String idUser, String idSeller, String idProduct, String dateOrder, int quantityOrder, float priceOrder, String stateOrder) {
         this.idOrder = idOrder;
         this.idUser = idUser;
         this.idSeller = idSeller;
@@ -97,11 +96,11 @@ public class Order extends com.avaje.ebean.Model {
         this.stateOrder = stateOrder;
     }
 
-    public Long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -121,19 +120,19 @@ public class Order extends com.avaje.ebean.Model {
         this.priceOrder = priceOrder;
     }
 
-    public Long getIdSeller() {
+    public String getIdSeller() {
         return idSeller;
     }
 
-    public void setIdSeller(Long idSeller) {
+    public void setIdSeller(String idSeller) {
         this.idSeller = idSeller;
     }
 
-    public Long getIdProduct() {
+    public String getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(Long idProduct) {
+    public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
     }
 }

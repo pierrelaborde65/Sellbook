@@ -45,7 +45,7 @@ public class DiaryController extends Controller {
         System.out.println(titleDiary);
         System.out.println(descriptionDiary);
         System.out.println(dateDiary);
-        Diary diary = new Diary(null,Long.parseLong(id),titleDiary, descriptionDiary, dateDiary);
+        Diary diary = new Diary(null,id,titleDiary, descriptionDiary, dateDiary);
         return created("The diary '" + titleDiary + "'has been created");
     }
     /** Get all diaries

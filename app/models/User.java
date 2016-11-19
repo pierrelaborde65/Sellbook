@@ -61,7 +61,6 @@ public class User extends com.avaje.ebean.Model {
     @JsonManagedReference
     List<ProductInShoppingCart> shoppingCart = new ArrayList<ProductInShoppingCart>();
 
-
     // Empty Constructor
     public User() {
     }
