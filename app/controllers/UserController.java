@@ -129,7 +129,7 @@ public class UserController extends Controller {
             Long id = Long.valueOf(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
             User user = User.find.byId(id);
-            if (user.getToken().equals(token)) {
+            if (BCrypt.checkpw(token, user.getToken())) {
                 if (user.getStatusUser().equals("0"))
                     return "SU";
                 if (user.getStatusUser().equals("1"))
@@ -182,9 +182,12 @@ public class UserController extends Controller {
             } else {
                 // Generate a random token and give it to the User to identify him
                 String token = UUID.randomUUID().toString();
-                users.get(0).setToken(token);
+                //crypte the token
+                String tokenCrypted= BCrypt.hashpw(token, BCrypt.gensalt());
+                users.get(0).setToken(tokenCrypted);
                 // save the user with the new token in the database
                 users.get(0).save();
+
                 // get the status of the user to redirect him to the good homepage
                 return ok(index.render(getStatusUserText())).withCookies(new Http.Cookie("token", token, 86400 , null, null, false, false)).withCookies(new Http.Cookie("id", users.get(0).getId().toString(), 86400 , null, null, false, false));
             }
@@ -202,7 +205,7 @@ public class UserController extends Controller {
     public Result isConnected(Long id, String token) {
         //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
         User user = User.find.byId(id);
-        if(user.getToken().equals(token)) {
+        if (BCrypt.checkpw(token, user.getToken())) {
             return ok(Json.toJson(user));
         }else {
             return notFound("Your connection is expired or invalid. Please log in again");
@@ -222,7 +225,7 @@ public class UserController extends Controller {
         //LIKE -----------------------------------------------------------------------------------
         //User user = User.find.where().like("id", id).like("token", token).findUnique();
         User user = User.find.byId(id);
-        if(user.getToken().equals(token)) {
+        if (BCrypt.checkpw(token, user.getToken())) {
             response().discardCookie("token");
             response().discardCookie("id");
             return ok();
