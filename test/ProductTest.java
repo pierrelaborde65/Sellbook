@@ -33,7 +33,6 @@ public class ProductTest {
 
     Product p = new Product(null,null,"test",null,1,1,null);
 
-
     @Test
     public void TestGetProducts(){
         p.save();
