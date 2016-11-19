@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Product;
 import org.junit.*;
 import controllers.ProductController;
 import play.mvc.*;
@@ -22,47 +23,44 @@ import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
 
-
 /**
  * Created by meier on 08/11/2016.
  */
 public class ProductTest {
 
 
-
     /* ----------------- TEST Product ---------------------------*/
     //no Products
 
-    /*
+    Product p = new Product(null,null,"test",null,1,1,null);
+
+
     @Test
     public void TestGetProducts(){
-        ProductController pc = new ProductController();
-        Assert(pc.getProducts(), "No Product Found");
+        p.save();
+        Assert.assertNotNull("No Product Found",Product.find.all());
     }
 
     @Test
-    public void TestGetProduct() {
-
+    public void TestGetProductByID() {
+        p.save();
+        Assert.assertNotNull("No Product Found",Product.find.byId(p.getIdProduct()));
     }
 
     @Test
     public void addProduct(){
-        ProductController pc = new ProductController();
-        pc.addProduct();
+        int nb = p.find.all().size();
+        Assert.assertEquals(nb,p.find.all().size());
+        p.save();
+        Assert.assertEquals(nb+1,p.find.all().size());
     }
 
     @Test
-    public void getProducts(){
-
+    public void deleteProduct(){
+        int nb = p.find.all().size();
+        Assert.assertEquals(nb,p.find.all().size());
+        p.delete();
+        Assert.assertEquals(nb-1,p.find.all().size());
     }
-
-    @Test
-    public void getProduct(){
-
-
-    }
-    */
-
-
 
 }
