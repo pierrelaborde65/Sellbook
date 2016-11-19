@@ -33,11 +33,11 @@ public class UserController extends Controller {
         /*User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "2", null, null);
         User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
         user.save();
-        user2.save();*/
-        //User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
-        /*User user4 = new User(null, "user", "user@user.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "0", null, null);
-        user4.save();/*
-        //user3.save();*/
+        user2.save();
+        User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
+        User user4 = new User(null, "user", "user@user.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "0", null, null);
+        user4.save();
+        user3.save();*/
         return ok(index.render(getStatusUserText()));
     }
 
@@ -424,10 +424,20 @@ public class UserController extends Controller {
 
     }
 
+    /**
+     * SHOW CART
+     * @return 200 - OK
+     */
     public Result cart() {
         return ok(cart.render(getStatusUserText()));
     }
 
+    /**
+     * GET CART BY USER ID
+     * @param id
+     * @return IF the id user does not match : 404 - "User does not exist"
+     * ELSE 200 - OK
+     */
     public Result getCartUser(Long id) {
         User user = User.find.byId(id);
         if(user == null) {

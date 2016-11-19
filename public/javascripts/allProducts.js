@@ -44,7 +44,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                     });
     };
 
-     // Return
+     // Return the product matching the keyword %nameProduct%
     $scope.searchProduct = function(seller, nameProduct) {
         var idSeller;
         if (seller == null){
@@ -64,7 +64,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     };
 
-    // Delete the product
+    // Confirm the deletion of a Product
     $scope.confirmDelete = function(product) {
         if (confirm("Do you really want to delete this product ?")){
             var rqt = {
@@ -80,7 +80,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         }
     }
 
-    //Show update Form
+    // Allow showing Update form for Product
         $scope.updateProduct = function(product) {
             var id = product.idProduct;
             $scope.showAllProductsInfos = false;
@@ -105,7 +105,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
         }
 
-
+    // Update the Product
     $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
         var rqt = {
             method : 'POST',
@@ -122,7 +122,13 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         });
     }
 
-    //Cart -------------------------
+    // Hide Update product Form -> Show all products
+    $scope.cancelUpdateForm = function() {
+        $scope.showAllProductsInfos = true;
+        $scope.showUpdateProductForm = false;
+    }
+
+    // Show add Shopping Cart pop-up
     $scope.ShowAddToShoppingCart = function(product) {
         $scope.idProductCart = product.idProduct;
         $scope.quantityDesired = 1;
@@ -131,7 +137,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         $scope.showAddToShoppingCart = true;
     }
 
-
+    // Add the Product with the quantity to shopping cart
     $scope.addToShoppingCart = function(idProduct,quantityDesired) {
         var rqt = {
             method : 'POST',
@@ -148,16 +154,9 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     }
 
 
-
+    // Hide the Shopping Cart Pop-up
     $scope.cancelAddToShoppingCart = function() {
         $scope.showAddToShoppingCart = false;
-    }
-    //-------------------------------------
-
-
-    $scope.cancelUpdateForm = function() {
-        $scope.showAllProductsInfos = true;
-        $scope.showUpdateProductForm = false;
     }
 
 

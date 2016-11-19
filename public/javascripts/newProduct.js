@@ -1,12 +1,9 @@
 moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookies, $cookieStore) {
-
-
-        // Check if the person is already connected or not and redirect or not
-
-        //NEED TO BE A SELLER ------------------------------------------------------------------------------
-        // Check if there are cookies or not
+        // Authentification
         var idUser = $cookies.get('id');
         var tokenUser = $cookies.get('token');
+
+        // Check SC Authentification
         if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
@@ -24,11 +21,10 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
         else {
             $window.location.href = '/';
         }
-    //----------------------------------------------------------------------------------------------------------
-        // Show or not the error message depending on the return from the application
+
         $scope.hideSuccess = true;
 
-        // When the user want to connect, if it success redirect to the right home, else display error message
+        // Product creation (POST)
         $scope.newProduct = function(nameProduct, descriptionProduct, priceSeller, quantityStock) {
          console.log("2");
             var rqt = {

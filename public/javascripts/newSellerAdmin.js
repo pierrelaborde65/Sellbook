@@ -1,24 +1,24 @@
 moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("newSellerAdmin");
 
+    // Authentification
+    var idUser = $cookies.get('id');
+    var tokenUser = $cookies.get('token');
 
-        //NEED TO BE AN ADMIN ------------------------------------------------------------------------------
-        // Check if there are cookies or not
-        var idUser = $cookies.get('id');
-        var tokenUser = $cookies.get('token');
-        if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
-            var rqt = {
-                method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            };
-            $http(rqt).success(function(data){
-                // If the person is an Admin ok else redirect /
-                if(data["statusUser"] != 2) {
-                    $window.location.href = '/';
-                }
-            });
+    // Check Admin Authentification
+    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+        var rqt = {
+            method : 'GET',
+            url : '/isConnected/' + idUser + '/' + tokenUser,
+            data : $.param({id: idUser, token: tokenUser}),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            // If the person is an Admin ok else redirect /
+            if(data["statusUser"] != 2) {
+                $window.location.href = '/';
+            }
+        });
         }
         else {
             $window.location.href = '/';
@@ -30,7 +30,7 @@ moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $co
     $scope.hideSuccessSC = true;
 
 
-    // register a Seller in the database
+    // Create Seller (POST)
     $scope.newSeller = function(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, password) {
             console.log("newSeller");
             var request = {
@@ -51,6 +51,7 @@ moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $co
 
 });
 
+     // Check SC Password matching
      function checkPassSC()
            {
                //Store the password field objects into variables ...
@@ -83,6 +84,7 @@ moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $co
                }
            }
 
+     // Check SC SIRET matching
      function checkSiret()
          {
              //Store the siret field object into variable ...

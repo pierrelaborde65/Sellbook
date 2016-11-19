@@ -1,12 +1,11 @@
 moduleSellbook.controller('newSUAdmin', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("newSUAdmin");
 
-       // Check if the person is already connected or not and redirect or not
-
-        //NEED TO BE AN ADMIN ------------------------------------------------------------------------------
-        // Check if there are cookies or not
+        // Authentification
         var idUser = $cookies.get('id');
         var tokenUser = $cookies.get('token');
+
+        // Check Admin Authentification
         if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
@@ -31,7 +30,7 @@ moduleSellbook.controller('newSUAdmin', function($scope, $http, $window, $cookie
     $scope.hideSuccessSC = true;
 
 
-    // register a SU in the database
+    // Creation SU (POST)
     $scope.newSU = function(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password) {
             console.log("newSU");
             var request = {
@@ -52,6 +51,7 @@ moduleSellbook.controller('newSUAdmin', function($scope, $http, $window, $cookie
 
 });
 
+     // Check SU Password matching
      function checkPassSU()
            {
                //Store the password field objects into variables ...
