@@ -11,8 +11,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET    /newProduct                   controllers.ProductController.newProduct()
 
-GET    /seller/myProducts             controllers.ProductController.myProductSeller()
-
 POST   /newProduct                   controllers.ProductController.addProduct()
 
 POST   /searchProduct                controllers.ProductController.searchProduct()
@@ -21,8 +19,6 @@ POST   /searchProduct                controllers.ProductController.searchProduct
 GET    /user/allProducts             controllers.ProductController.userAllProducts()
 
 GET     /products                    controllers.ProductController.getProducts()
-
-GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
 
 # Get a product by his id
 GET     /products/:id                controllers.ProductController.getProduct(id : Long)
@@ -54,9 +50,6 @@ GET     /user/:id/cart                 controllers.UserController.getCartUser(id
 # Get all persons
 GET     /users                    controllers.UserController.getUsers()
 
-# Get all sellers
-GET     /sellers                  controllers.UserController.getSellers()
-
 # Delete a user by his id
 DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long)
 
@@ -72,6 +65,18 @@ POST    /registerSC                 controllers.UserController.registerSC
 
 POST    /user/addToCart             controllers.UserController.addToCart
 
+#Routes --------------------------------Seller -----------------------------------------------------------------------------------------
+
+GET    /seller/myProducts             controllers.ProductController.myProductSeller()
+
+GET    /seller/order             controllers.OrderController.myOrderSeller()
+
+# Get all sellers
+GET     /sellers                  controllers.UserController.getSellers()
+
+GET     /seller/:id/products         controllers.ProductController.getMyProducts(id : Long)
+
+GET     /seller/:id/order         controllers.OrderController.getOrdersSeller(id : Long)
 
 #Routes --------------------------------Order -----------------------------------------------------------------------------------------
 
