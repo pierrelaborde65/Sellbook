@@ -2,34 +2,50 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by Pierre on 11/11/2016.
  */
+@Entity
+@Table(name = "Order_Sellbook")
 public class Order extends com.avaje.ebean.Model {
 
     public static Model.Finder<Long, Order> find = new Model.Finder<Long, Order>(Order.class);
 
-    @Id
-    @GeneratedValue
-    Long idOrder;
-    String dateOrder;
-    String stateOrder;
+    @Id @GeneratedValue Long idOrder;
+
     @ManyToOne
     Long idUser;
+    @ManyToOne
+    Long idSeller;
+    @ManyToOne
+    Long idProduct;
+
+    String dateOrder;
+
+    String stateOrder;
+
+    int quantityOrder;
+
+    float priceOrder;
+
+
 
     // Constructors
     public Order() {
     }
 
-    public Order(Long idOrder, String dateOrder, String stateOrder, Long idUser) {
+    public Order(Long idOrder, Long idUser, Long idSeller, Long idProduct, String dateOrder, int quantityOrder, float priceOrder, String stateOrder) {
         this.idOrder = idOrder;
-        this.dateOrder = dateOrder;
-        this.stateOrder = stateOrder;
         this.idUser = idUser;
+        this.idSeller = idSeller;
+        this.idProduct = idProduct;
+        this.dateOrder = dateOrder;
+        this.quantityOrder = quantityOrder;
+        this.priceOrder = priceOrder;
+        this.stateOrder = stateOrder;
+        this.save();
     }
 
     // getters and setters
@@ -74,5 +90,35 @@ public class Order extends com.avaje.ebean.Model {
         this.idUser = idUser;
     }
 
+    public int getQuantityOrder() {
+        return quantityOrder;
+    }
 
+    public void setQuantityOrder(int quantityOrder) {
+        this.quantityOrder = quantityOrder;
+    }
+
+    public float getPriceOrder() {
+        return priceOrder;
+    }
+
+    public void setPriceOrder(float priceOrder) {
+        this.priceOrder = priceOrder;
+    }
+
+    public Long getIdSeller() {
+        return idSeller;
+    }
+
+    public void setIdSeller(Long idSeller) {
+        this.idSeller = idSeller;
+    }
+
+    public Long getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
+    }
 }

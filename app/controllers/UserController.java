@@ -448,7 +448,8 @@ public class UserController extends Controller {
             for (int i = 0; i< user.getShoppingCart().size(); i++) {
                 User seller = User.find.byId(Long.valueOf(user.getShoppingCart().get(i).getReferenceProduct().getIdSeller()));
                 ObjectNode shoppingCartLine = Json.newObject();
-                shoppingCartLine.put("id", user.getShoppingCart().get(i).getReferenceProduct().getIdProduct());
+                shoppingCartLine.put("id", user.getShoppingCart().get(i).getId());
+                shoppingCartLine.put("idProduct", user.getShoppingCart().get(i).getReferenceProduct().getIdProduct());
                 shoppingCartLine.put("name", user.getShoppingCart().get(i).getReferenceProduct().getNameProduct());
                 shoppingCartLine.put("nameSeller", seller.getName());
                 shoppingCartLine.put("description", user.getShoppingCart().get(i).getReferenceProduct().getDescriptionProduct());
@@ -459,6 +460,26 @@ public class UserController extends Controller {
             return ok(Json.toJson(shoppingCart));
         }
     }
+
+    public Result deleteFromCart(Long id) {
+        System.out.println("DELETE FROM CART");
+        ProductInShoppingCart LineCart = ProductInShoppingCart.find.byId(id);
+        if(LineCart == null) {
+            System.out.println("11111");
+            return notFound("LineCart does not exist.");
+        }
+        else {
+            //check line with user
+            if(request().cookies().get("id") !=null){
+                if(Long.valueOf(request().cookies().get("id").value()) == LineCart.getReferenceUser().getId()){
+                    ProductInShoppingCart.find.deleteById(id);
+                    return ok("The Cart Line has been succesfully deleted");
+                }
+            }
+        }
+        return notFound("Cookies Error");
+    }
+
 
 
 }

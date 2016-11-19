@@ -46,7 +46,7 @@
             <tr ng-repeat="product in allProducts">
                 <td>{{product.nameProduct}}</td>
                 <td>{{product.descriptionProduct}}</td>
-                <td>{{product.priceSeller}}</td>
+                <td>{{product.priceSeller}} €</td>
                 <td>{{product.quantityStock}}</td>
                 @if(message == "Admin"){
                     <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
