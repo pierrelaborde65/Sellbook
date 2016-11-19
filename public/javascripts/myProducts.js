@@ -1,9 +1,10 @@
 moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("myProducts");
-    // Test if the User can stay on the page
+    // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
-           //--------------------- Check SELLER ----------------------------------------------------
+
+    // Seller Authentification Check
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
@@ -34,7 +35,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     $scope.showMyProductsInfos = true;
     $scope.showUpdateProductForm = false;
 
-    //Get seller's products
+    //GET all Products of the Seller
     $scope.getMyProducts = function() {
         console.log("MyProducts");
         var rqt = {
@@ -47,7 +48,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         });
     };
 
-     // When a user uses keywords to search a product
+    // Search a Product by keyword %nameProduct%
     $scope.searchProduct = function(nameProduct) {
         var rqt = {
                 method : 'POST',
@@ -61,7 +62,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         });
     };
 
-    // Delete the product
+    // Confirm Product suppression
     $scope.confirmDelete = function(product) {
         if (confirm("Do you really want to delete this product ?")){
             var rqt = {
@@ -78,7 +79,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
     }
 
 
-    //Show update Form
+    //Show Product update Form
     $scope.updateProduct = function(product) {
         var id = product.idProduct;
         $scope.showMyProductsInfos = false;
@@ -103,6 +104,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
 
     }
 
+    // Update Product (POST)
     $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
         console.log(nameProduct);
         console.log(descriptionProduct);
@@ -122,6 +124,7 @@ moduleSellbook.controller('myProducts', function($scope, $http, $window, $cookie
         });
     }
 
+    // Hide Update Product Form
     $scope.cancelUpdateForm = function() {
         $scope.showMyProductsInfos = true;
         $scope.showUpdateProductForm = false;
