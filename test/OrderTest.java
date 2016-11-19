@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  * Created by dv on 19/11/2016.
  */
 public class OrderTest {
-    /* ----------------- TEST Cart ---------------------------*/
+    /* ----------------- TEST Order ---------------------------*/
 
     User su = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"0",null,null);
     Product pr = new Product(null,null,"test",null,1,1,null);
