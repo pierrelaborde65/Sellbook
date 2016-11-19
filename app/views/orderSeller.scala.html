@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>Date</th>
+                    <th>Buyer</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -27,6 +28,7 @@
             <tbody>
             <tr ng-repeat="order in orders">
                 <td>{{order.date}}</td>
+                <td>{{order.nameBuyer}}</td>
                 <td>{{order.nameProduct}}</td>
                 <td>{{order.price}} €</td>
                 <td>{{order.quantity}}</td>

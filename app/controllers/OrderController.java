@@ -160,19 +160,21 @@ public class OrderController extends Controller{
 
     public Result getOrdersSeller(Long idSeller){
         List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
-        User seller = User.find.byId(idSeller);
+
         if(ordersSeller == null) {
             return notFound("There is no order ");
         }
         else {
             ArrayNode orders = Json.newArray();
             for (int i = 0; i< ordersSeller.size(); i++) {
+                User buyer = User.find.byId(ordersSeller.get(i).getIdUser());
+
                 Product product = Product.find.byId(ordersSeller.get(i).getIdProduct());
                 ObjectNode order = Json.newObject();
                 order.put("id", ordersSeller.get(i).getIdOrder());
                 order.put("date", ordersSeller.get(i).getDateOrder());
                 order.put("nameProduct", product.getNameProduct());
-                order.put("nameSeller", seller.getName());
+                order.put("nameBuyer",buyer.getName() );
                 order.put("descriptionProduct",product.getDescriptionProduct());
                 order.put("price",ordersSeller.get(i).getPriceOrder()) ;
                 order.put("quantity",ordersSeller.get(i).getQuantityOrder()) ;
