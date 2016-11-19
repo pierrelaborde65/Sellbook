@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Product;
+import models.ProductInShoppingCart;
+import models.User;
 import org.junit.*;
 import controllers.ProductController;
 import play.mvc.*;
@@ -22,32 +24,32 @@ import javax.validation.constraints.AssertTrue;
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
-
 /**
- * Created by meier on 08/11/2016.
+ * Created by dv on 19/11/2016.
  */
-public class ProductTest {
+public class CartTest {
 
+     /* ----------------- TEST Cart ---------------------------*/
 
-    /* ----------------- TEST Product ---------------------------*/
-
-    Product p = new Product(null,null,"test",null,1,1,null);
+    User u = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"0",null,null);
+    Product pr = new Product(null,null,"test",null,1,1,null);
+    ProductInShoppingCart p = new ProductInShoppingCart(null,1,u,pr);
 
 
     @Test
     public void TestGetProducts(){
         p.save();
-        Assert.assertNotNull("No Product Found",Product.find.all());
+        Assert.assertNotNull("No Product Line Found",ProductInShoppingCart.find.all());
     }
 
     @Test
-    public void TestGetProductByID() {
+    public void TestGetProductLineByID() {
         p.save();
-        Assert.assertNotNull("No Product Found",Product.find.byId(p.getIdProduct()));
+        Assert.assertNotNull("No Product Line Found",ProductInShoppingCart.find.byId(p.getId()));
     }
 
     @Test
-    public void addProduct(){
+    public void addProductLineToShoppingCart(){
         int nb = p.find.all().size();
         Assert.assertEquals(nb,p.find.all().size());
         p.save();
@@ -55,11 +57,10 @@ public class ProductTest {
     }
 
     @Test
-    public void deleteProduct(){
+    public void deleteProductLineInShoppingCart(){
         int nb = p.find.all().size();
         Assert.assertEquals(nb,p.find.all().size());
         p.delete();
         Assert.assertEquals(nb-1,p.find.all().size());
     }
-
 }
