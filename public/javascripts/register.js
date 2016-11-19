@@ -8,7 +8,7 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
     $scope.hideSuccessSC = true;
 
 
-    // register a SU in the database and log him in
+    // Register a SU in the database and login him
     $scope.registerSU = function(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, password) {
             console.log("registerSU");
             var request = {
@@ -40,7 +40,7 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
             });
      };
 
-    // register a SC in the database and log him in
+    // Register SC in the database and login him
      $scope.registerSC = function(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, password) {
              console.log("registerSC");
              var request = {
@@ -75,6 +75,7 @@ moduleSellbook.controller('register', function($scope, $http, $window, $cookies,
 
 });
 
+// Check SU Password matching
 function checkPassSU()
       {
           //Store the password field objects into variables ...
@@ -107,6 +108,7 @@ function checkPassSU()
           }
       }
 
+// Check SC Password matching
 function checkPassSC()
     {
         //Store the password field objects into variables ...
@@ -139,6 +141,7 @@ function checkPassSC()
         }
     }
 
+// Check SC SIRET matching
 function checkSiret()
     {
         //Store the siret field object into variable ...
