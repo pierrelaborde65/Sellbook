@@ -9,52 +9,37 @@
      $scope.hideError = true;
      // Hide the success message at the beginning
      $scope.hideSuccess = true;
-     // Hide diary's updating form at the beginning
-     $scope.updateForm = false;
-
-     $scope.diary;
-    $scope.initForm = function(id, title, description) {
-        $scope.titleToUpdate = title;
-        $scope.descriptionToUpdate = description;
-        $scope.idToUpdate = id;
-    }
-//show update Form
-    $scope.showUpdateDiary = function() {
+     $scope.hideID = true;
+//show update page
+    $scope.showUpdateDiary = function(diary) {
         console.log("Update Diary");
+        var id=idDiary;
         var request = {
                 method: 'GET',
-                url : '/updateDiary/' + idDiary ,
+                url : '/updateDiary/' + id ,
+                data : $.param({id: id}),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(request).success(function(data){
-            $scope.myDiaries = data;
+            var diaryUpdated = data;
+            $scope.titleToUpdate = diaryUpdated.newTitle;
+            $scope.descriptionToUpdate = diaryUpdated.newDescription;
+            $scope.idDiary = diaryUpdated.idDiary;
         });
     };
 
-    $scope.updateDiary = function(titleToUpdate, descriptionToUpdate) {
+    $scope.updateMyDiary = function(titleToUpdate, descriptionToUpdate, idDiary) {
         var request = {
-            method : 'PUT',
-            url : '/myDiaries/'+ idDiary ,
-            data : $.param({newTitle: titleToUpdate, newDescription: descriptionToUpdate}),
+            method : 'POST',
+            url : '/updateDiary',
+            data : $.param({idDiary: idDiary, newTitle: titleToUpdate, newDescription: descriptionToUpdate}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(request).success(function(data){
             $scope.getMyDiaries();
-            $scope.updateForm = false;
             $scope.hideSuccess = false;
             $scope.titleSuccess = "Diary updated successfully";
         });
      };
-
- // Display the prefilled form with former data
-            $scope.updateFormDiary = function(diary) {
-            $scope.updateForm = true;
-            $scope.diary = diary;
-            $scope.titleToUpdate = diary["title"];
-            $scope.descriptionToUpdate = diary["description"];
-            };
-
-    // Hide diary updating form if the user cancels
-            $scope.cancelFormUpdate = function() {$scope.updateForm = false;};
 
    });

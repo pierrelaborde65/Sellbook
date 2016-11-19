@@ -62,7 +62,7 @@ public class DiaryController extends Controller {
     }
 
     /** Get a Diary by Id
-     * @param id the id of a Product
+     * @param id the id of a Diary
      * @return
      */
     public Result getDiary(Long id) {
@@ -96,29 +96,25 @@ public class DiaryController extends Controller {
      *
      * @return new diary
      */
-    public Result updateDiary(Long id) {
-        // Get the diary in the database, if not exist return 404 not found
-        Diary updateDiary = Diary.find.byId(id);
-        if(updateDiary == null) {
-            return notFound("Diary not found");
+    public Result updateDiary() {
+        // Get the value of the form
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String idDiary = values.get("idDiary")[0];
+        System.out.println(idDiary);
+        long id = Long.parseLong(idDiary);
+        String newTitle = values.get("newTitle")[0];
+        String newDescription = values.get("newDescription")[0];
+
+        if (Diary.find.byId(id) == null) {
+            return notFound("Diary not found.");
+        } else {
+            Diary diary = Diary.find.byId(id);
+            diary.setTitleDiary(newTitle);
+            diary.setDescriptionDiary(newDescription);
+            diary.save();
+            return ok("The Diary has been updated");
         }
-        // If exist, get the value of the form and do the update in the database
-        else {
-            // Get the value of the form
-            final Map<String, String[]> values = request().body().asFormUrlEncoded();
-            String newTitle = values.get("newTitle")[0];
-            String newDescription = values.get("newDescription")[0];
-            DateTime date =DateTime.now();
-            String dateDiary=date.toString("dd/MM/yy HH:mm");
-            // Test if not empty, make the update, else nothing
-            if(!newTitle.isEmpty())
-                updateDiary.setTitleDiary(newTitle);
-            if(!newDescription.isEmpty())
-                updateDiary.setDescriptionDiary(newDescription);
-           // updateDiary.setDateDiary(dateDiary);
-            updateDiary.save();
-            return ok(Json.toJson(Diary.find.byId(id)));
-        }
+
     }
 
 

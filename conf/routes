@@ -128,11 +128,10 @@ GET    /myDiaries                   controllers.DiaryController.showMyDiaries()
 
 GET    /updateDiary/:id             controllers.DiaryController.showUpdateForm(id: Long)
 
-PUT   /myDiaries/:id                controllers.DiaryController.updateDiary(id: Long)
+POST   /updateDiary                 controllers.DiaryController.updateDiary()
 
 #Get user's all diaries
 GET    /user/:id/myDiaries          controllers.DiaryController.getMyDiaries(id: Long)
-
 
 #Get all diaries
 GET    /diaries                     controllers.DiaryController.getDiaries()

@@ -11,25 +11,24 @@
 @main("Update Diary", scripts, message) {
 
     <div ng-controller="updateDiary" class="updateForm" >
-      <div ng-hide="hideSuccess" class="alert alert-success"> <strong> Success! </strong>{{titleSuccess}}</div>
-        <div class="updateForm">
-            <h3>Update fields</h3>
-            <form name="updateForm" ng-submit="updateDiary(titleToUpdate, descriptionToUpdate)">
+            <form name="updateForm" ng-submit="updateMyDiary(titleToUpdate, descriptionToUpdate, idDiary)">
                 <div class="form-group">
                     <label class="control-label">Title</label>
                     <div>
-                        <input type="text" class="form-control" ng-model="titleToUpdate" placeholder="New title here">
+                        <input type="text" class="form-control" ng-model="titleToUpdate" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
                     <div>
-                        <input type="text" class="form-control" ng-model="descriptionToUpdate" placeholder="New description here">
+                      <textarea maxlength="255" class="form-control" ng-model="descriptionToUpdate" required></textarea/>
                     </div>
+                    <div>
+                      <input ng-hide="hideID" type="number" id="idDiary" class="form-control" ng-model="idDiary">
+                    </div
                 </div>
-                <button class="btn btn-success">Update</button>
+                <button ng-disabled="updateForm.$invalid" class="btn btn-success"> Update </button>
+                <a class="btn btn-danger" href="/myDiaries">Cancel</a>
             </form>
-            <a class="btn btn-danger" href="/myDiaries">Cancel</a>
-        </div>
     </div>
 }
