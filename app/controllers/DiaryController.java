@@ -88,7 +88,7 @@ public class DiaryController extends Controller {
         return ok(myDiaries.render(UserController.getStatusUserText()));
     }
 
-    public Result showUpdateForm() {
+    public Result showUpdateForm(Long id) {
         return ok(updateDiary.render(UserController.getStatusUserText()));
     }
 

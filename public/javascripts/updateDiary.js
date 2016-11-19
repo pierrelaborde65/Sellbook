@@ -13,13 +13,17 @@
      $scope.updateForm = false;
 
      $scope.diary;
-
+    $scope.initForm = function(id, title, description) {
+        $scope.titleToUpdate = title;
+        $scope.descriptionToUpdate = description;
+        $scope.idToUpdate = id;
+    }
 //show update Form
     $scope.showUpdateDiary = function() {
         console.log("Update Diary");
         var request = {
                 method: 'GET',
-                url : '/updateDiary',
+                url : '/updateDiary/' + idDiary ,
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(request).success(function(data){
@@ -30,7 +34,7 @@
     $scope.updateDiary = function(titleToUpdate, descriptionToUpdate) {
         var request = {
             method : 'PUT',
-            url : '/diaries/'+ $scope.diary["idDiary"] + '/updateDiary' ,
+            url : '/myDiaries/'+ idDiary ,
             data : $.param({newTitle: titleToUpdate, newDescription: descriptionToUpdate}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
