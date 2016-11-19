@@ -32,6 +32,9 @@ public class OrderController extends Controller{
         return ok(order.render(UserController.getStatusUserText()));
     }
 
+    public Result orderAdmin() {
+        return ok(orderAdmin.render(UserController.getStatusUserText()));
+    }
 
     public Result makeOrder(Long id) {
         ProductInShoppingCart Linecart = ProductInShoppingCart.find.byId(id);
@@ -90,5 +93,54 @@ public class OrderController extends Controller{
         }
 
     }
+
+    public Result getAllOrderWithState(String state) {
+        List <Order> ordersAdmin = Order.find.where().like("stateOrder", state).findList();
+        if(ordersAdmin == null) {
+            return notFound("There is no order ");
+        }
+        else {
+            ArrayNode orders = Json.newArray();
+            for (int i = 0; i< ordersAdmin.size(); i++) {
+                User seller = User.find.byId(ordersAdmin.get(i).getIdSeller());
+                Product product = Product.find.byId(ordersAdmin.get(i).getIdProduct());
+                ObjectNode order = Json.newObject();
+                order.put("id", ordersAdmin.get(i).getIdOrder());
+                order.put("date", ordersAdmin.get(i).getDateOrder());
+                order.put("nameProduct", product.getNameProduct());
+                order.put("nameSeller", seller.getName());
+                order.put("descriptionProduct",product.getDescriptionProduct());
+                order.put("price",ordersAdmin.get(i).getPriceOrder()) ;
+                order.put("quantity",ordersAdmin.get(i).getQuantityOrder()) ;
+                order.put("state", ordersAdmin.get(i).getStateOrder());
+                orders.add(order);
+
+            }
+            return ok(orders);
+        }
+
+    }
+
+
+    public Result updateState(Long idOrder, String state){
+        Order order = Order.find.byId(idOrder);
+        order.setStateOrder(state);
+        order.save();
+        return ok("State updated");
+
+    }
+
+    public Result declinedOrder(Long idOrder){
+        Order order = Order.find.byId(idOrder);
+        //maj quantity
+        Product product = Product.find.byId(order.getIdProduct());
+        product.setQuantityStock(product.getQuantityStock()+ order.getQuantityOrder());
+        product.save();
+
+        Order.find.deleteById(idOrder);
+        return ok("order declined");
+
+    }
+
 
 }

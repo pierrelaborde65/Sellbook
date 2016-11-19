@@ -71,7 +71,19 @@ POST    /registerSC                 controllers.UserController.registerSC
 POST    /user/addToCart             controllers.UserController.addToCart
 
 
+#Routes --------------------------------Order -----------------------------------------------------------------------------------------
+
+DELETE /order/:id                controllers.OrderController.declinedOrder(id: Long)
+
+GET    /order/:state               controllers.OrderController.getAllOrderWithState(state: String)
+
+POST   /order/:id/:state            controllers.OrderController.updateState(id: Long, state: String)
+
+
+
 #Routes --------------------------------Admin -----------------------------------------------------------------------------------------
+
+GET    /admin/order                 controllers.OrderController.orderAdmin
 
 GET    /newProductAdmin             controllers.ProductController.newProductAdmin()
 
