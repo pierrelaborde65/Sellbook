@@ -22,6 +22,7 @@
 				float: left;
 				width: 80%;
 				display: inline-block;
+
 			}
 
 			#nav {
@@ -69,7 +70,13 @@
 				margin: 15px; /* Padding for content */
 				margin-top: 0;
 			}
-
+            .indexback{
+            	background:#3398DA;
+            	padding-bottom: 550px;
+               padding-top: 50px;
+            	margin-top:-20px;
+            	margin-left:-65px;
+            }
 
 /*login*/
 			.login{

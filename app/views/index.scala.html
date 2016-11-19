@@ -11,7 +11,9 @@
 * argument is a `String` with the title of the page, the second
 * argument is an `Html` object containing the body of the page
 *@
-@main("Home", scripts, message) {
+
+
+@main("", scripts, message) {
 @if(message == "None"){
 <table>
     <tr>
@@ -100,7 +102,10 @@
 </table>
 
 }else{
-    <h1>Welcome on Sellbook</h1>
+    <div class="indexback">
+      <center><h1>Welcome on Sellbook</h1></center>
+      <img src="@routes.Assets.versioned("images/back.png")" alt="backindex">
+    </div>
 }
 
 }
