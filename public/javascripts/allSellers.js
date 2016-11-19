@@ -1,6 +1,6 @@
 moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("all Sellers");
-    // Test if the person can stay on the page
+    // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
 
@@ -15,7 +15,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
     $scope.showAllSCInfos = true;
     $scope.showUpdateSCForm = false;
 
-    //Get all the SC in the database
+    // Return all Database Sellers
     $scope.getAllSellers = function() {
         console.log("AllSellers");
         var rqt = {
@@ -28,7 +28,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
         });
     };
 
-    // filter name Sellers by keyword
+    // Search Seller by keyword matching %nameSeller%
     $scope.searchSeller = function(nameSeller) {
         var rqt = {
                 method : 'POST',
@@ -42,7 +42,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
     };
 
 
-    // Delete the product
+    // Confirm Seller suppression
     $scope.confirmDelete = function(sc) {
         if (confirm("Do you really want to delete this user ?")){
             var rqt = {
@@ -73,7 +73,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
         }
     }
 
-    //Show update Form
+    //Show Seller update Form
     $scope.updateSC = function(sc) {
         var id = sc.id;
         $scope.showAllSCInfos = false;
@@ -101,7 +101,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
          });
     }
 
-
+        // Update Seller
         $scope.updateSeller = function(name, siret, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, descriptionSeller, idSC) {
             var rqt = {
                 method : 'POST',
@@ -129,6 +129,7 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
 
 });
 
+    // CHECK SIRET : 14 numbers [0-9]
     function checkSiret()
              {
                  //Store the siret field object into variable ...

@@ -167,7 +167,7 @@ public class ProductController extends Controller {
             return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).like("nameProduct", "%"+nameProduct+"%").findList()));
         }
     }
-
+ 
     /**
      * UPDATE PRODUCT
      * @return IF Product exists : 200 - "The Product has been updated"

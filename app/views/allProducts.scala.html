@@ -46,7 +46,7 @@
             <tr ng-repeat="product in everyProducts">
                 <td>{{product.nameProduct}}</td>
                 <td>{{product.descriptionProduct}}</td>
-                <td>{{product.priceSeller}}</td>
+                <td>{{product.priceSeller}} €</td>
                 <td>{{product.quantityStock}}</td>
                 @if(message == "Admin"){
                     <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <center><label class="control-label">Quantity Desired</label></center>
                 <div>
-                    <center><input type="number" id="quantityDesired" class="form-control" ng-model="quantityDesired" required></center>
+                    <center><input type="number" min="0" max="{{quantityMax}}" id="quantityDesired" class="form-control" ng-model="quantityDesired" required></center>
                 </div>
                 <div>
                     <input ng-hide="hideID" type="number" id="idProductCart" class="form-control" ng-model="idProductCart">

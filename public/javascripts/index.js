@@ -51,7 +51,7 @@ moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $c
     // Show or not the error message depending on the return from the application
     $scope.hideError = true;
 
-    // When the user want to connect, if it success redirect to the right home, else display error message
+    // User login - IF success redirect to the right home, ELSE display error message
     $scope.login = function(email, password) {
         var rqt = {
                 method : 'POST',
@@ -68,6 +68,7 @@ moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $c
         });
     };
 
+    // User logout - Discard Cookie
     $scope.logout = function() {
         var idUser = $cookies.get('id');
         var tokenUser = $cookies.get('token');

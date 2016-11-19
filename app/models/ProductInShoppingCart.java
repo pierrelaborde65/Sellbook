@@ -19,13 +19,22 @@ public class ProductInShoppingCart extends Model {
 
         @Id @GeneratedValue Long id;
 
+        // Quantity in Shopping Cart line
         int quantity;
 
+        // User who own the Shopping cart line
         @ManyToOne @JsonBackReference User referenceUser;
 
+        // Product concerned by the Shopping cart line
         @ManyToOne @JsonBackReference Product referenceProduct;
 
-
+    /**
+     * CONSTRUCTOR
+     * @param id
+     * @param quantity
+     * @param referenceUser
+     * @param referenceProduct
+     */
         public ProductInShoppingCart(Long id, int quantity, User referenceUser, Product referenceProduct) {
             this.id = id;
             this.quantity = quantity;
@@ -34,6 +43,7 @@ public class ProductInShoppingCart extends Model {
             this.save();
         }
 
+        // GETTERS & SETTERS
 
         public Long getId() {
             return id;
@@ -51,19 +61,19 @@ public class ProductInShoppingCart extends Model {
             this.quantity = quantity;
         }
 
-    public User getReferenceUser() {
+        public User getReferenceUser() {
         return referenceUser;
     }
 
-    public void setReferenceUser(User referenceUser) {
+        public void setReferenceUser(User referenceUser) {
         this.referenceUser = referenceUser;
     }
 
-    public Product getReferenceProduct() {
+        public Product getReferenceProduct() {
         return referenceProduct;
     }
 
-    public void setReferenceProduct(Product referenceProduct) {
+        public void setReferenceProduct(Product referenceProduct) {
         this.referenceProduct = referenceProduct;
     }
 }
