@@ -31,8 +31,8 @@ public class UserController extends Controller {
      */
     public Result index() {
         /*User user = new User(null, "admin", "ad@gmail.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "2", null, null);
-        user.save();*/
-        /*User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
+        user.save();
+        User user2 = new User(null, "seller", "s@s.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
         user2.save();
         User user3 = new User(null, "seller", "ss@ss.com", 0, null, null, 0, null, BCrypt.hashpw("okokok", BCrypt.gensalt()), null, null, "1", null, null);
         User user4 = new User(null, "user", "user@user.com", 0, null, null, 0, null, BCrypt.hashpw("aaaaaa", BCrypt.gensalt()), null, null, "0", null, null);
