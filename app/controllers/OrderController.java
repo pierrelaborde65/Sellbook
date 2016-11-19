@@ -32,6 +32,7 @@ public class OrderController extends Controller{
         return ok(order.render(UserController.getStatusUserText()));
     }
 
+
     public Result orderAdmin() {
         return ok(orderAdmin.render(UserController.getStatusUserText()));
     }
