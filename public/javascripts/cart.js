@@ -50,4 +50,48 @@ moduleSellbook.controller('cart', function($scope, $http, $window, $cookies, $co
     };
 
 
+
+
+     // Make an order
+    $scope.order = function(order) {
+        var rqt1 = {
+                method : 'POST',
+                url : '/user/order/'+ order.id,
+                data : $.param({}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt1).success(function(data){
+                var rqt2 = {
+                      method : 'DELETE',
+                      url : '/user/cart/'+ order.id,
+                      headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                 };
+                $http(rqt2).success(function(data){
+                      $scope.getCartProducts();
+                      $scope.hideSuccess = false;
+                      $scope.titleSuccess = "Product Ordered";
+                });
+
+        }).error(function(data) {
+                $scope.hideError = false;
+                $scope.titleError = data;
+        });
+    };
+
+
+
+    $scope.deleteFromCart = function(order) {
+          var rqt2 = {
+                method : 'DELETE',
+                url : '/user/cart/'+ order.id,
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+          };
+         $http(rqt2).success(function(data){
+                $scope.getCartProducts();
+                $scope.hideSuccess = false;
+                $scope.titleSuccess = "Product deleted from cart";
+         });
+    };
+
+
 });

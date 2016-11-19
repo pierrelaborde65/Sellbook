@@ -34,8 +34,15 @@ POST    /updateProduct               controllers.ProductController.updateProduct
 
 #Routes --------------------------------User -----------------------------------------------------------------------------------------
 
+DELETE   /user/cart/:id            controllers.UserController.deleteFromCart(id : Long)
 
 GET    /user/cart                   controllers.UserController.cart
+
+POST     /user/order/:id            controllers.OrderController.makeOrder(id : Long)
+
+GET    /user/order                     controllers.OrderController.order
+
+GET     /user/:id/order             controllers.OrderController.getOrderUser(id : Long)
 
 # Get a user by his id
 GET     /user/:id                 controllers.UserController.getUser(id : Long)

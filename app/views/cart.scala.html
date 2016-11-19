@@ -12,6 +12,7 @@
 
 <div ng-controller="cart" class="cart" ng-init="getCartProducts()">
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+    <div ng-hide="hideError" class="alert alert-danger"> <strong>Error! </strong>{{titleError}} </div>
     <div class="shoppingCart">
         <table st-table="shoppingCart" st-safe-src="shoppingCart" class="table table-striped">
             <thead>
@@ -22,6 +23,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Make an Order</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +31,10 @@
                 <td>{{LineCart.name}}</td>
                 <td>{{LineCart.description}}</td>
                 <td>{{LineCart.nameSeller}}</td>
-                <td>{{LineCart.price}}</td>
+                <td>{{LineCart.price}} €</td>
                 <td>{{LineCart.quantity}}</td>
-                <td> <button type="button" ng-click="order(product)" class="btn">Make an order</button> </td>
+                <td> <button type="button" ng-click="order(LineCart)" class="btn">Make an order</button> </td>
+                <td> <button type="button" ng-click="deleteFromCart(LineCart)" class="btn">Delete</button> </td>
             </tr>
             </tbody>
             <tfoot>
@@ -43,7 +46,7 @@
             </tfoot>
         </table>
         <div>
-            Price Shopping Cart : {{priceTotalCart}}
+            Price Shopping Cart : {{priceTotalCart}} €
         </div>
 
     </div>
