@@ -1,6 +1,6 @@
 moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("all SU");
-    // Test if the person can stay on the page
+    // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
 
@@ -15,7 +15,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
     $scope.showAllSUInfos = true;
     $scope.showUpdateSUForm = false;
 
-    //Get all the SU in the database
+    //Return all database SU
     $scope.getAllSU = function() {
         console.log("AllSU");
         var rqt = {
@@ -28,7 +28,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
         });
     };
 
-    // filter name SU by keyword
+    // Search SU by keyword matcing %nameSU%
     $scope.searchSU = function(nameSU) {
         var rqt = {
                 method : 'POST',
@@ -41,7 +41,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
         });
     };
 
-    // Delete the product
+    // Confirm suppression
     $scope.confirmDelete = function(su) {
         if (confirm("Do you really want to delete this user ?")){
             var rqt = {
@@ -57,7 +57,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
         }
     }
 
-    //Show update Form
+    //Show SU update form
     $scope.updateSU = function(su) {
         var id = su.id;
         $scope.showAllSUInfos = false;
@@ -83,7 +83,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
          });
     }
 
-
+        // Update SU
         $scope.updateSimpleUser = function(name, email, numberAddress, streetAddress, cityAddress, postCodeAddress, phoneNumber, idSU) {
             var rqt = {
                 method : 'POST',
@@ -100,6 +100,7 @@ moduleSellbook.controller('allSU', function($scope, $http, $window, $cookies, $c
             });
         }
 
+        // Hide SU update form
         $scope.cancelUpdateForm = function() {
             $scope.showAllSUInfos = true;
             $scope.showUpdateSUForm = false;
