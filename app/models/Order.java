@@ -22,20 +22,35 @@ public class Order extends com.avaje.ebean.Model {
     @ManyToOne
     Long idProduct;
 
+    // Date of the Order
     String dateOrder;
 
+    // State of the Order (Check payment / Notified to SC / Sent)
     String stateOrder;
 
+    // Quantity of the product ordered
     int quantityOrder;
 
+    // Price for the Product
     float priceOrder;
 
 
 
-    // Constructors
+    // Empty Constructors
     public Order() {
     }
 
+    /**
+     * Order Constructor
+     * @param idOrder
+     * @param idUser
+     * @param idSeller
+     * @param idProduct
+     * @param dateOrder
+     * @param quantityOrder
+     * @param priceOrder
+     * @param stateOrder
+     */
     public Order(Long idOrder, Long idUser, Long idSeller, Long idProduct, String dateOrder, int quantityOrder, float priceOrder, String stateOrder) {
         this.idOrder = idOrder;
         this.idUser = idUser;

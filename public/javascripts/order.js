@@ -1,11 +1,12 @@
 moduleSellbook.controller('order', function($scope, $http, $window, $cookies, $cookieStore) {
     console.log("order");
-    // Test if the person can stay on the page
+
+    // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
 
 
-           //--------------------- Check User ----------------------------------------------------
+    // Check SU Authentification
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
@@ -31,7 +32,7 @@ moduleSellbook.controller('order', function($scope, $http, $window, $cookies, $c
     $scope.hideSuccess = true;
 
 
-    //Get all the products in the database
+    // Return the current User Order
     $scope.getMyOrder = function() {
         console.log("order");
         var rqt = {

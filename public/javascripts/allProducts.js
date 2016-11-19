@@ -27,7 +27,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.allProducts = data;
+            $scope.everyProducts = data;
         });
     };
 
@@ -59,7 +59,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.allProducts = data;
+            $scope.everyProducts = data;
             console.log(data);
         });
     };
@@ -100,17 +100,17 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                         $scope.priceS = productGot.priceSeller;
                         $scope.quantityS = productGot.quantityStock;
                         $scope.idP = productGot.idProduct;
-             });
+                    });
 
 
         }
 
     // Update the Product
-    $scope.updateP = function(nameProduct, descriptionProduct, priceSeller, quantityStock, idProduct) {
+    $scope.updateP = function(nameP, descriptionP, priceS, quantityS, idP) {
         var rqt = {
             method : 'POST',
             url : '/updateProduct',
-            data : $.param({idProduct: idProduct, nameProduct: nameProduct, descriptionProduct: descriptionProduct, priceSeller: priceSeller, quantityStock: quantityStock}),
+            data : $.param({nameProduct: nameP, descriptionProduct: descriptionP, priceSeller: priceS, quantityStock: quantityS, idProduct: idP}),
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){

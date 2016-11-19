@@ -12,7 +12,7 @@ import java.util.List;
 public class Product extends com.avaje.ebean.Model {
 
     public static Model.Finder<Long, Product> find = new Model.Finder<Long, Product>(Product.class);
- 
+
     @Id @GeneratedValue
     public Long idProduct;
 

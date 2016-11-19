@@ -26,7 +26,7 @@
             </div>
             <button class="btn btn-success">Search</button>
         </form>
-        <table st-table="TableAllProducts" st-safe-src="allProducts" class="table table-striped">
+        <table st-table="TableAllProducts" st-safe-src="everyProducts" class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="product in allProducts">
+            <tr ng-repeat="product in everyProducts">
                 <td>{{product.nameProduct}}</td>
                 <td>{{product.descriptionProduct}}</td>
                 <td>{{product.priceSeller}} €</td>
@@ -113,13 +113,13 @@
                 <div class="form-group">
                     <label class="control-label">Price *</label>
                     <div>
-                        <input type="number" id="priceP" step="0.01" class="form-control" ng-model="priceS" required>
+                        <input type="number" id="priceS" step="0.01" class="form-control" ng-model="priceS" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Quantity *</label>
                     <div>
-                        <input type="number" id="quantityP" class="form-control" ng-model="quantityS" required>
+                        <input type="number" id="quantityS" class="form-control" ng-model="quantityS" required>
                     </div>
                 </div>
                 <label class="control-label">(*) Compulsory</label>
@@ -127,7 +127,7 @@
                 <div>
                     <input ng-hide="hideID" type="number" id="idP" class="form-control" ng-model="idP">
                 </div>
-                <button id="buttonUpdate" class="btn btn-success" ng-disabled="updateForm.$invalid">Update product</button>
+                <button id="buttonUpdate" class="btn btn-success" ng-disabled="updateForm.$invalid" disabled>Update product</button>
                 <button class="btn" ng-click="cancelUpdateForm()">Cancel</button>
 
             </form>

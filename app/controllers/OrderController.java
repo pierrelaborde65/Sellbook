@@ -36,6 +36,12 @@ public class OrderController extends Controller{
         return ok(orderAdmin.render(UserController.getStatusUserText()));
     }
 
+    /**
+     * Order creation
+     * @param id
+     * @return IF enough quantity (quantity stock >= quantity orderer) : 200 - OK
+     * ELSE 422 - "Not enough products"
+     */
     public Result makeOrder(Long id) {
         ProductInShoppingCart Linecart = ProductInShoppingCart.find.byId(id);
 
@@ -63,10 +69,16 @@ public class OrderController extends Controller{
             product.save();
             return ok(Json.toJson(order));
         }else{
-            return notFound("Not enough products");
+            return status(422,"Not enough products");
         }
     }
 
+    /**
+     * Get Order by User ID
+     * @param idUser
+     * @return IF user does not exist : 404 - "User does not exist."
+     * ELSE 200 - OK
+     */
     public Result getOrderUser(Long idUser) {
         User user = User.find.byId(idUser);
         List <Order> ordersUser = Order.find.where().like("idUser", idUser.toString()).findList();

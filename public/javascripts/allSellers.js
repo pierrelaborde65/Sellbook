@@ -46,16 +46,30 @@ moduleSellbook.controller('allSellers', function($scope, $http, $window, $cookie
     $scope.confirmDelete = function(sc) {
         if (confirm("Do you really want to delete this user ?")){
             var rqt = {
-                            method : 'DELETE',
-                            url : '/user/' + sc.id,
-                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-                    };
-                    $http(rqt).success(function(data){
-                        // il faut supprimer les produits associées ici
-                        $scope.getAllSellers();
-                        $scope.hideSuccess = false;
-                        $scope.titleSuccess = data;
-                    });
+                method : 'DELETE',
+                url : '/user/' + sc.id,
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
+            $http(rqt).success(function(data){
+                console.log("test js");
+                 $scope.hideSuccess = false;
+                 $scope.titleSuccess = data;
+                 var rqt2 = {
+                    method : 'DELETE',
+                    url : '/products/admin/' + sc.id,
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                 };
+                 $http(rqt2).success(function(data){
+                      $scope.hideError = true;
+                      $scope.getAllSellers();
+                  }).error(function(data) {
+                      $scope.hideError = false;
+                      $scope.titleError = data;
+                  });
+            }).error(function(data) {
+                  $scope.titleError = data;
+            });
+
         }
     }
 
