@@ -27,11 +27,7 @@
                 <td>{{diary.descriptionDiary}}</td>
                 <td>{{diary.dateDiary}}</td>
                 <td> <a type="button" ng-href="/updateDiary/{{diary.idDiary}}" class="btn btn-default">Update Diary</a> </td>
-                <td> <button type="button" ng-click="deleteDiary(diary)" class="btn btn-sm btn-danger">
-                  <i class="glyphicon glyphicon-remove-circle">
-                  </i>
-                     </button>
-                </td>
+                <td> <button type="button" ng-click="deleteDiary(diary)" class="btn">Delete</button> </td>
               </tr>
             </tbody>
     </table>
