@@ -4,6 +4,8 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
+
+
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
@@ -18,3 +20,4 @@ libraryDependencies ++= Seq(
 
 // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
 libraryDependencies += "org.mindrot" % "jbcrypt" % "0.3m"
+libraryDependencies += filters

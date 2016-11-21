@@ -67,11 +67,6 @@ public class ProductController extends Controller {
         String quantity = values.get("quantityStock")[0];
         String id = values.get("id")[0];
 
-        System.out.println(name);
-        System.out.println(description);
-        System.out.println(price);
-        System.out.println(quantity);
-        System.out.println(id);
 
 /*
         User seller = User.find.byId(Long.valueOf(id));
