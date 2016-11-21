@@ -31,6 +31,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>From</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     @if(message == "Admin"){
@@ -46,6 +47,7 @@
             <tr ng-repeat="product in everyProducts">
                 <td>{{product.nameProduct}}</td>
                 <td>{{product.descriptionProduct}}</td>
+                <td>{{product.from}}</td>
                 <td>{{product.priceSeller}} €</td>
                 <td>{{product.quantityStock}}</td>
                 @if(message == "Admin"){
