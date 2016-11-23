@@ -161,8 +161,6 @@ GET    /diary/:id/objectives           controllers.ObjectivesController.getDiary
 #delete objective by id
 DELETE /objectives/:id                 controllers.ObjectivesController.deleteObjective(id: Long)
 
-# ----------------------Javadoc------------------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------------------------------------
+GET     /                              controllers.UserController.index
 
 
