@@ -5,6 +5,24 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     var tokenUser = $cookies.get('token');
 
 
+        // Check SC Authentification
+        if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+            var rqt = {
+                method : 'GET',
+                url : '/isConnected/',
+               // data : $.param({id: idUser, token: tokenUser}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
+            $http(rqt).error(function(data) {
+                $window.location.href = '/';
+            });
+        }
+        else {
+            $window.location.href = '/';
+        }
+
+
+
     // Hide the error message at the beginning
     $scope.hideError = true;
     // Hide the success message at the beginning

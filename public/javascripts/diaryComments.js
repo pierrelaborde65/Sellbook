@@ -5,6 +5,13 @@ ModuleSellbook.controller('myDiaryComments', function($scope, $http, $window, $c
     var token_person = $cookies.get('token');
 
 
+
+
+
+
+
+
+
     // Hide the error message at the beginning
     $scope.hideError = true;
     // Hide the success message at the beginning

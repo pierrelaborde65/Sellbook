@@ -202,14 +202,18 @@ public class UserController extends Controller {
      * @return IF ID & Token Match 200 - OK
      * Else return 404 - "Your connection is expired or invalid. Please log in again"
      */
-    public Result isConnected(Long id, String token) {
-        //User user = User.find.where().like("id", String.valueOf(id)).like("token", token).findUnique();
-        User user = User.find.byId(id);
-        if (BCrypt.checkpw(token, user.getToken())) {
-            return ok(Json.toJson(user));
-        }else {
-            return notFound("Your connection is expired or invalid. Please log in again");
+    public Result isConnected() {
+        if((request().cookies().get("id") !=null) && (request().cookies().get("token") !=null)){
+            Long id = Long.valueOf(request().cookies().get("id").value());
+            String token = request().cookies().get("token").value();
+            User user = User.find.byId(id);
+            if (user != null){
+                if (BCrypt.checkpw(token, user.getToken())) {
+                    return ok(Json.toJson(user));
+                }
+            }
         }
+        return notFound("Your connection is expired or invalid. Please log in again");
     }
 
     /**
