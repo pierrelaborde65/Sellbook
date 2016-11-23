@@ -55,7 +55,7 @@ DELETE  /user/:id                 controllers.UserController.deleteUser(id: Long
 
 POST    /login                      controllers.UserController.login
 
-GET     /isConnected/:id/:token               controllers.UserController.isConnected(id: Long, token: String)
+GET     /isConnected/            controllers.UserController.isConnected()
 
 POST    /logout                     controllers.UserController.logout
 
@@ -161,14 +161,8 @@ GET    /diary/:id/objectives           controllers.ObjectivesController.getDiary
 #delete objective by id
 DELETE /objectives/:id                 controllers.ObjectivesController.deleteObjective(id: Long)
 
+# ----------------------Javadoc------------------------------------------------------------------------------------
+
 # ----------------------------------------------------------------------------------------------------------
-
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
-
-
-
 
 

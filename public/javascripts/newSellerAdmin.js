@@ -9,8 +9,7 @@ moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $co
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
         var rqt = {
             method : 'GET',
-            url : '/isConnected/' + idUser + '/' + tokenUser,
-            data : $.param({id: idUser, token: tokenUser}),
+            url : '/isConnected/',
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
@@ -18,11 +17,13 @@ moduleSellbook.controller('newSellerAdmin', function($scope, $http, $window, $co
             if(data["statusUser"] != 2) {
                 $window.location.href = '/';
             }
-        });
-        }
-        else {
+        }).error(function(data) {
             $window.location.href = '/';
-        }
+        });
+    }
+    else {
+        $window.location.href = '/';
+    }
 
     $scope.hideErrorSU = true;
     $scope.hideSuccessSU = true;

@@ -5,6 +5,24 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     var tokenUser = $cookies.get('token');
 
 
+        // Check Authentification
+        if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+            var rqt = {
+                method : 'GET',
+                url : '/isConnected/',
+               // data : $.param({id: idUser, token: tokenUser}),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
+            $http(rqt).error(function(data) {
+                $window.location.href = '/';
+            });
+        }
+        else {
+            $window.location.href = '/';
+        }
+
+
+
     // Hide the error message at the beginning
     $scope.hideError = true;
     // Hide the success message at the beginning
@@ -17,7 +35,10 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     $scope.showUpdateProductForm = false;
 
     $scope.showAddToShoppingCart = false;
-/*
+
+
+
+
     //Return all the database products through get method on /products
     $scope.getAllProducts = function() {
         console.log("AllProducts");
@@ -27,18 +48,48 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            $scope.everyProducts = data;
+            $scope.everyProducts = [];
+            for (var i = 0; i < data.length; i++) {
+               $scope.everyProducts.push({
+                   idProduct : data[i].idProduct,
+                   /*seller: data[i],*/
+                   from: "SellBook",
+                   nameProduct : data[i].nameProduct,
+                   priceSeller : (Math.round(data[i].priceSeller*100)/100),
+                   quantityStock : data[i].quantityStock,
+                   descriptionProduct : data[i].descriptionProduct
+               });
+               $scope.lengthData = data.length;
+            }
+            var rqt = {
+                    method: 'GET',
+                    url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
+            $http(rqt).success(function(dataExt){
+               for (var i = 0; i < dataExt.length; i++) {
+                   $scope.everyProducts.push({
+                       idProduct : dataExt[i].id,
+                       /*seller: dataExt[i].seller.companyName,*/
+                       from: "IGDiscount",
+                       nameProduct : dataExt[i].name,
+                       priceSeller : (Math.round(dataExt[i].price*100)/100),
+                       quantityStock : dataExt[i].quantity,
+                       descriptionProduct : dataExt[i].description
+                   });
+               }
+            });
         });
     };
-*/
 
-    $scope.getAllProducts = function() {
+/*
+    $scope.getIGDiscountProduct = function() {
         console.log("AllProducts");
-        var rqt = {
-                method: 'GET',
-                url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-        };
+           var rqt = {
+                    method: 'GET',
+                    url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            };
         $http(rqt).success(function(data){
            $scope.everyProducts = [];
            for (var i = 0; i < data.length; i++) {
@@ -53,7 +104,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
            }
         });
     };
-
+*/
 
 
 
@@ -158,15 +209,25 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     // Show add Shopping Cart pop-up
     $scope.ShowAddToShoppingCart = function(product) {
-        $scope.idProductCart = product.idProduct;
-        $scope.quantityDesired = 1;
-        $scope.quantityMax = product.quantityStock;
-        $scope.hideSuccess = true;
-        $scope.showAddToShoppingCart = true;
+        if (product.from == "SellBook"){
+            $scope.idProductCart = product.idProduct;
+            console.log(product.idProduct);
+            $scope.quantityDesired = 1;
+            $scope.quantityMax = product.quantityStock;
+            $scope.hideSuccess = true;
+            $scope.showAddToShoppingCart = true;
+        }else if(product.from == "IGDiscount"){
+            window.open("https://igdiscount.eu-gb.mybluemix.net/");
+            //document.location.href="https://igdiscount.eu-gb.mybluemix.net/";
+        }
+
     }
 
     // Add the Product with the quantity to shopping cart
     $scope.addToShoppingCart = function(idProduct,quantityDesired) {
+        console.log(idUser);
+        console.log(idProduct);
+        console.log(quantityDesired);
         var rqt = {
             method : 'POST',
             url : '/user/addToCart',

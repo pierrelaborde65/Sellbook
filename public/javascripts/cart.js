@@ -9,8 +9,7 @@ moduleSellbook.controller('cart', function($scope, $http, $window, $cookies, $co
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
+                url : '/isConnected/',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).success(function(data){
@@ -18,6 +17,8 @@ moduleSellbook.controller('cart', function($scope, $http, $window, $cookies, $co
                 if(data["statusUser"] != 0) {
                     $window.location.href = '/';
                 }
+            }).error(function(data) {
+                $window.location.href = '/';
             });
     }
     else {
@@ -57,7 +58,6 @@ moduleSellbook.controller('cart', function($scope, $http, $window, $cookies, $co
         var rqt1 = {
                 method : 'POST',
                 url : '/user/order/'+ order.id,
-                data : $.param({}),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt1).success(function(data){
@@ -71,7 +71,6 @@ moduleSellbook.controller('cart', function($scope, $http, $window, $cookies, $co
                       $scope.hideSuccess = false;
                       $scope.titleSuccess = "Product Ordered";
                 });
-
         }).error(function(data) {
                 $scope.hideError = false;
                 $scope.titleError = data;

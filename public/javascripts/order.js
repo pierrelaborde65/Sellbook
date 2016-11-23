@@ -6,20 +6,21 @@ moduleSellbook.controller('order', function($scope, $http, $window, $cookies, $c
     var tokenUser = $cookies.get('token');
 
 
-    // Check SU Authentification
+    // Check User Authentification
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
-            var rqt = {
-                method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            };
-            $http(rqt).success(function(data){
-                // If the USER is a SC ok else redirect /
-                if(data["statusUser"] != 0) {
-                    $window.location.href = '/';
-                }
-            });
+        var rqt = {
+            method : 'GET',
+            url : '/isConnected/',
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            // If the person is an Admin ok else redirect /
+            if(data["statusUser"] != 0) {
+                $window.location.href = '/';
+            }
+        }).error(function(data) {
+            $window.location.href = '/';
+        });
     }
     else {
         $window.location.href = '/';
