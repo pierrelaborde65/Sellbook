@@ -6,8 +6,7 @@ moduleSellbook.controller('newDiary', function($scope, $http, $window, $cookies,
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
         var request = {
                 method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
+                url : '/isConnected/',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
 
@@ -17,6 +16,8 @@ moduleSellbook.controller('newDiary', function($scope, $http, $window, $cookies,
                 if(data["statusUser"] != 0) {
                     $window.location.href = '/';
                 }
+            }).error(function(data) {
+                $window.location.href = '/';
             });
 
             }

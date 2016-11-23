@@ -8,7 +8,6 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
             var rqt = {
                 method : 'GET',
                 url : '/isConnected/',
-               // data : $.param({id: idUser, token: tokenUser}),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).success(function(data){

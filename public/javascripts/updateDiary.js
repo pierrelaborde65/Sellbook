@@ -2,7 +2,29 @@
      console.log("updateDiary");
      // Test if the person can stay on the page
      var idUser = $cookies.get('id');
-     var token_person = $cookies.get('token');
+     var tokenUser = $cookies.get('token');
+
+    // Check Admin Authentification
+    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+        var rqt = {
+            method : 'GET',
+            url : '/isConnected/',
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+        };
+        $http(rqt).success(function(data){
+            // If the person is an Admin ok else redirect /
+            if(data["statusUser"] != 0) {
+                $window.location.href = '/';
+            }
+        }).error(function(data) {
+            $window.location.href = '/';
+        });
+    }
+    else {
+        $window.location.href = '/';
+    }
+
+
 
 
      // Hide the error message at the beginning

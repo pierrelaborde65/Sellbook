@@ -8,8 +8,7 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
         if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
+                url : '/isConnected/',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).success(function(data){
@@ -17,7 +16,9 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
                 if(data["statusUser"] != 2) {
                     $window.location.href = '/';
                 }
-            });
+            }).error(function(data) {
+                $window.location.href = '/';
+             });
         }
         else {
             $window.location.href = '/';

@@ -2,12 +2,13 @@ moduleSellbook.controller('newComment', function($scope, $http, $window, $cookie
 
 // Test if the person is allowed to be on that page
     var idUser = $cookies.get('id');
-    var token_person = $cookies.get('token');
+    var tokenUser = $cookies.get('token');
+
+
     if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
         var request = {
                 method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
+                url : '/isConnected/',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
         $http(request).error(function(data){

@@ -5,7 +5,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     var tokenUser = $cookies.get('token');
 
 
-        // Check SC Authentification
+        // Check Authentification
         if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
             var rqt = {
                 method : 'GET',
@@ -51,7 +51,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
             $scope.everyProducts = [];
             for (var i = 0; i < data.length; i++) {
                $scope.everyProducts.push({
-                   /*id : data[i].idProduct,*/
+                   idProduct : data[i].idProduct,
                    /*seller: data[i],*/
                    from: "SellBook",
                    nameProduct : data[i].nameProduct,
@@ -69,6 +69,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
             $http(rqt).success(function(dataExt){
                for (var i = 0; i < dataExt.length; i++) {
                    $scope.everyProducts.push({
+                       idProduct : dataExt[i].id,
                        /*seller: dataExt[i].seller.companyName,*/
                        from: "IGDiscount",
                        nameProduct : dataExt[i].name,
@@ -210,6 +211,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     $scope.ShowAddToShoppingCart = function(product) {
         if (product.from == "SellBook"){
             $scope.idProductCart = product.idProduct;
+            console.log(product.idProduct);
             $scope.quantityDesired = 1;
             $scope.quantityMax = product.quantityStock;
             $scope.hideSuccess = true;
@@ -223,6 +225,9 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     // Add the Product with the quantity to shopping cart
     $scope.addToShoppingCart = function(idProduct,quantityDesired) {
+        console.log(idUser);
+        console.log(idProduct);
+        console.log(quantityDesired);
         var rqt = {
             method : 'POST',
             url : '/user/addToCart',

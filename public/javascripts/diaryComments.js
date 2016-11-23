@@ -2,11 +2,29 @@ ModuleSellbook.controller('myDiaryComments', function($scope, $http, $window, $c
     console.log("diaryComments");
     // Test if the person can stay on the page
     var idUser = $cookies.get('id');
-    var token_person = $cookies.get('token');
+    var tokenUser = $cookies.get('token');
 
 
 
-
+        // SU Authentification Check
+        if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
+                var rqt = {
+                    method : 'GET',
+                    url : '/isConnected/',
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                };
+                $http(rqt).success(function(data){
+                    // If the USER is a SU ok else redirect /
+                    if(data["statusUser"] != 0) {
+                        $window.location.href = '/';
+                    }
+                }).error(function(data) {
+                    $window.location.href = '/';
+                });
+        }
+        else {
+            $window.location.href = '/';
+        }
 
 
 
