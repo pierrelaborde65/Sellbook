@@ -120,13 +120,16 @@ public class UserController extends Controller {
             Long id = Long.valueOf(request().cookies().get("id").value());
             String token = request().cookies().get("token").value();
             User user = User.find.byId(id);
-            if (BCrypt.checkpw(token, user.getToken())) {
-                if (user.getStatusUser().equals("0"))
-                    return "SU";
-                if (user.getStatusUser().equals("1"))
-                    return "SC";
-                if (user.getStatusUser().equals("2"))
-                    return "Admin";
+            if(user != null){
+                if (BCrypt.checkpw(token, user.getToken())) {
+                    if (user.getStatusUser().equals("0"))
+                        return "SU";
+                    if (user.getStatusUser().equals("1"))
+                        return "SC";
+                    if (user.getStatusUser().equals("2"))
+                        return "Admin";
+                }
+
             }
         }
         return "None";

@@ -41,14 +41,15 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     //Return all the database products through get method on /products
     $scope.getAllProducts = function() {
+        $scope.everyProducts = [];
         console.log("AllProducts");
         var rqt = {
                 method: 'GET',
                 url : '/products',
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
+        //Get our Product
         $http(rqt).success(function(data){
-            $scope.everyProducts = [];
             for (var i = 0; i < data.length; i++) {
                $scope.everyProducts.push({
                    idProduct : data[i].idProduct,
@@ -61,53 +62,27 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                });
                $scope.lengthData = data.length;
             }
-            var rqt = {
-                    method: 'GET',
-                    url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
-                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            };
-            $http(rqt).success(function(dataExt){
-               for (var i = 0; i < dataExt.length; i++) {
-                   $scope.everyProducts.push({
-                       idProduct : dataExt[i].id,
-                       /*seller: dataExt[i].seller.companyName,*/
-                       from: "IGDiscount",
-                       nameProduct : dataExt[i].name,
-                       priceSeller : (Math.round(dataExt[i].price*100)/100),
-                       quantityStock : dataExt[i].quantity,
-                       descriptionProduct : dataExt[i].description
-                   });
-               }
-            });
         });
-    };
-
-/*
-    $scope.getIGDiscountProduct = function() {
-        console.log("AllProducts");
-           var rqt = {
-                    method: 'GET',
-                    url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
-                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            };
-        $http(rqt).success(function(data){
-           $scope.everyProducts = [];
-           for (var i = 0; i < data.length; i++) {
+        //Get Product From IGDiscount
+        var rqt = {
+            method: 'GET',
+            url : 'https://igdiscount.eu-gb.mybluemix.net/product/available',
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+         };
+        $http(rqt).success(function(dataExt){
+           for (var i = 0; i < dataExt.length; i++) {
                $scope.everyProducts.push({
-                   id : data[i].id,
-                   seller: data[i].seller.companyName,
-                   nameProduct : data[i].name,
-                   priceSeller : (Math.round(data[i].price*100)/100),
-                   quantityStock : data[i].quantity,
-                   descriptionProduct : data[i].description
+                   idProduct : dataExt[i].id,
+                   /*seller: dataExt[i].seller.companyName,*/
+                   from: "IGDiscount",
+                   nameProduct : dataExt[i].name,
+                   priceSeller : (Math.round(dataExt[i].price*100)/100),
+                   quantityStock : dataExt[i].quantity,
+                   descriptionProduct : dataExt[i].description
                });
            }
         });
     };
-*/
-
-
-
 
 
     // Return all the database sellers through get method on /sellers
