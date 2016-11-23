@@ -197,8 +197,6 @@ public class UserController extends Controller {
 
     /**
      * AUTHENTIFICATION
-     * @param id The User ID
-     * @param token The User Token
      * @return IF ID & Token Match 200 - OK
      * Else return 404 - "Your connection is expired or invalid. Please log in again"
      */
