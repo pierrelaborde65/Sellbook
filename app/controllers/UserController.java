@@ -31,7 +31,7 @@ public class UserController extends Controller {
      */
     public Result index() {
         return ok(index.render(getStatusUserText()));
-    }
+}
 
     /** USER CREATION
      *

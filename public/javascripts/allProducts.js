@@ -10,7 +10,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
             var rqt = {
                 method : 'GET',
                 url : '/isConnected/',
-               // data : $.param({id: idUser, token: tokenUser}),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             };
             $http(rqt).error(function(data) {
@@ -38,11 +37,9 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
 
 
-
     //Return all the database products through get method on /products
     $scope.getAllProducts = function() {
         $scope.everyProducts = [];
-        console.log("AllProducts");
         var rqt = {
                 method: 'GET',
                 url : '/products',
@@ -60,8 +57,8 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                    quantityStock : data[i].quantityStock,
                    descriptionProduct : data[i].descriptionProduct
                });
-               $scope.lengthData = data.length;
             }
+
         });
         //Get Product From IGDiscount
         var rqt = {
@@ -87,7 +84,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     // Return all the database sellers through get method on /sellers
     $scope.getAllSellers = function() {
-                    console.log("AllSellers");
                     var rqt = {
                             method: 'GET',
                             url : '/sellers',
@@ -103,19 +99,19 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         var idSeller;
         if (seller == null){
             idSeller = 0;
+            $scope.getAllProducts();
         } else {
             idSeller = seller.id;
+            var rqt = {
+                            method : 'POST',
+                            url : '/searchProduct',
+                            data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
+                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    };
+                    $http(rqt).success(function(data){
+                        $scope.everyProducts = data;
+                    });
         }
-        var rqt = {
-                method : 'POST',
-                url : '/searchProduct',
-                data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-        };
-        $http(rqt).success(function(data){
-            $scope.everyProducts = data;
-            console.log(data);
-        });
     };
 
     // Confirm the deletion of a Product
@@ -134,6 +130,15 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         }
     }
 
+
+        $scope.hideUpdateDelete = function(from){
+            if(state != "SellBook"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
     // Allow showing Update form for Product
         $scope.updateProduct = function(product) {
             var id = product.idProduct;
@@ -148,7 +153,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                     };
                     $http(rqt).success(function(data){
                         var productGot = data;
-                        console.log(data);
                         $scope.nameP = productGot.nameProduct;
                         $scope.descriptionP = productGot.descriptionProduct;
                         $scope.priceS = productGot.priceSeller;
@@ -186,7 +190,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
     $scope.ShowAddToShoppingCart = function(product) {
         if (product.from == "SellBook"){
             $scope.idProductCart = product.idProduct;
-            console.log(product.idProduct);
             $scope.quantityDesired = 1;
             $scope.quantityMax = product.quantityStock;
             $scope.hideSuccess = true;
@@ -200,9 +203,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
     // Add the Product with the quantity to shopping cart
     $scope.addToShoppingCart = function(idProduct,quantityDesired) {
-        console.log(idUser);
-        console.log(idProduct);
-        console.log(quantityDesired);
         var rqt = {
             method : 'POST',
             url : '/user/addToCart',
@@ -210,7 +210,6 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
             headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
         };
         $http(rqt).success(function(data){
-            console.log(data);
             $scope.hideSuccess = false;
             $scope.titleSuccess = "The product has been add to your cart";
             $scope.showAddToShoppingCart = false;

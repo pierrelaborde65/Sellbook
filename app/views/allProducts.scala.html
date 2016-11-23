@@ -10,8 +10,11 @@
 
 @main("Products", scripts, message) {
 <div ng-controller="allProducts" class="allProducts" ng-init="getAllProducts();getAllSellers()">
+
     <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
+
     <div class="allProductsInfos" ng-show="showAllProductsInfos">
+
         <label class="title">All Products</label>
         <form name="searchProductForm" ng-submit="searchProduct(sellerProduct, nameProduct)">
             <div class="form-group">
@@ -26,7 +29,10 @@
             </div>
             <button class="btn btn-success">Search</button>
         </form>
-        <table st-table="TableAllProducts" st-safe-src="everyProducts" class="table table-striped">
+
+
+
+        <table st-table="TableAllProducts" st-safe-src="everyProducts" class="table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -51,8 +57,10 @@
                 <td>{{product.priceSeller}} €</td>
                 <td>{{product.quantityStock}}</td>
                 @if(message == "Admin"){
-                    <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
-                    <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+                      <div ng-hide="hideUpdateDelete(product.from)">
+                          <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
+                          <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
+                     </div>
                 }
                 @if(message == "SU"){
                     <td>
@@ -72,8 +80,6 @@
             </tfoot>
         </table>
     </div>
-
-
 
 
     <div class="addToCartForm" ng-show="showAddToShoppingCart">

@@ -1,4 +1,4 @@
-moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookies, $cookieStore) {
+moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookies, $cookieStore, $timeout) {
         // Authentification
         var idUser = $cookies.get('id');
         var tokenUser = $cookies.get('token');
@@ -27,7 +27,6 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
 
         // Product creation (POST)
         $scope.newProduct = function(nameProduct, descriptionProduct, priceSeller, quantityStock) {
-         console.log("2");
             var rqt = {
                     method : 'POST',
                     url : '/newProduct',
@@ -37,7 +36,11 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
             $http(rqt).success(function(data){
                     $scope.hideSuccess = false;
                     $scope.titleSuccess = data;
+                    $timeout(function(){ $scope.hideSuccess = true; }, 1000);
             });
+
         };
+
+
 
     });

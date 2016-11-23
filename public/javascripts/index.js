@@ -1,52 +1,6 @@
-var moduleSellbook = angular.module('Sellbook', ['ngCookies'])
-moduleSellbook.controller('login', function($scope, $http, $window, $cookies, $cookieStore) {
+var moduleSellbook = angular.module('Sellbook', ['ngCookies'] )
+moduleSellbook.controller('login', function($scope, $http, $window, $cookies) {
 
-
-/*
-    // Check if there are cookies or not
-    var idUser = $cookies.get('id');
-    var tokenUser = $cookies.get('token');
-    if(!angular.isUndefined(idUser) && !angular.isUndefined(tokenUser)){
-        var rqt = {
-            method : 'GET',
-            url : '/isConnected/' + idUser + '/' + tokenUser,
-            data : $.param({id: idUser, token: tokenUser}),
-            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-        };
-        $http(rqt).success(function(data){
-            // If the person is a SC ok else redirect /
-            if(data["statut"] == 2) {
-                $window.location.href = '/newProduct';
-            }
-            else {
-                $window.location.href = '/';
-            }
-        });
-    }
-*/
-
-/*
-    $scope.isConnected = function(){
-       var idUser = $cookies.get('id');
-       var tokenUser = $cookies.get('token');
-       var rqt = {
-                method : 'GET',
-                url : '/isConnected/' + idUser + '/' + tokenUser,
-                data : $.param({id: idUser, token: tokenUser}),
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            };
-        $http(rqt).success(function(data){
-            $scope.hideError = true;
-        }).error(function(data) {
-            $scope.hideError = false;
-            $scope.titleError = data;
-        });
-
-    }
-
-*/
-
-    console.log("indexJS");
 
     // Show or not the error message depending on the return from the application
     $scope.hideError = true;
