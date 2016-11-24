@@ -1,8 +1,12 @@
-moduleSellbook.controller('allProducts', function($scope, $http, $window, $cookies, $cookieStore) {
+moduleSellbook.controller('allProducts', function($scope, $http, $window, $cookies, $cookieStore, NgTableParams) {
     console.log("Products");
     // Authentification
     var idUser = $cookies.get('id');
     var tokenUser = $cookies.get('token');
+
+
+
+
 
 
         // Check Authentification
@@ -19,6 +23,23 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         else {
             $window.location.href = '/';
         }
+
+
+
+
+/*
+
+      $scope.add = function() {
+        $scope.originalList.push({name: $scope.nameToAdd});
+        $scope.updateFilteredList();
+      }
+
+      $scope.updateFilteredList = function() {
+        $scope.filteredList = $filter("filter")($scope.originalList, $scope.query);
+      };
+*/
+
+
 
 
 
@@ -58,6 +79,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                    descriptionProduct : data[i].descriptionProduct
                });
             }
+               $scope.tableParams = new NgTableParams({}, {dataset: $scope.everyProducts})
 
         });
         //Get Product From IGDiscount
@@ -79,6 +101,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                });
            }
         });
+
     };
 
 
@@ -94,19 +117,23 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                     });
     };
 
+
+
      // Return the product matching the keyword %nameProduct%
-    $scope.searchProduct = function(seller, nameProduct) {
+    $scope.searchProduct = function(seller) {
         $scope.everyProducts = [];
         var idSeller;
         if (seller == null){
+            console.log("seeller==null");
             idSeller = 0;
             $scope.getAllProducts();
         } else {
+            console.log("seellerOK");
             idSeller = seller.id;
             var rqt = {
                     method : 'POST',
                     url : '/searchProduct',
-                    data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
+                    data : $.param({idSeller: idSeller}),
                     headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
                     };
                     $http(rqt).success(function(data){
@@ -121,6 +148,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
                                descriptionProduct : data[i].descriptionProduct
                            });
                         }
+                        $scope.tableParams = new NgTableParams({}, {dataset: $scope.everyProducts})
                     });
         }
     };

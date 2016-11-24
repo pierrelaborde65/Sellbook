@@ -1,4 +1,4 @@
-var moduleSellbook = angular.module('Sellbook', ['ngCookies'] )
+var moduleSellbook = angular.module('Sellbook', ['ngCookies','ngTable'] )
 moduleSellbook.controller('login', function($scope, $http, $window, $cookies) {
 
 

@@ -151,15 +151,11 @@ public class ProductController extends Controller {
     public Result searchProduct() {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String idSeller = values.get("idSeller")[0];
-        String nameProduct = values.get("nameProduct")[0];
-        if (Integer.parseInt(idSeller) == 0 && nameProduct == null) {
-            return ok(Json.toJson(Product.find.all()));
-        } else  if (Integer.parseInt(idSeller) != 0 && nameProduct == null){
+
+        if (Integer.parseInt(idSeller) != 0){
             return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).findList()));
-        } else  if (Integer.parseInt(idSeller) == 0 && nameProduct != null){
-            return ok(Json.toJson(Product.find.where().like("nameProduct", "%"+nameProduct+"%").findList()));
         } else {
-            return ok(Json.toJson(Product.find.where().like("idSeller", idSeller.toString()).like("nameProduct", "%"+nameProduct+"%").findList()));
+            return notFound("This Seller does not have any product.");
         }
     }
  

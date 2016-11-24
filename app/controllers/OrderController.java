@@ -166,10 +166,13 @@ public class OrderController extends Controller{
     }
 
     public Result getOrdersSeller(Long idSeller){
+        User seller = User.find.byId(idSeller);
 
-        //List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
-        List <Order> ordersSeller = Order.find.findList();
-
+        if(seller == null) {
+            return notFound("seller does not exist.");
+        }
+        List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
+        //List <Order> ordersSeller = Order.find.findList();    
         if(ordersSeller == null) {
             return notFound("There is no order ");
         }

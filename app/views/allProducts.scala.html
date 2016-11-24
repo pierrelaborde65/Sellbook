@@ -16,7 +16,7 @@
     <div class="allProductsInfos" ng-show="showAllProductsInfos">
 
         <label class="title">All Products</label>
-        <form name="searchProductForm" ng-submit="searchProduct(sellerProduct, nameProduct)">
+        <form name="searchProductForm" ng-submit="searchProduct(sellerProduct)">
             <div class="form-group">
                 <div>
                 <select class="form-control" ng-model="sellerProduct" ng-options="user.name for user in allSellers | orderBy:'name' " id="sellerProduct">
@@ -24,14 +24,55 @@
                </select>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="nameProduct" placeholder="Search a product by keyword">
-            </div>
             <button class="btn btn-success">Search</button>
         </form>
 
 
 
+
+
+        <table ng-table="tableParams" class="table" show-filter="true">
+            <tr ng-repeat="product in $data">
+                <td title="'Name'" filter="{ nameProduct: 'text'}" sortable="'nameProduct'">
+                    {{product.nameProduct}}</td>
+                <td title="'Description'" filter="{ descriptionProduct: 'text'}" sortable="'descriptionProduct'">
+                    {{product.descriptionProduct}}</td>
+                <td title="'From'" filter="{ from: 'text'}" sortable="'from'">
+                    {{product.from}}</td>
+                <td title="'Price'" sortable="'priceSeller'">
+                    {{product.priceSeller}} €</td>
+                <td title="'Quantity'" sortable="'quantityStock'">
+                    {{product.quantityStock}}</td>
+
+                @if(message == "Admin"){
+
+                          <td>
+                           <div class="updateDelete" ng-hide="hideUpdateDelete(product.from)">
+                            <button type="button" ng-click="updateProduct(product)" class="btn">Update</button>
+                           </div>
+                           </td>
+                          <td>
+                           <div class="updateDelete" ng-hide="hideUpdateDelete(product.from)">
+                           <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button>
+                           </div>
+                          </td>
+
+                }
+                @if(message == "SU"){
+                    <td>
+                       <button type="button" class="btn btn-default btn-sm" ng-click="ShowAddToShoppingCart(product)" >
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                       </button>
+                    </td>
+                }
+            </tr>
+        </table>
+
+
+
+
+
+<!--
         <table st-table="TableAllProducts" st-safe-src="everyProducts" class="table">
             <thead>
                 <tr>
@@ -87,6 +128,8 @@
             </tr>
             </tfoot>
         </table>
+
+        --!>
     </div>
 
 
