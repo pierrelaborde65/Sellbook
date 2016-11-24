@@ -172,7 +172,7 @@ public class OrderController extends Controller{
             return notFound("seller does not exist.");
         }
         List <Order> ordersSeller = Order.find.where().like("idSeller", idSeller.toString()).findList();
-        //List <Order> ordersSeller = Order.find.findList();    
+        //List <Order> ordersSeller = Order.find.findList();
         if(ordersSeller == null) {
             return notFound("There is no order ");
         }
