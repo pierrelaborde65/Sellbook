@@ -36,7 +36,7 @@ moduleSellbook.controller('newProduct', function($scope, $http, $window, $cookie
             $http(rqt).success(function(data){
                     $scope.hideSuccess = false;
                     $scope.titleSuccess = data;
-                    $timeout(function(){ $scope.hideSuccess = true; }, 1000);
+                    $timeout(function(){ $scope.hideSuccess = true; }, 1500);
             });
 
         };

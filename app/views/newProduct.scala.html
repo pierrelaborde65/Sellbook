@@ -11,7 +11,6 @@
 @main("Add Product", scripts, message) {
 
         <div id="newProductID" ng-controller="newProduct" class="newProduct">
-            <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
             <form name="newProductForm" ng-submit="newProduct(nameProduct, descriptionProduct, priceSeller, quantityStock)">
                 <div class="form-group">
                     <label class="control-label">Name *</label>
@@ -39,6 +38,7 @@
                 <label class="control-label">(*) Compulsory</label></br>
                 <button ng-disabled="newProductForm.$invalid" class="btn btn-success">Create product</button>
             </form>
+            <div ng-hide="hideSuccess" class="alert alert-success"> <strong>Success! </strong>{{titleSuccess}} </div>
         </div>
 
 

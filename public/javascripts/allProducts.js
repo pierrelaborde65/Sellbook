@@ -96,6 +96,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
      // Return the product matching the keyword %nameProduct%
     $scope.searchProduct = function(seller, nameProduct) {
+        $scope.everyProducts = [];
         var idSeller;
         if (seller == null){
             idSeller = 0;
@@ -103,13 +104,23 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
         } else {
             idSeller = seller.id;
             var rqt = {
-                            method : 'POST',
-                            url : '/searchProduct',
-                            data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
-                            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                    method : 'POST',
+                    url : '/searchProduct',
+                    data : $.param({idSeller: idSeller, nameProduct: nameProduct}),
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
                     };
                     $http(rqt).success(function(data){
-                        $scope.everyProducts = data;
+                        for (var i = 0; i < data.length; i++) {
+                           $scope.everyProducts.push({
+                               idProduct : data[i].idProduct,
+                               /*seller: data[i],*/
+                               from: "SellBook",
+                               nameProduct : data[i].nameProduct,
+                               priceSeller : (Math.round(data[i].priceSeller*100)/100),
+                               quantityStock : data[i].quantityStock,
+                               descriptionProduct : data[i].descriptionProduct
+                           });
+                        }
                     });
         }
     };
@@ -132,7 +143,7 @@ moduleSellbook.controller('allProducts', function($scope, $http, $window, $cooki
 
 
         $scope.hideUpdateDelete = function(from){
-            if(state != "SellBook"){
+            if(from != "SellBook"){
                 return true;
             }else{
                 return false;

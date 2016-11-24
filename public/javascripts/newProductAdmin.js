@@ -1,4 +1,4 @@
-moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $cookies, $cookieStore) {
+moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $cookies, $cookieStore, $timeout) {
 
         // Authentification
         var idUser = $cookies.get('id');
@@ -38,6 +38,7 @@ moduleSellbook.controller('newProductAdmin', function($scope, $http, $window, $c
             $http(rqt).success(function(data){
                     $scope.hideSuccess = false;
                     $scope.titleSuccess = data;
+                    $timeout(function(){ $scope.hideSuccess = true; }, 1500);
             });
         };
 

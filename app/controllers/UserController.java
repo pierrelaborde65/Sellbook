@@ -30,6 +30,7 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
+        //User user = new User(null,"a", "admin@a.com",15,"ad","ad",25,null,BCrypt.hashpw("aaaaaa", BCrypt.gensalt()),null,null,"2",null,null);
         return ok(index.render(getStatusUserText()));
 }
 

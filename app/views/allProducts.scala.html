@@ -57,10 +57,18 @@
                 <td>{{product.priceSeller}} €</td>
                 <td>{{product.quantityStock}}</td>
                 @if(message == "Admin"){
-                      <div ng-hide="hideUpdateDelete(product.from)">
-                          <td> <button type="button" ng-click="updateProduct(product)" class="btn">Update</button> </td>
-                          <td> <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button> </td>
-                     </div>
+
+                          <td>
+                           <div class="updateDelete" ng-hide="hideUpdateDelete(product.from)">
+                            <button type="button" ng-click="updateProduct(product)" class="btn">Update</button>
+                           </div>
+                           </td>
+                          <td>
+                           <div class="updateDelete" ng-hide="hideUpdateDelete(product.from)">
+                           <button type="button" ng-click="confirmDelete(product)" class="btn">Delete</button>
+                           </div>
+                          </td>
+
                 }
                 @if(message == "SU"){
                     <td>
