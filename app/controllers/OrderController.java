@@ -182,8 +182,10 @@ public class OrderController extends Controller{
                 Long userID = Long.valueOf(ordersSeller.get(i).getIdUser());
                 Long productID = Long.valueOf(ordersSeller.get(i).getIdProduct());
                 User buyer = User.find.byId(userID);
-
+                System.out.println("USERID : "+userID);
+                System.out.println("PRODID : "+productID);
                 Product product = Product.find.byId(productID);
+                System.out.println("PROD : "+product);
                 ObjectNode order = Json.newObject();
                 order.put("id", ordersSeller.get(i).getIdOrder());
                 order.put("date", ordersSeller.get(i).getDateOrder());

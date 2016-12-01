@@ -34,7 +34,7 @@ public class OrderTest {
     User su = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"0",null,null);
     Product pr = new Product(null,null,"test",null,1,1,null);
     User seller = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"1",null,null);
-    Order o = new Order(null,su.getId(),seller.getId(),pr.getIdProduct(),"",1,1,"test");
+    Order o = new Order(null,su.getId().toString(),seller.getId().toString(),pr.getIdProduct().toString(),"",1,1,"test");
 
 
     @Test

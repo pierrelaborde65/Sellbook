@@ -11,8 +11,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class UserTest {
 
-    /* ----------------- TEST Product ---------------------------*/
-    //no Products
+    /* ----------------- TEST User ---------------------------*/
 
     User u = new User(null,"test","test@test.com",1,null,null,1,null,null,null,null,"0",null,null);
 
@@ -38,7 +37,7 @@ public class UserTest {
     }
 
     @Test
-    public void deleteProduct(){
+    public void deleteUser(){
         int nb = u.find.all().size();
         Assert.assertEquals(nb,u.find.all().size());
         u.delete();
